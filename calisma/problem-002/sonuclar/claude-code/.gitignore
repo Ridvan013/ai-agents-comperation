@@ -1,0 +1,10 @@
+# Build artifacts
+/build/
+repl
+repl.exe
+*.o
+*.obj
+*.exe
+
+# Note: code.cpp (the generated single-file OJ submission) is committed on
+# purpose as the deliverable; regenerate it with tools/make_submission.sh.

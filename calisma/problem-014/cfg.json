@@ -1,0 +1,7 @@
+{
+  "aciklama": "Python Interpreter (ANTLR4+C++) - framework. Agent src/Evalvisitor.cpp/.h yazar. Build: CMake (ANTLR4 runtime gerekli, kurulu). Notlandirma: 34 test (14 basic + 20 bigint), agent'in interpreter'i code<test.in -> python3+spec-preamble ile uretilen .out ile kiyaslanir. test13/test14 haric (python3 ayrisimi).",
+  "build_cmd": "cmake . >/dev/null 2>&1 && make >/dev/null 2>&1",
+  "kalite_glob": ["src/Evalvisitor.cpp", "src/Evalvisitor.h"],
+  "correctness": "custom",
+  "mem_limit_mb": 512
+}

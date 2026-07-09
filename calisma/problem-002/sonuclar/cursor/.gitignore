@@ -1,0 +1,15 @@
+# Build artifacts
+/build/
+*.o
+*.obj
+*.exe
+*.out
+
+# Local test executables (no extension)
+/code
+/test_int2048
+/tests/runner
+
+# Editor/OS
+.vscode/
+.DS_Store

@@ -1,0 +1,16 @@
+# Build artifacts
+*.exe
+*.o
+*.obj
+
+# Local test scratch output
+out_*.qoi
+temp.rgb
+temp.rgba
+temp.ppm
+temp.pam
+t.qoi
+t2.qoi
+t_*.qoi
+t_*.ppm
+t_*.pam

@@ -1,0 +1,7 @@
+{
+  "aciklama": "STLite Map - framework. Agent src/map.hpp'i doldurur (dengeli BST/std::map benzeri). exceptions.hpp/utility.hpp scaffold. Notlandirma: ref_data/ canonical testleri (one..five + memcheck) agent'in map.hpp'siyle derlenip answer.txt ile kiyaslanir (kurcalanamaz).",
+  "build_cmd": "g++ -O2 -std=c++17 -Isrc -Idata data/one/code.cpp -o code",
+  "kalite_glob": ["src/map.hpp"],
+  "correctness": "custom",
+  "mem_limit_mb": 512
+}

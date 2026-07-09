@@ -1,0 +1,7 @@
+{
+  "aciklama": "STLite Vector - framework. Agent src/vector.hpp'i doldurur; exceptions.hpp/utility.hpp scaffold. Notlandirma: ref_data/ canonical testleri (7) agent'in vector.hpp'siyle derlenip answer.txt ile kiyaslanir (kurcalanamaz).",
+  "build_cmd": "g++ -O2 -std=c++17 -Isrc -Idata data/one/code.cpp -o code",
+  "kalite_glob": ["src/vector.hpp"],
+  "correctness": "custom",
+  "mem_limit_mb": 1024
+}

@@ -1,0 +1,195 @@
+(problem 020 · kayit.csv'den 4 arac eslesti)
+
+================================================================
+ARAC: antigravity
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 9/9  (exec=100/100)
+  Phase 1 : 
+  Phase 2: alloc pages
+  Total: 32768 Ok
+  Phase 3: query_page_counts test #1(empty)
+  Total: 16 Ok
+  Phase 4: return pages
+  Total: 32770 Ok
+  Phase 5: query_page_counts test #2(full)
+  Total: 16 Ok
+  Phase 6: query ranks(big)
+  Phase 7: query ranks(small) + alloc page
+  Total: 32768 Ok
+  Phase 8A: mixed 1
+  Total: 137 Ok
+  Phase 8B: mixed 2
+  Total: 32769 Ok
+  Test Ends.
+Max bellek: 3 MB · Max hiz: 35 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 20 KB · Complexity avg/max: 6.7/15 · Yorum: %0.0
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=6.7) · BIRLESIK: 100.0/100
+
+Kod: 164 satir, 7 dosya
+  .gitignore
+  buddy.c [agent]  (164 satir)
+  buddy.h
+  main.c
+  README.md
+  test.exe
+  utils.h
+
+Git: 1 commit, +164/-0 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1.0x
+  Commit mesajlari:
+- Implement Buddy Algorithm
+
+================================================================
+ARAC: claude-code
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 9/9  (exec=100/100)
+  Phase 1 : 
+  Phase 2: alloc pages
+  Total: 32768 Ok
+  Phase 3: query_page_counts test #1(empty)
+  Total: 16 Ok
+  Phase 4: return pages
+  Total: 32770 Ok
+  Phase 5: query_page_counts test #2(full)
+  Total: 16 Ok
+  Phase 6: query ranks(big)
+  Phase 7: query ranks(small) + alloc page
+  Total: 32768 Ok
+  Phase 8A: mixed 1
+  Total: 137 Ok
+  Phase 8B: mixed 2
+  Total: 32769 Ok
+  Test Ends.
+Max bellek: 2 MB · Max hiz: 30 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 20 KB · Complexity avg/max: 6.1/15 · Yorum: %6.4
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=6.1) · BIRLESIK: 100.0/100
+
+Kod: 202 satir, 6 dosya
+  .gitignore
+  buddy.c [agent]  (202 satir)
+  buddy.h
+  main.c
+  README.md
+  utils.h
+
+Git: 1 commit, +202/-0 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1.0x
+  Commit mesajlari:
+- Implement buddy memory allocator
+
+================================================================
+ARAC: codex
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 9/9  (exec=100/100)
+  Phase 1 : 
+  Phase 2: alloc pages
+  Total: 32768 Ok
+  Phase 3: query_page_counts test #1(empty)
+  Total: 16 Ok
+  Phase 4: return pages
+  Total: 32770 Ok
+  Phase 5: query_page_counts test #2(full)
+  Total: 16 Ok
+  Phase 6: query ranks(big)
+  Phase 7: query ranks(small) + alloc page
+  Total: 32768 Ok
+  Phase 8A: mixed 1
+  Total: 137 Ok
+  Phase 8B: mixed 2
+  Total: 32769 Ok
+  Test Ends.
+Max bellek: 1 MB · Max hiz: 33 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 20 KB · Complexity avg/max: 4.9/12 · Yorum: %0.0
+Guvenlik (cppcheck): 0 · clang-tidy: -
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=4.9) · BIRLESIK: 100.0/100
+
+Kod: 262 satir, 6 dosya
+  .gitignore
+  buddy.c [agent]  (262 satir)
+  buddy.h
+  main.c
+  README.md
+  utils.h
+
+Git: 1 commit, +262/-0 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1.0x
+  Commit mesajlari:
+- Implement buddy allocator solution
+
+================================================================
+ARAC: cursor
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 9/9  (exec=100/100)
+  Phase 1 : 
+  Phase 2: alloc pages
+  Total: 32768 Ok
+  Phase 3: query_page_counts test #1(empty)
+  Total: 16 Ok
+  Phase 4: return pages
+  Total: 32770 Ok
+  Phase 5: query_page_counts test #2(full)
+  Total: 16 Ok
+  Phase 6: query ranks(big)
+  Phase 7: query ranks(small) + alloc page
+  Total: 32768 Ok
+  Phase 8A: mixed 1
+  Total: 137 Ok
+  Phase 8B: mixed 2
+  Total: 32769 Ok
+  Test Ends.
+Max bellek: 1 MB · Max hiz: 36 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 20 KB · Complexity avg/max: 6.1/11 · Yorum: %11.9
+Guvenlik (cppcheck): 1 · clang-tidy: 0
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: yok
+Code Review (proxy): 90/100 (CCN=6.1, 1 guvenlik(-10)) · BIRLESIK: 98.0/100
+
+Kod: 194 satir, 7 dosya
+  .gitignore
+  buddy.c [agent]  (194 satir)
+  buddy.h
+  CMakeLists.txt
+  main.c
+  README.md
+  utils.h
+
+Git: 3 commit, +203/-9 (churn)
+  Satir survival: 6.7% (ilk commit'ten kalan) · Rewrite orani: 1.05x
+  Commit mesajlari:
+- Implement buddy memory allocator and build setup
+  - Implement buddy memory allocator
+  - Initial commit: problem template files
+
+================================================================
+OZET TABLO (kompakt · tam veri sonuclar.csv'de)
+================================================================
+arac         model                dogruluk  birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn  
+-----------  -------------------  --------  --------  -----  ------  --------  ---------  -------
+antigravity  gemini-3.1-pro-high  9/9       100.0     0      35      0         0          +164/-0
+claude-code  opus-4.8-high        9/9       100.0     0      30      0         0          +202/-0
+codex        gpt-5.4-high         9/9       100.0     0      33      0         0          +262/-0
+cursor       opus-4.8-high        9/9       98.0      0      36      1         0          +203/-9
+
+TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-020/sonuclar.csv
+
+Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-020/rapor.txt

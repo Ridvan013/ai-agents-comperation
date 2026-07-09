@@ -1,0 +1,5 @@
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
+009,antigravity,gemini-3.1-pro-high,7/7,100.0,100.0,0,0,0,0,814,31,8,1.9,var,100.0,653,368,-,-,-,-,,yok,7/7 tam; kendi testini yazdi; commit YOK
+009,claude-code,opus-4.8-high,7/7,100.0,100.0,0,0,0,0,715,27,6,22.9,yok,100.0,653,528,3,+609/-81,27.8,1.15,,yok,7/7 tam; 3 commit; survival %27.8; CCN 6
+009,codex,gpt-5.4-high,7/7,100.0,100.0,0,0,0,0,754,31,8,19.1,yok,100.0,653,648,3,+702/-54,26.9,1.08,,yok,7/7 tam; bu sefer git CALISTI (3 commit 
+009,cursor,opus-4.8-high,7/7,100.0,100.0,0,0,0,0,768,27,6,26.6,yok,100.0,653,537,2,+595/-58,31.7,1.11,,yok,7/7 tam; 2 commit; survival %31.7; CCN 6

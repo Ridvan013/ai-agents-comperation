@@ -1,0 +1,154 @@
+(problem 005 · kayit.csv'den 4 arac eslesti)
+
+================================================================
+ARAC: antigravity
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 8/16  (exec=50/100)
+  rgb/pic1: encode=PASS · decode=FAIL
+  rgb/pic2: encode=PASS · decode=FAIL
+  rgb/pic3: encode=PASS · decode=FAIL
+  rgb/testcard: encode=PASS · decode=FAIL
+  rgba/dice: encode=PASS · decode=FAIL
+  rgba/kokona: encode=PASS · decode=FAIL
+  rgba/logo: encode=PASS · decode=FAIL
+  rgba/testcard: encode=PASS · decode=FAIL
+Max bellek: 17 MB · Max hiz: 191 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 49 KB · Complexity avg/max: 22.5/28 · Yorum: %12.9
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: yok
+Code Review (proxy): 60/100 (CCN=22.5(-40)) · BIRLESIK: 52.0/100
+
+Kod: 249 satir, 6 dosya
+  conv.h
+  main.cpp
+  main.exe
+  qoi.h [agent]  (249 satir)
+  README.md
+  utils.h
+
+Git: 1 commit, +249/-0 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1.0x
+  Commit mesajlari:
+- Implement QOI encoder and decoder in qoi.h
+
+================================================================
+ARAC: claude-code
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 16/16  (exec=100/100)
+  rgb/pic1: encode=PASS · decode=PASS
+  rgb/pic2: encode=PASS · decode=PASS
+  rgb/pic3: encode=PASS · decode=PASS
+  rgb/testcard: encode=PASS · decode=PASS
+  rgba/dice: encode=PASS · decode=PASS
+  rgba/kokona: encode=PASS · decode=PASS
+  rgba/logo: encode=PASS · decode=PASS
+  rgba/testcard: encode=PASS · decode=PASS
+Max bellek: 17 MB · Max hiz: 185 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 49 KB · Complexity avg/max: 21.5/28 · Yorum: %16.5
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: yok
+Code Review (proxy): 60/100 (CCN=21.5(-40)) · BIRLESIK: 92.0/100
+
+Kod: 242 satir, 5 dosya
+  conv.h
+  main.cpp
+  qoi.h [agent]  (242 satir)
+  README.md
+  utils.h
+
+Git: 2 commit, +249/-7 (churn)
+  Satir survival: 55.4% (ilk commit'ten kalan) · Rewrite orani: 1.03x
+  Commit mesajlari:
+- Implement QOI encoder and decoder
+  - Initial state: QOI codec template with TODOs
+
+================================================================
+ARAC: codex
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 8/16  (exec=50/100)
+  rgb/pic1: encode=PASS · decode=PASS
+  rgb/pic2: encode=PASS · decode=PASS
+  rgb/pic3: encode=PASS · decode=PASS
+  rgb/testcard: encode=FAIL · decode=FAIL
+  rgba/dice: encode=FAIL · decode=FAIL
+  rgba/kokona: encode=FAIL · decode=FAIL
+  rgba/logo: encode=PASS · decode=PASS
+  rgba/testcard: encode=FAIL · decode=FAIL
+Max bellek: 17 MB · Max hiz: 184 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 49 KB · Complexity avg/max: 39.5/41 · Yorum: %12.5
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: yok
+Code Review (proxy): 60/100 (CCN=39.5(-40)) · BIRLESIK: 52.0/100
+
+Kod: 256 satir, 5 dosya
+  conv.h
+  main.cpp
+  qoi.h [agent]  (256 satir)
+  README.md
+  utils.h
+
+Git: 0 commit (commit yok -> churn/survival olculemedi)
+
+================================================================
+ARAC: cursor
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 16/16  (exec=100/100)
+  rgb/pic1: encode=PASS · decode=PASS
+  rgb/pic2: encode=PASS · decode=PASS
+  rgb/pic3: encode=PASS · decode=PASS
+  rgb/testcard: encode=PASS · decode=PASS
+  rgba/dice: encode=PASS · decode=PASS
+  rgba/kokona: encode=PASS · decode=PASS
+  rgba/logo: encode=PASS · decode=PASS
+  rgba/testcard: encode=PASS · decode=PASS
+Max bellek: 16 MB · Max hiz: 103 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 50 KB · Complexity avg/max: 16.0/30 · Yorum: %19.9
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: var
+Code Review (proxy): 76/100 (CCN=16.0(-24)) · BIRLESIK: 95.2/100
+
+Kod: 266 satir, 7 dosya
+  .gitignore
+  conv.h
+  main.cpp
+  qoi.h [agent]  (266 satir)
+  README.md
+  test_main.cpp
+  utils.h
+
+Git: 3 commit, +283/-17 (churn)
+  Satir survival: 46.6% (ilk commit'ten kalan) · Rewrite orani: 1.06x
+  Commit mesajlari:
+- test: add binary-mode local test harness and ignore build artifacts
+  - feat: implement QOI encoder and decoder
+  - chore: initial QOI codec scaffold
+
+================================================================
+OZET TABLO (kompakt · tam veri sonuclar.csv'de)
+================================================================
+arac         model                dogruluk  birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn   
+-----------  -------------------  --------  --------  -----  ------  --------  ---------  --------
+antigravity  gemini-3.1-pro-high  8/16      52.0      0      191     0         0          +249/-0 
+claude-code  opus-4.8-high        16/16     92.0      0      185     0         0          +249/-7 
+codex        gpt-5.4-high         8/16      52.0      0      184     0         0          -       
+cursor       opus-4.8-high        16/16     95.2      0      103     0         0          +283/-17
+
+TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-005/sonuclar.csv
+
+Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-005/rapor.txt

@@ -1,0 +1,4 @@
+build/
+derleme_*.log
+data/**/1.out
+data/**/testans_advance.out

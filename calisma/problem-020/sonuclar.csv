@@ -1,0 +1,5 @@
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
+020,antigravity,gemini-3.1-pro-high,9/9,100.0,100.0,0,0,0,0,35,20,15,0.0,yok,100.0,3,164,1,+164/-0,100.0,1.0,,yok,9/9 tam; 1 commit; yorum yok; CCN 15; 16
+020,claude-code,opus-4.8-high,9/9,100.0,100.0,0,0,0,0,30,20,15,6.4,yok,100.0,2,202,1,+202/-0,100.0,1.0,,yok,9/9 tam; 1 commit; CCN 15; 202 satir; te
+020,codex,gpt-5.4-high,9/9,100.0,100.0,0,0,-,0,33,20,12,0.0,yok,100.0,1,262,1,+262/-0,100.0,1.0,,yok,9/9 tam; 1 commit; en uzun (262 satir); 
+020,cursor,opus-4.8-high,9/9,100.0,90.0,1,0,0,0,36,20,11,11.9,yok,98.0,1,194,3,+203/-9,6.7,1.05,,yok,9/9 tam AMA cppcheck UB buldu (shiftNega

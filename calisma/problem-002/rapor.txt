@@ -1,0 +1,150 @@
+(problem 002 · kayit.csv'den 4 arac eslesti)
+
+================================================================
+ARAC: antigravity
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 352/352  (exec=100/100)
+  gecen 352/352 islem dogru
+Max bellek: 3 MB · Max hiz: 29 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 37 KB · Complexity avg/max: 3.6/17 · Yorum: %5.9
+Guvenlik (cppcheck): 0 · clang-tidy: 1
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: var
+Code Review (proxy): 100/100 (CCN=3.6) · BIRLESIK: 100.0/100
+
+Kod: 471 satir, 9 dosya
+  code.cpp
+  code.o
+  README.md
+  test.cpp
+  test.exe
+  tester.cpp
+  tester.exe
+  src/int2048.cpp [agent]  (376 satir)
+  src/include/int2048.h [agent]  (95 satir)
+
+Git: 1 commit, +471/-0 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1.0x
+  Commit mesajlari:
+- Implement int2048 Big Integer arithmetic class with FFT multiplication and floor division
+
+================================================================
+ARAC: claude-code
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 352/352  (exec=100/100)
+  gecen 352/352 islem dogru
+Max bellek: 3 MB · Max hiz: 13 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 55 KB · Complexity avg/max: 3.5/16 · Yorum: %13.7
+Guvenlik (cppcheck): 0 · clang-tidy: 1
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: var
+Code Review (proxy): 100/100 (CCN=3.5) · BIRLESIK: 100.0/100
+
+Kod: 875 satir, 12 dosya
+  .gitattributes
+  .gitignore
+  CMakeLists.txt
+  code.cpp
+  README.md
+  repl.exe
+  docs/DESIGN.md
+  src/int2048.cpp [agent]  (731 satir)
+  src/include/int2048.h [agent]  (144 satir)
+  tests/reference_test.py
+  tests/repl.cpp
+  tools/make_submission.sh
+
+Git: 4 commit, +886/-11 (churn)
+  Satir survival: 0.8% (ilk commit'ten kalan) · Rewrite orani: 1.01x
+  Commit mesajlari:
+- Add .gitattributes; make generated code.cpp warning-free
+  - Fix read() whitespace handling; add build system, tests, docs, and submission generator
+  - Implement int2048: add/sub/mul (FFT) and floor div/mod (Newton + Burnikel-Ziegler)
+  - Initial commit: problem statement and skeleton
+
+================================================================
+ARAC: codex
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 352/352  (exec=100/100)
+  gecen 352/352 islem dogru
+Max bellek: 3 MB · Max hiz: 11 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 36 KB · Complexity avg/max: 3.0/11 · Yorum: %4.5
+Guvenlik (cppcheck): 0 · clang-tidy: 1
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: var
+Code Review (proxy): 100/100 (CCN=3.0) · BIRLESIK: 100.0/100
+
+Kod: 638 satir, 6 dosya
+  .gitignore
+  code.cpp
+  README.md
+  src/int2048.cpp [agent]  (532 satir)
+  src/include/int2048.h [agent]  (106 satir)
+  tests/int2048_cli.cpp
+
+Git: 2 commit, +638/-0 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1.0x
+  Commit mesajlari:
+- Add submission file and validation harness
+  - Implement int2048 arithmetic core
+
+================================================================
+ARAC: cursor
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 352/352  (exec=100/100)
+  gecen 352/352 islem dogru
+Max bellek: 3 MB · Max hiz: 10 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 36 KB · Complexity avg/max: 4.1/26 · Yorum: %13.7
+Guvenlik (cppcheck): 0 · clang-tidy: 1
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: var
+Code Review (proxy): 100/100 (CCN=4.1) · BIRLESIK: 100.0/100
+
+Kod: 701 satir, 12 dosya
+  .gitignore
+  CMakeLists.txt
+  code.cpp
+  README.md
+  src/int2048.cpp [agent]  (584 satir)
+  src/include/int2048.h [agent]  (117 satir)
+  tests/bigcheck.py
+  tests/divcheck.py
+  tests/mulcheck.py
+  tests/test_main.cpp
+  tools/build_submission.py
+  tools/oj_smoke.cpp
+
+Git: 5 commit, +713/-12 (churn)
+  Satir survival: 0.9% (ilk commit'ten kalan) · Rewrite orani: 1.02x
+  Commit mesajlari:
+- fix: keep OJ submission within the allowed header whitelist
+  - fix: accurate per-level FFT twiddle factors + add mul/div cross-checks
+  - feat: implement int2048 big-integer class with FFT multiply and Knuth floor division
+  - chore: remove stray binary, add .gitignore
+  - chore: baseline template (README, int2048.h stub, int2048.cpp stub)
+
+================================================================
+OZET TABLO (kompakt · tam veri sonuclar.csv'de)
+================================================================
+arac         model                dogruluk  birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn   
+-----------  -------------------  --------  --------  -----  ------  --------  ---------  --------
+antigravity  gemini-3.1-pro-high  352/352   100.0     0      29      0         0          +471/-0 
+claude-code  opus-4.8-high        352/352   100.0     0      13      0         0          +886/-11
+codex        gpt-5.4-high         352/352   100.0     0      11      0         0          +638/-0 
+cursor       opus-4.8-high        352/352   100.0     0      10      0         0          +713/-12
+
+TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-002/sonuclar.csv
+
+Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-002/rapor.txt

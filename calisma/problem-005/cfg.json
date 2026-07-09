@@ -1,0 +1,7 @@
+{
+  "aciklama": "QOI Codec - framework problemi. Agent qoi.h'i yazar; main.cpp/conv.h/utils.h scaffold.",
+  "build_cmd": "g++ -O2 -std=c++17 main.cpp -o code",
+  "kalite_glob": ["qoi.h"],
+  "correctness": "custom",
+  "mem_limit_mb": 512
+}

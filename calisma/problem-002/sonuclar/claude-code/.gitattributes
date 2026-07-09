@@ -1,0 +1,9 @@
+# Keep source and text files LF in the repository regardless of platform.
+*.cpp   text eol=lf
+*.h     text eol=lf
+*.py    text eol=lf
+*.sh    text eol=lf
+*.md    text eol=lf
+*.txt   text eol=lf
+Makefile text eol=lf
+CMakeLists.txt text eol=lf

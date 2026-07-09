@@ -1,0 +1,5 @@
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
+013,antigravity,gemini-3.1-pro-high,10/10,100.0,100.0,0,0,0,0,1420,36,12,0.0,yok,100.0,80,490,1,+490/-0,100.0,1.0,,yok,10/10 tam; 1 commit; CCN 12; yorum yok; 
+013,claude-code,opus-4.8-high,10/10,100.0,100.0,0,0,0,0,1809,35,11,6.1,yok,100.0,80,428,3,+601/-173,11.7,1.4,,yok,10/10 tam; 3 commit; survival %11.7; CCN
+013,codex,gpt-5.4-high,10/10,100.0,60.0,4,0,0,0,1583,40,7,0.6,yok,92.0,95,515,0,-,-,-,,yok,10/10 tam AMA cppcheck 4 (noexcept-ihlal
+013,cursor,opus-4.8-high,10/10,100.0,90.0,1,0,0,0,1349,40,7,19.8,yok,98.0,80,567,3,+773/-206,3.0,1.36,,yok,10/10 tam; cppcheck 1 (null-deref parent

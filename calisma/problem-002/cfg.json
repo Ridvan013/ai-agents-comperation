@@ -1,0 +1,7 @@
+{
+  "aciklama": "int2048 buyuk sayi - framework. Agent src/int2048.cpp yazar (+int2048.h'ye uye ekler). Notlandirma: canonical ref/driver.cpp + Python-uretilmis 352 test (differential; floor bolme = Python). Agent'in cpp+h'i canonical driver ile derlenip input.txt calistirilir, expected.txt ile satir satir kiyaslanir.",
+  "build_cmd": "g++ -O2 -std=c++17 -Isrc/include -c src/int2048.cpp -o code",
+  "kalite_glob": ["src/int2048.cpp", "src/include/int2048.h"],
+  "correctness": "custom",
+  "mem_limit_mb": 256
+}

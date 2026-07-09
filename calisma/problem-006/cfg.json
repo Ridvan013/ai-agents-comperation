@@ -1,0 +1,7 @@
+{
+  "aciklama": "Minesweeper (Basic/server) - framework. Agent src/include/server.h'i doldurur (oyun mantigi). basic.cpp sabit driver. Build: sadece 'server' target'i (advanced/client'i yoksay). Notlandirma: 40 test (win/lose/autoexplore), agent server'i code<test.in -> referans .out ile kiyaslanir. NOT: driver EOF'ta sonsuz donguye girer -> her test oyunu bitirir + oracle timeout'lu. Sadece Basic gorev (Advanced performans OJ-baseline gerektirir, olculmuyor).",
+  "build_cmd": "cmake . >/dev/null 2>&1 && make server >/dev/null 2>&1 && cp src/server code 2>/dev/null",
+  "kalite_glob": ["src/include/server.h"],
+  "correctness": "custom",
+  "mem_limit_mb": 256
+}

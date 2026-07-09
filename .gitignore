@@ -1,0 +1,30 @@
+# Derleme çöpü
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+*.o
+*.a
+*.so
+code
+code.exe
+a.out
+*/server
+*/client
+**/src/server
+**/src/client
+
+# Loglar
+derleme_uyari.log
+derleme_hata.log
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Büyük ANTLR runtime paketleri (repoda gereksiz, apt ile kurulur)
+*.deb
+
+# OS
+.DS_Store
+Thumbs.db

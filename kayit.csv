@@ -1,0 +1,33 @@
+tarih,problem,arac,model,tur_sayisi,mudahale,not
+2026-06-26,001,claude-code,opus-4.8-high,,yok,long long kullandi; 6/6 gecti; 1 commit; bypass
+2026-06-27,001,antigravity,gemini-3.1-pro-high,,yok,long long; derleyemedi (mingw yok) kendi test edemedi ama dogru
+2026-06-27,001,cursor,opus-4.8-high,,yok,long long; g++ ile derleyip kendi test etti
+2026-06-27,001,codex,gpt-5.4-high,,yok,g++ ile test etti ama sadece 2e9'a kadar (int tasmasini test etmedi); 2 commit
+2026-07-08,005,claude-code,opus-4.8-high,,yok,16/16 (enc+dec tam); git init+2 commit (template->impl); survival %55; rewrite 1.03x; CCN 21.5 (yuksek); yorum %16.5; birlesik 92
+2026-07-08,005,cursor,opus-4.8-high,,yok,16/16 (enc+dec tam); kendi test harness'i yazdi (test_main.cpp); 3 commit +.gitignore; survival %46.6; CCN 16.0; birlesik 95.2
+2026-07-08,005,codex,gpt-5.4-high,,yok,8/16 (4 resim tam enc+dec; 4 resim ikisi de bozuk-edgecase); CCN 39.5 (en karmasik); git BOZUK (repo.git+bos .git, 0 commit); birlesik 52
+2026-07-08,005,antigravity,gemini-3.1-pro-high,,yok,8/16 (encoder 8/8 DOGRU, decoder 0/8 bozuk-temiz ayrim); 1 commit +249/-0; survival %100; CCN 22.5; birlesik 52
+2026-07-08,009,claude-code,opus-4.8-high,,yok,7/7 tam; 3 commit; survival %27.8; CCN 6 (temiz); yorum %22.9; birlesik 100
+2026-07-08,009,cursor,opus-4.8-high,,yok,7/7 tam; 2 commit; survival %31.7; CCN 6; en cok yorum %26.6; birlesik 100
+2026-07-08,009,codex,gpt-5.4-high,,yok,7/7 tam; bu sefer git CALISTI (3 commit +702/-54); survival %26.9; CCN 8; birlesik 100
+2026-07-08,009,antigravity,gemini-3.1-pro-high,,yok,7/7 tam; kendi testini yazdi; commit YOK (git kullanmadi); CCN 8; yorum %1.9; birlesik 100
+2026-07-08,020,claude-code,opus-4.8-high,,yok,9/9 tam; 1 commit; CCN 15; 202 satir; temiz; birlesik 100
+2026-07-08,020,cursor,opus-4.8-high,,yok,9/9 tam AMA cppcheck UB buldu (shiftNegative L127 - 1<<negatif); 3 commit; survival %6.7 (cok rewrite); birlesik 98
+2026-07-08,020,codex,gpt-5.4-high,,yok,9/9 tam; 1 commit; en uzun (262 satir); CCN 12; birlesik 100
+2026-07-08,020,antigravity,gemini-3.1-pro-high,,yok,9/9 tam; 1 commit; yorum yok; CCN 15; 164 satir (en kisa); birlesik 100
+2026-07-08,002,claude-code,opus-4.8-high,,yok,352/352 tam (floor bolme dahil); kendi testi; 875 satir (en uzun); 4 commit; survival %0.8 (cok rewrite); CCN 16; birlesik 100
+2026-07-08,002,cursor,opus-4.8-high,,yok,352/352 tam; kendi testi; CCN 26 (en karmasik); 5 commit (en iteratif); survival %0.9; birlesik 100
+2026-07-08,002,codex,gpt-5.4-high,,yok,352/352 tam; kendi testi; CCN 11 (en sade); 638 satir; 2 commit; survival %100 (tek-gecis); birlesik 100
+2026-07-08,002,antigravity,gemini-3.1-pro-high,,yok,352/352 tam; kendi testi; 471 satir (en kisa); 1 commit; CCN 17; birlesik 100
+2026-07-09,013,claude-code,opus-4.8-high,,yok,10/10 tam; 3 commit; survival %11.7; CCN 11; 428 satir (en kisa); cppcheck temiz; birlesik 100
+2026-07-09,013,cursor,opus-4.8-high,,yok,10/10 tam; cppcheck 1 (null-deref parent L526); 3 commit; survival %3 (en cok rewrite); yorum %19.8; birlesik 98
+2026-07-09,013,codex,gpt-5.4-high,,yok,10/10 tam AMA cppcheck 4 (noexcept-ihlali operator-> x2 + node resource yonetimi x2); commit YOK (git kullanmadi); CCN 7; birlesik 92
+2026-07-09,013,antigravity,gemini-3.1-pro-high,,yok,10/10 tam; 1 commit; CCN 12; yorum yok; cppcheck temiz; birlesik 100
+2026-07-09,014,claude-code,opus-4.8-high,,yok,34/34 tam; kendi testi; CCN 12 (en sade); 497 satir; 4 commit; birlesik 100
+2026-07-09,014,cursor,opus-4.8-high,,yok,34/34 tam; kendi testi; CCN 33 (en karmasik); 684 satir; 3 commit; birlesik 100
+2026-07-09,014,codex,gpt-5.4-high,,yok,0/34 DERLENMEDI (kendi C++ hatalari: bozuk PIMPL EvalVisitor::Impl namespace + Boost bagimliligi); 1169 satir (en cok ama derlenmiyor); main.cpp'yi de degistirdi; birlesik 0
+2026-07-09,014,antigravity,gemini-3.1-pro-high,,yok,34/34 tam; kendi testi; CCN 16; 474 satir (en kisa); 1 commit; birlesik 100
+2026-07-09,006,claude-code,opus-4.8-high,,yok,40/40 tam; CCN 19; 275 satir; 3 commit; survival %22; birlesik 100
+2026-07-09,006,codex,gpt-5.4-high,,yok,40/40 tam; CCN 12 (en sade); 334 satir; 3 commit; survival %100; birlesik 100
+2026-07-09,006,cursor,opus-4.8-high,,yok,40/40 tam; CCN 19; 281 satir; 4 commit; survival %28; birlesik 100
+2026-07-09,006,antigravity,gemini-3.1-pro-high,,yok,0/40 DERLENMEDI (server.h'yi advanced.cpp'deki batch_mode'a bagladi -> basic 'server' target link hatasi); 304 satir dolu ama basic build patliyor; birlesik 0

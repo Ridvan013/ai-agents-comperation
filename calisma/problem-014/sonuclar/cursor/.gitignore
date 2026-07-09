@@ -1,0 +1,21 @@
+# CMake build artifacts
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+build/
+*.o
+*.a
+
+# Compiled executable (built by OJ)
+code
+code.exe
+
+# Editor / OS
+.vscode/
+.idea/
+*.swp
+.DS_Store
+
+# Local scratch tests
+scratch/

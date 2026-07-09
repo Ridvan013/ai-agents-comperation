@@ -1,0 +1,14 @@
+# Build artifacts
+build/
+build_*.exe
+*.exe
+*.o
+*.obj
+
+# Test outputs
+*.out
+1.out
+testans_advance.out
+
+# Local compile logs
+derleme_*.log

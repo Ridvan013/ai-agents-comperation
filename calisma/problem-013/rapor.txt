@@ -1,0 +1,267 @@
+(problem 013 · kayit.csv'den 4 arac eslesti)
+
+================================================================
+ARAC: antigravity
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 10/10  (exec=100/100)
+  five: PASS
+  five.memcheck: PASS
+  four: PASS
+  four.memcheck: PASS
+  one: PASS
+  one.memcheck: PASS
+  three: PASS
+  three.memcheck: PASS
+  two: PASS
+  two.memcheck: PASS
+Max bellek: 80 MB · Max hiz: 1420 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 36 KB · Complexity avg/max: 2.4/12 · Yorum: %0.0
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=2.4) · BIRLESIK: 100.0/100
+
+Kod: 490 satir, 43 dosya
+  README.md
+  data/class-bint.hpp
+  data/class-integer.hpp
+  data/class-matrix.hpp
+  data/five/answer.txt
+  data/five/code.cpp
+  data/five/test.exe
+  data/five.memcheck/answer.txt
+  data/five.memcheck/code.cpp
+  data/five.memcheck/test.exe
+  data/four/answer.txt
+  data/four/code.cpp
+  data/four/test.exe
+  data/four.memcheck/answer.txt
+  data/four.memcheck/code.cpp
+  data/four.memcheck/test.exe
+  data/one/1.out
+  data/one/answer.txt
+  data/one/code.cpp
+  data/one/output.txt
+  data/one/test_one.exe
+  data/one.memcheck/answer.txt
+  data/one.memcheck/code.cpp
+  data/one.memcheck/test.exe
+  data/three/answer.txt
+  data/three/code.cpp
+  data/three/test.exe
+  data/three/testans_advance.out
+  data/three.memcheck/answer.txt
+  data/three.memcheck/code.cpp
+  data/three.memcheck/test.exe
+  data/two/1.out
+  data/two/answer.txt
+  data/two/code.cpp
+  data/two/output.txt
+  data/two/test.exe
+  data/two/test_two.exe
+  data/two.memcheck/answer.txt
+  data/two.memcheck/code.cpp
+  data/two.memcheck/test.exe
+  src/exceptions.hpp
+  src/map.hpp [agent]  (490 satir)
+  src/utility.hpp
+
+Git: 1 commit, +490/-0 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1.0x
+  Commit mesajlari:
+- Implement map using AVL Tree
+
+================================================================
+ARAC: claude-code
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 10/10  (exec=100/100)
+  five: PASS
+  five.memcheck: PASS
+  four: PASS
+  four.memcheck: PASS
+  one: PASS
+  one.memcheck: PASS
+  three: PASS
+  three.memcheck: PASS
+  two: PASS
+  two.memcheck: PASS
+Max bellek: 80 MB · Max hiz: 1809 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 35 KB · Complexity avg/max: 2.0/11 · Yorum: %6.1
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=2.0) · BIRLESIK: 100.0/100
+
+Kod: 428 satir, 27 dosya
+  README.md
+  data/class-bint.hpp
+  data/class-integer.hpp
+  data/class-matrix.hpp
+  data/five/answer.txt
+  data/five/code.cpp
+  data/five.memcheck/answer.txt
+  data/five.memcheck/code.cpp
+  data/four/answer.txt
+  data/four/code.cpp
+  data/four.memcheck/answer.txt
+  data/four.memcheck/code.cpp
+  data/one/answer.txt
+  data/one/code.cpp
+  data/one.memcheck/answer.txt
+  data/one.memcheck/code.cpp
+  data/three/answer.txt
+  data/three/code.cpp
+  data/three.memcheck/answer.txt
+  data/three.memcheck/code.cpp
+  data/two/answer.txt
+  data/two/code.cpp
+  data/two.memcheck/answer.txt
+  data/two.memcheck/code.cpp
+  src/exceptions.hpp
+  src/map.hpp [agent]  (428 satir)
+  src/utility.hpp
+
+Git: 3 commit, +601/-173 (churn)
+  Satir survival: 11.7% (ilk commit'ten kalan) · Rewrite orani: 1.4x
+  Commit mesajlari:
+- Fix parent pointers after rotations in insert/erase
+  - Implement AVL-tree-based map with iterators
+  - Initial commit: problem statement and test data
+
+================================================================
+ARAC: codex
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 10/10  (exec=100/100)
+  five: PASS
+  five.memcheck: PASS
+  four: PASS
+  four.memcheck: PASS
+  one: PASS
+  one.memcheck: PASS
+  three: PASS
+  three.memcheck: PASS
+  two: PASS
+  two.memcheck: PASS
+Max bellek: 95 MB · Max hiz: 1583 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 40 KB · Complexity avg/max: 2.2/7 · Yorum: %0.6
+Guvenlik (cppcheck): 4 · clang-tidy: 0
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: yok
+Code Review (proxy): 60/100 (CCN=2.2, 4 guvenlik(-40)) · BIRLESIK: 92.0/100
+
+Kod: 515 satir, 28 dosya
+  .gitignore
+  README.md
+  data/class-bint.hpp
+  data/class-integer.hpp
+  data/class-matrix.hpp
+  data/five/answer.txt
+  data/five/code.cpp
+  data/five.memcheck/answer.txt
+  data/five.memcheck/code.cpp
+  data/four/answer.txt
+  data/four/code.cpp
+  data/four.memcheck/answer.txt
+  data/four.memcheck/code.cpp
+  data/one/answer.txt
+  data/one/code.cpp
+  data/one.memcheck/answer.txt
+  data/one.memcheck/code.cpp
+  data/three/answer.txt
+  data/three/code.cpp
+  data/three.memcheck/answer.txt
+  data/three.memcheck/code.cpp
+  data/two/answer.txt
+  data/two/code.cpp
+  data/two.memcheck/answer.txt
+  data/two.memcheck/code.cpp
+  src/exceptions.hpp
+  src/map.hpp [agent]  (515 satir)
+  src/utility.hpp
+
+Git: 0 commit (commit yok -> churn/survival olculemedi)
+
+================================================================
+ARAC: cursor
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 10/10  (exec=100/100)
+  five: PASS
+  five.memcheck: PASS
+  four: PASS
+  four.memcheck: PASS
+  one: PASS
+  one.memcheck: PASS
+  three: PASS
+  three.memcheck: PASS
+  two: PASS
+  two.memcheck: PASS
+Max bellek: 80 MB · Max hiz: 1349 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 40 KB · Complexity avg/max: 2.0/7 · Yorum: %19.8
+Guvenlik (cppcheck): 1 · clang-tidy: 0
+Bellek sizintisi (valgrind): 0 byte · Kendi testi: yok
+Code Review (proxy): 90/100 (CCN=2.0, 1 guvenlik(-10)) · BIRLESIK: 98.0/100
+
+Kod: 567 satir, 29 dosya
+  .gitignore
+  CMakeLists.txt
+  README.md
+  data/class-bint.hpp
+  data/class-integer.hpp
+  data/class-matrix.hpp
+  data/five/answer.txt
+  data/five/code.cpp
+  data/five.memcheck/answer.txt
+  data/five.memcheck/code.cpp
+  data/four/answer.txt
+  data/four/code.cpp
+  data/four.memcheck/answer.txt
+  data/four.memcheck/code.cpp
+  data/one/answer.txt
+  data/one/code.cpp
+  data/one.memcheck/answer.txt
+  data/one.memcheck/code.cpp
+  data/three/answer.txt
+  data/three/code.cpp
+  data/three.memcheck/answer.txt
+  data/three.memcheck/code.cpp
+  data/two/answer.txt
+  data/two/code.cpp
+  data/two.memcheck/answer.txt
+  data/two.memcheck/code.cpp
+  src/exceptions.hpp
+  src/map.hpp [agent]  (567 satir)
+  src/utility.hpp
+
+Git: 3 commit, +773/-206 (churn)
+  Satir survival: 3.0% (ilk commit'ten kalan) · Rewrite orani: 1.36x
+  Commit mesajlari:
+- Add CMake build setup and gitignore; drop stale compile logs
+  - Implement map with AVL tree, iterators, and full API
+  - Initial commit: problem framework and test data
+
+================================================================
+OZET TABLO (kompakt · tam veri sonuclar.csv'de)
+================================================================
+arac         model                dogruluk  birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn    
+-----------  -------------------  --------  --------  -----  ------  --------  ---------  ---------
+antigravity  gemini-3.1-pro-high  10/10     100.0     0      1420    0         0          +490/-0  
+claude-code  opus-4.8-high        10/10     100.0     0      1809    0         0          +601/-173
+codex        gpt-5.4-high         10/10     92.0      0      1583    4         0          -        
+cursor       opus-4.8-high        10/10     98.0      0      1349    1         0          +773/-206
+
+TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-013/sonuclar.csv
+
+Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-013/rapor.txt

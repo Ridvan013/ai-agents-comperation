@@ -1,0 +1,270 @@
+(problem 006 · kayit.csv'den 4 arac eslesti)
+
+================================================================
+ARAC: antigravity
+================================================================
+Derleme: DERLEME HATASI (tam: derleme_hata.log): 
+
+Dogruluk: 0/40 (derlenemedi)
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: - KB · Complexity avg/max: 12.7/26 · Yorum: %43.1
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 0/100 (derlenemedi) · BIRLESIK: 0.0/100
+
+Kod: 304 satir, 16 dosya
+  advanced.exe
+  basic.exe
+  batch_out.txt
+  CMakeLists.txt
+  parse_score.py
+  README.md
+  test_adv.in
+  test_basic.in
+  test_batch.in
+  test_win.in
+  src/advanced.cpp
+  src/basic.cpp
+  src/CMakeLists.txt
+  src/include/client.h
+  src/include/generator.h
+  src/include/server.h [agent]  (304 satir)
+
+Git: repo yok
+
+================================================================
+ARAC: claude-code
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 40/40  (exec=100/100)
+  t00_win_full: PASS
+  t01_win_mark: PASS
+  t02_win_auto: PASS
+  t03_lose_v: PASS
+  t04_lose_m: PASS
+  t05_win_full: PASS
+  t06_win_mark: PASS
+  t07_win_auto: PASS
+  t08_lose_v: PASS
+  t09_lose_m: PASS
+  t10_win_full: PASS
+  t11_win_mark: PASS
+  t12_win_auto: PASS
+  t13_lose_v: PASS
+  t14_lose_m: PASS
+  t15_win_full: PASS
+  t16_win_mark: PASS
+  t17_win_auto: PASS
+  t18_lose_v: PASS
+  t19_lose_m: PASS
+  t20_win_full: PASS
+  t21_win_mark: PASS
+  t22_win_auto: PASS
+  t23_lose_v: PASS
+  t24_lose_m: PASS
+  t25_win_full: PASS
+  t26_win_mark: PASS
+  t27_win_auto: PASS
+  t28_lose_v: PASS
+  t29_lose_m: PASS
+  t30_win_full: PASS
+  t31_win_mark: PASS
+  t32_win_auto: PASS
+  t33_lose_v: PASS
+  t34_lose_m: PASS
+  t35_win_full: PASS
+  t36_win_mark: PASS
+  t37_win_auto: PASS
+  t38_lose_v: PASS
+  t39_lose_m: PASS
+Max bellek: 3 MB · Max hiz: 15 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 17 KB · Complexity avg/max: 9.4/19 · Yorum: %28.4
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=9.4) · BIRLESIK: 100.0/100
+
+Kod: 275 satir, 11 dosya
+  .gitignore
+  CMakeLists.txt
+  README.md
+  server.exe
+  src/advanced.cpp
+  src/basic.cpp
+  src/CMakeLists.txt
+  src/server
+  src/include/client.h
+  src/include/generator.h
+  src/include/server.h [agent]  (275 satir)
+
+Git: 3 commit, +383/-108 (churn)
+  Satir survival: 22.2% (ilk commit'ten kalan) · Rewrite orani: 1.39x
+  Commit mesajlari:
+- Implement advanced task (client.h): CSP-based Minesweeper solver
+  - Implement basic task (server.h): full Minesweeper server
+  - Initial commit: assignment skeleton
+
+================================================================
+ARAC: codex
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 40/40  (exec=100/100)
+  t00_win_full: PASS
+  t01_win_mark: PASS
+  t02_win_auto: PASS
+  t03_lose_v: PASS
+  t04_lose_m: PASS
+  t05_win_full: PASS
+  t06_win_mark: PASS
+  t07_win_auto: PASS
+  t08_lose_v: PASS
+  t09_lose_m: PASS
+  t10_win_full: PASS
+  t11_win_mark: PASS
+  t12_win_auto: PASS
+  t13_lose_v: PASS
+  t14_lose_m: PASS
+  t15_win_full: PASS
+  t16_win_mark: PASS
+  t17_win_auto: PASS
+  t18_lose_v: PASS
+  t19_lose_m: PASS
+  t20_win_full: PASS
+  t21_win_mark: PASS
+  t22_win_auto: PASS
+  t23_lose_v: PASS
+  t24_lose_m: PASS
+  t25_win_full: PASS
+  t26_win_mark: PASS
+  t27_win_auto: PASS
+  t28_lose_v: PASS
+  t29_lose_m: PASS
+  t30_win_full: PASS
+  t31_win_mark: PASS
+  t32_win_auto: PASS
+  t33_lose_v: PASS
+  t34_lose_m: PASS
+  t35_win_full: PASS
+  t36_win_mark: PASS
+  t37_win_auto: PASS
+  t38_lose_v: PASS
+  t39_lose_m: PASS
+Max bellek: 3 MB · Max hiz: 21 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 37 KB · Complexity avg/max: 6.1/12 · Yorum: %39.2
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=6.1) · BIRLESIK: 100.0/100
+
+Kod: 334 satir, 10 dosya
+  .gitignore
+  CMakeLists.txt
+  README.md
+  src/advanced.cpp
+  src/basic.cpp
+  src/CMakeLists.txt
+  src/server
+  src/include/client.h
+  src/include/generator.h
+  src/include/server.h [agent]  (334 satir)
+
+Git: 3 commit, +334/-0 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1.0x
+  Commit mesajlari:
+- Add deterministic and heuristic client solver
+  - Implement Minesweeper server logic
+  - Add assignment skeleton
+
+================================================================
+ARAC: cursor
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 40/40  (exec=100/100)
+  t00_win_full: PASS
+  t01_win_mark: PASS
+  t02_win_auto: PASS
+  t03_lose_v: PASS
+  t04_lose_m: PASS
+  t05_win_full: PASS
+  t06_win_mark: PASS
+  t07_win_auto: PASS
+  t08_lose_v: PASS
+  t09_lose_m: PASS
+  t10_win_full: PASS
+  t11_win_mark: PASS
+  t12_win_auto: PASS
+  t13_lose_v: PASS
+  t14_lose_m: PASS
+  t15_win_full: PASS
+  t16_win_mark: PASS
+  t17_win_auto: PASS
+  t18_lose_v: PASS
+  t19_lose_m: PASS
+  t20_win_full: PASS
+  t21_win_mark: PASS
+  t22_win_auto: PASS
+  t23_lose_v: PASS
+  t24_lose_m: PASS
+  t25_win_full: PASS
+  t26_win_mark: PASS
+  t27_win_auto: PASS
+  t28_lose_v: PASS
+  t29_lose_m: PASS
+  t30_win_full: PASS
+  t31_win_mark: PASS
+  t32_win_auto: PASS
+  t33_lose_v: PASS
+  t34_lose_m: PASS
+  t35_win_full: PASS
+  t36_win_mark: PASS
+  t37_win_auto: PASS
+  t38_lose_v: PASS
+  t39_lose_m: PASS
+Max bellek: 3 MB · Max hiz: 16 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 31 KB · Complexity avg/max: 7.3/19 · Yorum: %27.8
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=7.3) · BIRLESIK: 100.0/100
+
+Kod: 281 satir, 11 dosya
+  .gitignore
+  CMakeLists.txt
+  README.md
+  bench/bench.cpp
+  src/advanced.cpp
+  src/basic.cpp
+  src/CMakeLists.txt
+  src/server
+  src/include/client.h
+  src/include/generator.h
+  src/include/server.h [agent]  (281 satir)
+
+Git: 4 commit, +370/-89 (churn)
+  Satir survival: 28.5% (ilk commit'ten kalan) · Rewrite orani: 1.32x
+  Commit mesajlari:
+- test: add local benchmark harness for the advanced client
+  - feat(client): implement advanced solver with exact CSP reasoning
+  - feat(server): implement basic Minesweeper server logic
+  - chore: initial skeleton with build config and gitignore
+
+================================================================
+OZET TABLO (kompakt · tam veri sonuclar.csv'de)
+================================================================
+arac         model                dogruluk  birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn    
+-----------  -------------------  --------  --------  -----  ------  --------  ---------  ---------
+antigravity  gemini-3.1-pro-high  0/40      0.0       0      -       0         -          -        
+claude-code  opus-4.8-high        40/40     100.0     0      15      0         -          +383/-108
+codex        gpt-5.4-high         40/40     100.0     0      21      0         -          +334/-0  
+cursor       opus-4.8-high        40/40     100.0     0      16      0         -          +370/-89 
+
+TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-006/sonuclar.csv
+
+Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-006/rapor.txt

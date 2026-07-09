@@ -1,0 +1,7 @@
+{
+  "aciklama": "Buddy Algorithm (C) - framework. Agent buddy.c'yi doldurur (5 fonksiyon). main.c/buddy.h/utils.h scaffold. Notlandirma: canonical ref/main.c (kendi kendini assert eden test suite) agent'in buddy.c'siyle derlenip calistirilir; kac Phase gecti + 'Test Ends.' sayilir.",
+  "build_cmd": "gcc -O2 main.c buddy.c -o code",
+  "kalite_glob": ["buddy.c"],
+  "correctness": "custom",
+  "mem_limit_mb": 256
+}
