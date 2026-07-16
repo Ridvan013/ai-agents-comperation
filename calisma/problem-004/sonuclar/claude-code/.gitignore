@@ -1,0 +1,19 @@
+# CMake build artifacts
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+CTestTestfile.cmake
+
+# Compiled executable
+code
+code.exe
+
+# Runtime data files produced by the program
+bs_*.dat
+bs_*.idx
+bs_*.txt
+
+# Misc
+*.o
+*.obj
