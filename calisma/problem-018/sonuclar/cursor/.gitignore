@@ -1,0 +1,15 @@
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+CTestTestfile.cmake
+Makefile
+build/
+bin/
+compile_commands.json
+code
+code.exe
+*.o
+*.obj
+*.exe
+.vscode/
+.idea/

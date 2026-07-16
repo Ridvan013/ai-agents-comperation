@@ -28,6 +28,11 @@ set_target_properties(code PROPERTIES
     CXX_STANDARD_REQUIRED ON
 )
 
+# Link pthreads: the REPL runs on a thread with an enlarged stack so that deep
+# recursion in interpreted programs does not overflow the C++ call stack.
+find_package(Threads REQUIRED)
+target_link_libraries(code PRIVATE Threads::Threads)
+
 target_compile_options(code
   PRIVATE
     -g
