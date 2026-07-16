@@ -1,0 +1,15 @@
+# CMake in-source build artifacts (required by the OJ compilation process)
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+compile_commands.json
+
+# Build output / executables
+build/
+code
+code.exe
+code_oj.exe
+*.exe
+*.o
+*.obj
