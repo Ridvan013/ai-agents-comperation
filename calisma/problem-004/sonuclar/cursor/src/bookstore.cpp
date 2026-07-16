@@ -126,12 +126,14 @@ void Bookstore::rebuild_indexes() {
 
 bool Bookstore::read_user(int idx, User &u) {
   if (idx < 0 || idx >= user_count_) return false;
+  user_file_.clear();
   user_file_.seekg(USER_HEADER + (long long)idx * sizeof(User));
   user_file_.read(reinterpret_cast<char *>(&u), sizeof(User));
-  return user_file_.good();
+  return (bool)user_file_;
 }
 
 void Bookstore::write_user(int idx, const User &u) {
+  user_file_.clear();
   user_file_.seekp(USER_HEADER + (long long)idx * sizeof(User));
   user_file_.write(reinterpret_cast<const char *>(&u), sizeof(User));
   user_file_.flush();
@@ -139,6 +141,7 @@ void Bookstore::write_user(int idx, const User &u) {
 
 int Bookstore::append_user(const User &u) {
   int idx = user_count_;
+  user_file_.clear();
   user_file_.seekp(USER_HEADER + (long long)idx * sizeof(User));
   user_file_.write(reinterpret_cast<const char *>(&u), sizeof(User));
   ++user_count_;
@@ -151,12 +154,14 @@ int Bookstore::append_user(const User &u) {
 
 bool Bookstore::read_book(int idx, Book &b) {
   if (idx < 0 || idx >= book_count_) return false;
+  book_file_.clear();
   book_file_.seekg(BOOK_HEADER + (long long)idx * sizeof(Book));
   book_file_.read(reinterpret_cast<char *>(&b), sizeof(Book));
-  return book_file_.good();
+  return (bool)book_file_;
 }
 
 void Bookstore::write_book(int idx, const Book &b) {
+  book_file_.clear();
   book_file_.seekp(BOOK_HEADER + (long long)idx * sizeof(Book));
   book_file_.write(reinterpret_cast<const char *>(&b), sizeof(Book));
   book_file_.flush();
@@ -164,6 +169,7 @@ void Bookstore::write_book(int idx, const Book &b) {
 
 int Bookstore::append_book(const Book &b) {
   int idx = book_count_;
+  book_file_.clear();
   book_file_.seekp(BOOK_HEADER + (long long)idx * sizeof(Book));
   book_file_.write(reinterpret_cast<const char *>(&b), sizeof(Book));
   ++book_count_;
@@ -175,6 +181,7 @@ int Bookstore::append_book(const Book &b) {
 }
 
 void Bookstore::append_finance(long long income, long long expense) {
+  fin_file_.clear();
   fin_file_.seekp(FIN_HEADER + (long long)fin_count_ * sizeof(long long) * 2);
   fin_file_.write(reinterpret_cast<char *>(&income), sizeof(long long));
   fin_file_.write(reinterpret_cast<char *>(&expense), sizeof(long long));
@@ -928,8 +935,9 @@ void Bookstore::cmd_modify(const std::vector<std::string> &args) {
     invalid();
     return;
   }
+  int book_idx = it->second;
   Book b;
-  read_book(it->second, b);
+  read_book(book_idx, b);
 
   if (has_isbn) {
     if (new_isbn == cur_isbn) {
@@ -942,24 +950,17 @@ void Bookstore::cmd_modify(const std::vector<std::string> &args) {
     }
   }
 
-  // apply
-  index_remove_book(it->second, b);
+  // apply (save index first — index_remove_book erases isbn_idx_ entries)
+  index_remove_book(book_idx, b);
   if (has_isbn) set_cstr(b.isbn, sizeof(b.isbn), new_isbn);
   if (has_name) set_cstr(b.name, sizeof(b.name), new_name);
   if (has_author) set_cstr(b.author, sizeof(b.author), new_author);
   if (has_keyword) set_cstr(b.keyword, sizeof(b.keyword), new_keyword);
   if (has_price) b.price_cents = new_price;
-  write_book(it->second, b);
-  index_add_book(it->second, b);
+  write_book(book_idx, b);
+  index_add_book(book_idx, b);
 
-  if (has_isbn) {
-    stack_.back().selected_isbn = new_isbn;
-    // update other stack frames selecting old isbn? Spec: selection is per frame.
-    // Only current account's selection mentioned. Other frames keep old ISBN string
-    // which may now be missing - that's OK, their selection points to old value.
-    // Actually if ISBN changed, old ISBN no longer exists. Other frames with old
-    // selection become dangling. Spec doesn't require updating them.
-  }
+  if (has_isbn) stack_.back().selected_isbn = new_isbn;
   append_log("modify");
 }
 
@@ -1050,6 +1051,7 @@ void Bookstore::cmd_show_finance(const std::vector<std::string> &args) {
   int start = fin_count_ - count;
   for (int i = start; i < fin_count_; ++i) {
     long long inc = 0, exp = 0;
+    fin_file_.clear();
     fin_file_.seekg(FIN_HEADER + (long long)i * sizeof(long long) * 2);
     fin_file_.read(reinterpret_cast<char *>(&inc), sizeof(long long));
     fin_file_.read(reinterpret_cast<char *>(&exp), sizeof(long long));
@@ -1077,6 +1079,7 @@ void Bookstore::cmd_log(const std::vector<std::string> &args) {
   std::cout << "==== Finance (" << fin_count_ << " txs) ====\n";
   for (int i = 0; i < fin_count_; ++i) {
     long long inc = 0, exp = 0;
+    fin_file_.clear();
     fin_file_.seekg(FIN_HEADER + (long long)i * sizeof(long long) * 2);
     fin_file_.read(reinterpret_cast<char *>(&inc), sizeof(long long));
     fin_file_.read(reinterpret_cast<char *>(&exp), sizeof(long long));
@@ -1099,6 +1102,7 @@ void Bookstore::cmd_report_finance(const std::vector<std::string> &args) {
   long long income = 0, expense = 0;
   for (int i = 0; i < fin_count_; ++i) {
     long long inc = 0, exp = 0;
+    fin_file_.clear();
     fin_file_.seekg(FIN_HEADER + (long long)i * sizeof(long long) * 2);
     fin_file_.read(reinterpret_cast<char *>(&inc), sizeof(long long));
     fin_file_.read(reinterpret_cast<char *>(&exp), sizeof(long long));
