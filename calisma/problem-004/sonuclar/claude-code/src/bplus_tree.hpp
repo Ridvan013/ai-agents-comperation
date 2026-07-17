@@ -89,8 +89,7 @@ class BPlusTree {
   bool find(const Key &key, Value &out) {
     if (root() == -1) return false;
     Node node;
-    int id = descendToLeaf(key, node);
-    (void)id;
+    descendToLeaf(key, node);
     int i = lowerBound(node, key);
     if (i >= node.size || !(node.key[i] == key)) return false;
     out = node.val[i];
@@ -181,15 +180,14 @@ class BPlusTree {
     return lo;
   }
 
-  /// Loads the leaf that would contain `key` into `node`; returns its id.
-  int descendToLeaf(const Key &key, Node &node) {
-    int id = root();
-    file_.read(id, node);
+  /// Loads the leaf that would contain `key` into `node`.
+  void descendToLeaf(const Key &key, Node &node) {
+    file_.read(root(), node);
     while (!node.leaf) {
-      id = node.child[upperBound(node, key)];
-      file_.read(id, node);
+      // Resolve the child id before the read, which overwrites `node`.
+      const int child = node.child[upperBound(node, key)];
+      file_.read(child, node);
     }
-    return id;
   }
 
   // -------------------------------------------------------------------------
