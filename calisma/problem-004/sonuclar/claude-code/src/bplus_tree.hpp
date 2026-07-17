@@ -432,6 +432,13 @@ class BPlusTree {
     --parent.size;
   }
 
+  /// The cache is deliberately small. At order 40, tens of thousands of keys
+  /// form only a few dozen internal nodes, so this window keeps every level
+  /// above the leaves resident and a point lookup costs a single leaf read --
+  /// the minimum a disk-resident index can achieve. Enlarging it past that only
+  /// buys leaf hits, which random access rarely repeats; measurements at 1024
+  /// were indistinguishable, and caching the whole index would defeat the point
+  /// of keeping the data in files at all.
   BlockFile<TreeMeta, Node, 128> file_;
 };
 

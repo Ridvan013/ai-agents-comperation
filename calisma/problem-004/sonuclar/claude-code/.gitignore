@@ -6,6 +6,7 @@ Makefile
 
 # Compiled executable
 /code
+/code.exe
 
 # Runtime data files created by the program
 *.dat
