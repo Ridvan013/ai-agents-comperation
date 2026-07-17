@@ -566,11 +566,9 @@ class TicketSystem {
           if (px2 >= pt2) continue;  // must go x -> tt forward
           TrainRec t2;
           trainData_.read(idx2, t2);
-          // earliest feasible departure day D2 at x so that leave2x >= arrive1x
-          int ldo2 = (t2.startMin + t2.leaveOff[px2]) / 1440;
-          // leave time at x for start-day D2 = D2*1440 + startMin + leaveOff[px2]
-          // = (D2 + ldo2day...) easier: leave2x(D2) = (long)D2*1440 + t2.startMin + t2.leaveOff[px2]
-          // find min D2 in [saleStart,saleEnd] with leave2x(D2) >= arrive1x
+          // earliest feasible departure day D2 at x so that leave2x >= arrive1x:
+          // leave2x(D2) = D2*1440 + startMin + leaveOff[px2]; find min D2 in
+          // [saleStart, saleEnd] with leave2x(D2) >= arrive1x.
           long fixed = (long)t2.startMin + t2.leaveOff[px2];
           // D2*1440 + fixed >= arrive1x  => D2 >= (arrive1x - fixed)/1440 (ceil)
           long need = arrive1x - fixed;
@@ -590,7 +588,6 @@ class TicketSystem {
           int price2 = t2.cumPrice[pt2] - t2.cumPrice[px2];
           long totalTime = arrive2t - leave1s;
           int totalCost = price1 + price2;
-          long time2 = arrive2t - leave2x;
 
           // Ordering (README Q&A): primary metric, then less riding time on
           // train 1, then the other metric, then trainID1, then trainID2.
