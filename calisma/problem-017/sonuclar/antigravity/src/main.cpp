@@ -102,8 +102,8 @@ int main() {
       sys.clean();
     } else if (cmd == "exit") {
       sys.exit_cmd();
-      break;
     }
   }
   return 0;
 }
+
