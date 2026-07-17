@@ -149,9 +149,18 @@ inline bool parseMoney(const std::string &s, long long &cents) {
   return true;
 }
 
+/// Renders cents with exactly two decimals. Every amount the command language
+/// prints is non-negative, but a report's net profit can be negative, and
+/// integer division truncates towards zero while leaving the remainder signed,
+/// so the sign is taken out before splitting the value.
 inline std::string formatMoney(long long cents) {
-  const long long hundredths = cents % 100;
-  std::string text = std::to_string(cents / 100);
+  const bool negative = cents < 0;
+  const long long magnitude = negative ? -cents : cents;
+  const long long hundredths = magnitude % 100;
+
+  std::string text;
+  if (negative) text += '-';
+  text += std::to_string(magnitude / 100);
   text += '.';
   if (hundredths < 10) text += '0';
   text += std::to_string(hundredths);
