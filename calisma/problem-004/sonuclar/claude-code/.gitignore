@@ -1,19 +1,18 @@
-# CMake build artifacts
+# CMake in-source build artefacts (the OJ runs `cmake . && make` in the repo root)
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
 Makefile
-CTestTestfile.cmake
 
 # Compiled executable
-code
-code.exe
+/code
 
-# Runtime data files produced by the program
-bs_*.dat
-bs_*.idx
-bs_*.txt
+# Runtime data files created by the program
+*.dat
+*.idx
 
-# Misc
-*.o
-*.obj
+# Editor / OS noise
+.vscode/
+.idea/
+*.swp
+.DS_Store
