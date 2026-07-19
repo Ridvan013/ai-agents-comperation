@@ -31,6 +31,7 @@ int main() {
   sys.load();
 
   std::string line;
+  bool exited = false;
   while (std::getline(std::cin, line)) {
     while (!line.empty() && (line.back() == '\r' || line.back() == '\n')) {
       line.pop_back();
@@ -102,9 +103,11 @@ int main() {
       sys.clean();
     } else if (cmd == "exit") {
       sys.exit_cmd();
+      exited = true;
       break;
     }
   }
+  if (!exited) sys.save();
   return 0;
 }
 
