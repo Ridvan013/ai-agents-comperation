@@ -1,0 +1,125 @@
+(problem 015 · kayit.csv'den 0 arac eslesti)
+
+================================================================
+ARAC: antigravity
+================================================================
+Derleme: hazir 'code'
+
+Dogruluk: 3349/3349  (exec=100/100)
+  gecen 3349/3349 find dogru (%100.0)
+Max bellek: 3 MB · Max hiz: 138 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 31 KB · Complexity avg/max: 3.7/17 · Yorum: %0.6
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=3.7) · BIRLESIK: 100.0/100
+
+Kod: 338 satir, 5 dosya
+  .gitignore
+  CMakeLists.txt
+  README.md
+  src/bpt.hpp  (303 satir)
+  src/main.cpp  (35 satir)
+
+Git: repo yok
+
+================================================================
+ARAC: claude-code
+================================================================
+Derleme: hazir 'code'
+
+Dogruluk: 3349/3349  (exec=100/100)
+  gecen 3349/3349 find dogru (%100.0)
+Max bellek: 4 MB · Max hiz: 53 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 27 KB · Complexity avg/max: 5.1/16 · Yorum: %9.1
+Guvenlik (cppcheck): 1 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 90/100 (CCN=5.1, 1 guvenlik(-10)) · BIRLESIK: 98.0/100
+
+Kod: 464 satir, 4 dosya
+  .gitignore
+  CMakeLists.txt
+  main.cpp  (464 satir)
+  README.md
+
+Git: repo yok
+
+================================================================
+ARAC: codex
+================================================================
+Derleme: kaynak kod yok (arac henuz calistirilmadi mi?)
+
+Dogruluk: 0/3349 (derlenemedi)
+
+Derleyici uyari (-Wall -Wextra): -
+Binary: - KB · Complexity avg/max: None/None · Yorum: %0
+Guvenlik (cppcheck): - · clang-tidy: -
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 0/100 (derlenemedi) · BIRLESIK: 0.0/100
+
+Kod: 0 satir, 1 dosya
+  README.md
+
+Git: repo yok
+
+================================================================
+ARAC: cursor
+================================================================
+Derleme: kaynak kod yok (arac henuz calistirilmadi mi?)
+
+Dogruluk: 0/3349 (derlenemedi)
+
+Derleyici uyari (-Wall -Wextra): -
+Binary: - KB · Complexity avg/max: None/None · Yorum: %0
+Guvenlik (cppcheck): - · clang-tidy: -
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 0/100 (derlenemedi) · BIRLESIK: 0.0/100
+
+Kod: 0 satir, 1 dosya
+  README.md
+
+Git: 25 commit, +1002907/-2677 (churn)
+  Satir survival: -% (ilk commit'ten kalan) · Rewrite orani: -x
+  Commit mesajlari:
+- Persist state on EOF
+  - problem-017/antigravity: persist trains/orders/seats on disk
+  - Handle repeated exit commands in test inputs
+  - problem-017/antigravity: remove unused file_array.hpp
+  - problem-017/antigravity: implement train ticket management system
+  - problem-015/claude-code: implement on-disk B+ tree file storage
+  - problem-017/claude-code: drop unused locals in query_transfer
+  - problem-017/claude-code: implement train ticket management system
+  - Implement persistent ticket system solution
+  - Add build scaffold for problem 017
+  - Implement train ticket management system for problem-017.
+  - problem-004/claude-code: clarify leaf descent in the B+ tree
+  - problem-004/claude-code: fix money formatting for negative amounts
+  - problem-004/claude-code: document B+ tree cache sizing; ignore code.exe
+  - problem-004/claude-code: rewrite bookstore on disk-resident B+ tree indices
+  - problem-004/claude-code: implement bookstore management system
+  - Implement bookstore management system
+  - Fix modify iterator invalidation and fstream failbit handling.
+  - Implement bookstore management system with file persistence.
+  - problem-019/claude-code: implement attention via rank-1 GPU kernels
+  - Implement optimized attention solver
+  - problem-019/cursor: implement tiled GPU attention on the simulator
+  - problem-018/cursor: implement full Scheme interpreter
+  - problem-018: implement Scheme interpreter (parser + evaluator)
+  - AI kod araclari karsilastirmasi: 8 problem x 4 arac, analiz + sonuclar
+
+================================================================
+OZET TABLO (kompakt · tam veri sonuclar.csv'de)
+================================================================
+arac         model  dogruluk   birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn         
+-----------  -----  ---------  --------  -----  ------  --------  ---------  --------------
+antigravity  -      3349/3349  100.0     0      138     0         -          -             
+claude-code  -      3349/3349  98.0      0      53      1         -          -             
+codex        -      0/3349     0.0       -      -       -         -          -             
+cursor       -      0/3349     0.0       -      -       -         -          +1002907/-2677
+
+TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-015/sonuclar.csv
+
+Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-015/rapor.txt

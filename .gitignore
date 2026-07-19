@@ -1,4 +1,14 @@
-# Derleme çöpü
+# --- Harici benchmark deposu (kendi .git'i var, 172MB; ayrica klonlanir) ---
+projdevbench/
+
+# --- Agent klasorlerine seed'lenen test verisi kopyalari (canonical hali ref/'te) ---
+calisma/*/sonuclar/*/data/
+calisma/*/sonuclar/*/testcases/
+calisma/*/sonuclar/*/generated/
+calisma/*/sonuclar/*/score/
+calisma/*/sonuclar/*/docs/
+
+# --- Derleme çöpü ---
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
@@ -13,18 +23,25 @@ a.out
 */client
 **/src/server
 **/src/client
+build/
 
-# Loglar
+# --- Agent calisma-zamani veri dosyalari (test kosarken olusur) ---
+*.dat
+*.db
+*.idx
+*.bin
+
+# --- Loglar ---
 derleme_uyari.log
 derleme_hata.log
 
-# Python cache
+# --- Python cache ---
 __pycache__/
 *.pyc
 
-# Büyük ANTLR runtime paketleri (repoda gereksiz, apt ile kurulur)
+# --- Buyuk paketler ---
 *.deb
 
-# OS
+# --- OS ---
 .DS_Store
 Thumbs.db

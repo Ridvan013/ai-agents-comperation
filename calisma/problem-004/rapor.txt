@@ -1,0 +1,146 @@
+(problem 004 · kayit.csv'den 4 arac eslesti)
+
+================================================================
+ARAC: antigravity
+================================================================
+Derleme: hazir 'code'
+
+Dogruluk: 60/60  (exec=100/100)
+  gecen 60/60 (consensus'a gore)
+Max bellek: ? MB · Max hiz: 264 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 87 KB · Complexity avg/max: 6.6/172 · Yorum: %0.0
+Guvenlik (cppcheck): 0 · clang-tidy: 13
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=6.6) · BIRLESIK: 100.0/100
+
+Kod: 874 satir, 13 dosya
+  author_index.dat
+  books.dat
+  CMakeLists.txt
+  code.cpp  (874 satir)
+  finance.dat
+  isbn_index.dat
+  keyword_index.dat
+  name_index.dat
+  README.md
+  test.in
+  test2.in
+  users.dat
+  user_index.dat
+
+Git: repo yok
+
+================================================================
+ARAC: claude-code
+================================================================
+Derleme: hazir 'code'
+
+Dogruluk: 60/60  (exec=100/100)
+  gecen 60/60 (consensus'a gore)
+Max bellek: ? MB · Max hiz: 31 ms
+
+Derleyici uyari (-Wall -Wextra): 14
+Binary: 193 KB · Complexity avg/max: 3.0/18 · Yorum: %9.2
+Guvenlik (cppcheck): 2 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 80/100 (CCN=3.0, 2 guvenlik(-20)) · BIRLESIK: 96.0/100
+
+Kod: 1871 satir, 16 dosya
+  .gitignore
+  CMakeLists.txt
+  README.md
+  src/account_system.cpp  (137 satir)
+  src/account_system.hpp  (63 satir)
+  src/block_file.hpp  (209 satir)
+  src/bookstore.cpp  (134 satir)
+  src/bookstore.hpp  (39 satir)
+  src/book_system.cpp  (238 satir)
+  src/book_system.hpp  (53 satir)
+  src/bplus_tree.hpp  (445 satir)
+  src/common.hpp  (248 satir)
+  src/log_system.cpp  (177 satir)
+  src/log_system.hpp  (51 satir)
+  src/main.cpp  (23 satir)
+  src/records.hpp  (54 satir)
+
+Git: repo yok
+
+================================================================
+ARAC: codex
+================================================================
+Derleme: hazir 'code'
+
+Dogruluk: 55/60  (exec=92/100)
+  gecen 55/60 (consensus'a gore)
+Max bellek: ? MB · Max hiz: 66 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 302 KB · Complexity avg/max: 3.8/32 · Yorum: %0.0
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=3.8) · BIRLESIK: 93.3/100
+
+Kod: 1246 satir, 4 dosya
+  .gitignore
+  CMakeLists.txt
+  README.md
+  src/main.cpp  (1246 satir)
+
+Git: 14 commit, +272918/-1475 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 219.04x
+  Commit mesajlari:
+- problem-004/claude-code: clarify leaf descent in the B+ tree
+  - problem-004/claude-code: fix money formatting for negative amounts
+  - problem-004/claude-code: document B+ tree cache sizing; ignore code.exe
+  - problem-004/claude-code: rewrite bookstore on disk-resident B+ tree indices
+  - problem-004/claude-code: implement bookstore management system
+  - Implement bookstore management system
+  - Fix modify iterator invalidation and fstream failbit handling.
+  - Implement bookstore management system with file persistence.
+  - problem-019/claude-code: implement attention via rank-1 GPU kernels
+  - Implement optimized attention solver
+  - problem-019/cursor: implement tiled GPU attention on the simulator
+  - problem-018/cursor: implement full Scheme interpreter
+  - problem-018: implement Scheme interpreter (parser + evaluator)
+  - AI kod araclari karsilastirmasi: 8 problem x 4 arac, analiz + sonuclar
+
+================================================================
+ARAC: cursor
+================================================================
+Derleme: hazir 'code'
+
+Dogruluk: 60/60  (exec=100/100)
+  gecen 60/60 (consensus'a gore)
+Max bellek: ? MB · Max hiz: 505 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 241 KB · Complexity avg/max: 6.9/29 · Yorum: %1.4
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=6.9) · BIRLESIK: 100.0/100
+
+Kod: 1265 satir, 6 dosya
+  .gitignore
+  CMakeLists.txt
+  README.md
+  src/bookstore.cpp  (1135 satir)
+  src/bookstore.hpp  (114 satir)
+  src/main.cpp  (16 satir)
+
+Git: repo yok
+
+================================================================
+OZET TABLO (kompakt · tam veri sonuclar.csv'de)
+================================================================
+arac         model                dogruluk  birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn        
+-----------  -------------------  --------  --------  -----  ------  --------  ---------  -------------
+antigravity  gemini-3.1-pro-high  60/60     100.0     0      264     0         -          -            
+claude-code  opus-4.8-high        60/60     96.0      14     31      2         -          -            
+codex        gpt-5.4-high         55/60     93.3      0      66      0         -          +272918/-1475
+cursor       opus-4.8-high        60/60     100.0     0      505     0         -          -            
+
+TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-004/sonuclar.csv
+
+Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-004/rapor.txt

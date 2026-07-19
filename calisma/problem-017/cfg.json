@@ -1,0 +1,5 @@
+{
+  "aciklama": "Train Ticket Management System (12306 benzeri) - STANDALONE, EN BUYUK problem (654 satir spec). Agent sifirdan yazar; STL konteyner + algorithm YASAK (kendi veri yapilari + disk depolama sart). Veri DISKTE kalici: her grup (basic_3..basic_6) parca parca (1.in..N.in) SIRAYLA AYNI dizinde calisir -> program kapanip acilir, veri diskte kalmali (kalicilik testi). Oracle: GERCEK beklenen cikti (out.txt) ile satir-satir kiyas -> graded acc (consensus DEGIL, gercek ground-truth). Build: standalone (default g++/cmake -> code).",
+  "correctness": "custom",
+  "mem_limit_mb": 512
+}

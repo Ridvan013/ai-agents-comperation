@@ -1,0 +1,5 @@
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
+015,antigravity,-,3349/3349,100.0,100.0,0,0,0,-,138,31,17,0.6,yok,100.0,3,338,-,-,-,-,-,-,-
+015,claude-code,-,3349/3349,100.0,90.0,1,0,0,-,53,27,16,9.1,yok,98.0,4,464,-,-,-,-,-,-,-
+015,codex,-,0/3349,0,0.0,-,-,-,-,-,-,-,0,yok,0.0,-,0,-,-,-,-,-,-,-
+015,cursor,-,0/3349,0,0.0,-,-,-,-,-,-,-,0,yok,0.0,-,0,25,+1002907/-2677,-,-,-,-,-

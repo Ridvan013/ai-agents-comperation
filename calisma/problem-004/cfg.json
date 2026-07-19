@@ -1,0 +1,5 @@
+{
+  "aciklama": "Bookstore Management System - STANDALONE (agent sifirdan yazar). Komut->cikti (su/register/show/buy/select/modify/import... EOF'a kadar; hatali islem 'Invalid'). REFERANS YOK (karmasik spec + gizli cevap) -> CROSS-AGENT CONSENSUS. consensus004.py 4 aracin ciktisinda cogunlugu ref/<t>.out'a yazar, sonra oracle.py her araci ona gore puanlar. Her test TAZE dizinde calisir (dosya-kaliciligi izolasyonu). Build: standalone g++ (tum .cpp -> code).",
+  "correctness": "custom",
+  "mem_limit_mb": 512
+}

@@ -4,7 +4,7 @@
 
 **Yöntem:** Manuel yürütme (abonelik/ücretsiz erişim, ~$0 maliyet). Doğruluk, SJTU/ACMOJ online judge'a erişim olmadığı için **kendi yerel checker'larımız + kendi gizli testlerimizle** ölçülür. Temel: ProjDevBench (arXiv 2602.01655). Tüm ölçümler WSL/Linux'ta, **tüm araçlar aynı ortamda** (göreceli kıyas adil).
 
-**Durum:** ✅ **8/8 problem tamam** — 32 koşu (8 problem × 4 araç). Sıradaki: istatistik + makale.
+**Durum:** ✅ **12 problem tamam** — 48 koşu (12 problem × 4 araç). Sıradaki: istatistik + makale.
 
 ---
 
@@ -35,6 +35,10 @@ Her araca **tek başlangıç promptu** verildi (kelimesi kelimesine aynı), ara�
 | 013 | STLite Map | 🟡 | Dengeli BST | 10 canonical test | 4 araç 10/10 · codex noexcept-bug, cursor null-deref |
 | 006 | Minesweeper | 🔴 | Oyun/protokol | 40 test (referans server; win/lose/autoexplore) | 3 araç 40/40 · **antigravity DERLENMEDİ** |
 | 014 | Python Interpreter | 🔴 | Yorumlayıcı (ANTLR4+C++) | 34 test, python3 ile kıyas | 3 araç 34/34 · **codex DERLENMEDİ** |
+| 018 | Scheme Interpreter | 🔴 | Yorumlayıcı (R5RS, C++) | 118 test, **cross-agent consensus** (referans yok) | **4 araç 118/118** (hepsi uzlaştı) |
+| 019 | GPU Attention Sim | 🔴 | Sistem/ML (matris) | 32 sorgu, resmi Rater + **gerçek ans.txt** (Error Rate) | **4 araç %100** |
+| 004 | Bookstore Yönetim | 🔴 | Yönetim sistemi (standalone) | 60 test, **cross-agent consensus** (referans yok) | 3 araç 60/60 · **codex 55/60** · antigravity CCN 172 |
+| 017 | Train Ticket Sistemi | 🔴 | EN BÜYÜK (disk-tabanlı, STL yasak) | 30 parça sıralı, **gerçek out.txt** (359k satır) | 3 araç %100 · **antigravity ~%0.1 (çöktü+TLE)** |
 
 **Her problemin doğrulaması bir referans doğru-çözümle test edildi** (doğru kod tam puan alıyor mu, template düşük alıyor mu). 014 hariç (tam C++ interpreter yazılamadı → python3-sarmalayıcıyla + agent skorlarıyla ampirik doğrulandı; bkz. §5).
 
@@ -73,13 +77,13 @@ Her araca **tek başlangıç promptu** verildi (kelimesi kelimesine aynı), ara�
 
 ```
 staj1/
-├── tum-sonuclar.csv        ← ★ ANA VERİ: TÜM sonuçlar tek tabloda (8 problem × 4 araç = 32 satır)
+├── tum-sonuclar.csv        ← ★ ANA VERİ: TÜM sonuçlar tek tabloda (12 problem × 4 araç = 48 satır)
 ├── kayit.csv               ← manuel notlar (model, müdahale, gözlem)
 ├── analiz.py               ← otomatik ölçüm scripti (her problemde kopyası var)
 ├── birlestir.py            ← problem sonuçlarını tum-sonuclar.csv'de birleştirir
 ├── NOTLAR-MANUEL.md        ← bu dosya (yöntem özeti)
 │
-├── calisma/problem-XXX/    ← her problem (002, 005, 006, 009, 013, 014, 020)
+├── calisma/problem-XXX/    ← her problem (002, 004, 005, 006, 009, 013, 014, 017, 018, 019, 020)
 │   ├── sonuclar/<arac>/    ← ★ o aracın ürettiği KOD + .git geçmişi
 │   ├── cfg.json            ← problemin build/kalite ayarı
 │   ├── oracle.py           ← problemin doğrulama mantığı
@@ -101,20 +105,21 @@ staj1/
 
 ## 5. Sonuç özeti
 
-**8 problem ortalaması (birleşik skor):**
+**12 problem ortalaması (birleşik skor):**
 
 | Sıra | Araç | Model | Ort. Birleşik | Özet |
 |:---:|------|-------|:---:|------|
-| 🥇 | Claude Code | Opus 4.8 | ~99 | 8/8 doğru, hiç çökmedi |
-| 🥈 | Cursor | Opus 4.8 | ~99 | 8/8 doğru, ufak güvenlik dingleri (UB, null-deref) |
-| 🥉 | Antigravity | Gemini 3.1 | ~82 | 006'da derlenmedi, 005 decoder zayıf |
-| 4 | Codex | GPT-5.4 | ~81 | 014'te derlenmedi, 005 decoder + 013 noexcept |
+| 🥇 | Cursor | Opus 4.8 | **99.1** | 12/12 doğru, ufak güvenlik dingleri; en temiz kod |
+| 🥈 | Claude Code | Opus 4.8 | **98.7** | 12/12 doğru, hiç çökmedi; 005 CCN + 004 uyarı |
+| 🥉 | Codex | GPT-5.4 | **85.8** | 014'te derlenmedi, 005 decoder, 013 noexcept, 004'te 55/60 |
+| 4 | Antigravity | Gemini 3.1 | **80.3** | 006'da derlenmedi, **017'de çöktü (~%0.1+TLE)**, 005 decoder |
 
 **Ana bulgular:**
-1. İki **Opus 4.8** aracı belirgin önde — 8 problemde hiç build hatası yok, hep doğru.
+1. İki **Opus 4.8** aracı belirgin önde — hiç build hatası yok, hep doğru.
 2. **005 QOI** en büyük ayırıcı: Opus'lar encode+decode tam; codex & Gemini decoder'da çöktü.
-3. **En zor 2 problemde farklı yerlerde tökezlediler:** codex 014'te, antigravity 006'da derlenmedi → "zor problem şampiyonu" yok.
+3. **En zor problemlerde ayrışma keskinleşiyor:** 006 (antigravity), 014 (codex) derlenmedi; **017 (en büyük — Train Ticket, STL yasak + disk kalıcılık) antigravity'yi çökertti** (~%0.1 + TLE) ama Opus'lar + codex %100. 018/019'da 4 araç da başarılı → tek "zor problem şampiyonu" yok, ama **iki Opus aracı her zaman ayakta**.
 4. **Doğruluk çoğu problemde eşitken** asıl ayrışma **güvenlik/kalite**de (cppcheck cursor'da UB+null-deref, codex'te noexcept-ihlali yakaladı).
+5. **Complexity çok değişken:** aynı problemde CCN 46 (cursor, 018) ile 121 (antigravity, 018) arası — aynı doğruluk, çok farklı kod.
 
 ---
 
@@ -125,7 +130,8 @@ staj1/
 3. **Güvenlik = cppcheck** (statik analiz) → bazı mantık açıklarını kaçırabilir. (Not: semgrep C/C++'ta offline çalışmadığı için cppcheck'e geçildi.)
 4. **hız/bellek = yerel makine** → standart OJ donanımı değil (ama tüm araçlar aynı makinede → göreceli adil). Agent **çalışma süresi ölçülmüyor** (onay bekleme + internet gecikmesi kirletiyor).
 5. **014 oracle = python3** → simplified-Python'dan ayrışan 2 test (scoping, f-string float) hariç tutuldu; kalan 34 test python3 ile birebir, agent skorlarıyla ampirik doğrulandı.
-6. **N=1** → tek koşu (stokastik); tekrar (N≥3) opsiyonel gelecek iş.
-7. **Contamination** → problemler public (SJTU); araçlar ezberlemiş olabilir.
+6. **018 oracle = cross-agent consensus** (referans yok — score/test sahte, simplified-Scheme özel semantik). 4 bağımsız yorumlayıcının çoğunluk uzlaşması "doğru" kabul edildi; 118 testin **hepsinde 4 araç uzlaştı** (0 ambiguous) → çok güvenilir ama teorik olarak %100 kesin değil (tüm araçlar aynı yanlışı yaparsa yakalanmaz).
+7. **N=1** → tek koşu (stokastik); tekrar (N≥3) opsiyonel gelecek iş.
+8. **Contamination** → problemler public (SJTU); araçlar ezberlemiş olabilir.
 
 → **Sonuç:** Mutlak "doğru kalite" ölçmüyor ama **araçlar arası göreceli kıyas için geçerli** — hepsi aynı terazide, aynı ortamda, aynı promptla tartıldı.

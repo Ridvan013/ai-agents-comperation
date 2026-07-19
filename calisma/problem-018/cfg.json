@@ -1,0 +1,7 @@
+{
+  "aciklama": "Scheme Interpreter (R5RS subset, C++) - framework. Agent src/evaluation.cpp + src/parser.cpp doldurur; diger src verili. Build: cmake -> build/code. REFERANS YOK (score/test sahte, simplified-Scheme ozel semantik). Oracle: CROSS-AGENT CONSENSUS -> consensus018.py 4 aracin ciktisinda cogunlugu ref/<t>.out'a yazar, sonra oracle.py her araci ona gore puanlar. REPL temizligi score.sh ile ayni (input+(exit), 'scm> ' prompt + son satir cikar).",
+  "build_cmd": "cmake -B build >/dev/null 2>&1 && cmake --build build -j4 >/dev/null 2>&1 && cp build/code code 2>/dev/null",
+  "kalite_glob": ["src/evaluation.cpp", "src/parser.cpp"],
+  "correctness": "custom",
+  "mem_limit_mb": 256
+}

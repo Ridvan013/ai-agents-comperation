@@ -1,0 +1,5 @@
+{
+  "aciklama": "File Storage - std::map benzeri key-value DB, DISKTE (belleğe yükleme YASAK; block-linked list vb.). STANDALONE (sifirdan). insert/delete/find (index<=64 byte, value non-negative int, (index,value) essiz; find -> degerler artan sirada veya 'null'). Oracle: Python-multimap ile uretilen GERCEK beklenen cikti (expected.txt) ile find satirlari kiyaslanir (graded, gercek ground-truth - consensus DEGIL). TAZE dizinde (disk dosyalari izole). Build: standalone g++.",
+  "correctness": "custom",
+  "mem_limit_mb": 256
+}

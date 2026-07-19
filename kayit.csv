@@ -31,3 +31,19 @@ tarih,problem,arac,model,tur_sayisi,mudahale,not
 2026-07-09,006,codex,gpt-5.4-high,,yok,40/40 tam; CCN 12 (en sade); 334 satir; 3 commit; survival %100; birlesik 100
 2026-07-09,006,cursor,opus-4.8-high,,yok,40/40 tam; CCN 19; 281 satir; 4 commit; survival %28; birlesik 100
 2026-07-09,006,antigravity,gemini-3.1-pro-high,,yok,0/40 DERLENMEDI (server.h'yi advanced.cpp'deki batch_mode'a bagladi -> basic 'server' target link hatasi); 304 satir dolu ama basic build patliyor; birlesik 0
+2026-07-09,018,claude-code,opus-4.8-high,,yok,118/118 (consensus-oracle: 4 arac 118 testte uzlasti); CCN 118; 1098 satir; commit yok; birlesik 100
+2026-07-09,018,cursor,opus-4.8-high,,yok,118/118; CCN 46 (en sade/temiz); 1145 satir; commit yok; birlesik 100
+2026-07-09,018,codex,gpt-5.4-high,,yok,118/118; CCN 92; 1185 satir (en cok); 3 commit (tek git kullanan); birlesik 100
+2026-07-09,018,antigravity,gemini-3.1-pro-high,,yok,118/118; CCN 121 (en karmasik); 945 satir (en kisa); commit yok; birlesik 100
+2026-07-09,019,claude-code,opus-4.8-high,,yok,acc %100 (Error Rate 0; gercek ans.txt); CCN 4 (en sade); 207 satir; yorum %19.3; commit yok; birlesik 100
+2026-07-09,019,cursor,opus-4.8-high,,yok,acc %100; CCN 5; 165 satir; en yavas (806ms); commit yok; birlesik 100
+2026-07-09,019,codex,gpt-5.4-high,,yok,acc %100; CCN 10; 108 satir (en kisa); 6 commit (tek git); en hizli 304ms; birlesik 100
+2026-07-09,019,antigravity,gemini-3.1-pro-high,,yok,acc %100 (Error Rate 0; final kod 112 satir); CCN 7; commit yok; birlesik 100
+2026-07-17,004,claude-code,opus-4.8-high,,yok,60/60 (consensus); YENIDEN kosuldu (ilk denemede token bitti); cppcheck 2 + 14 derleyici uyarisi; CCN 18 (temiz); 1871 satir 5 modul (account/book/log/bookstore/main); birlesik 96
+2026-07-09,004,cursor,opus-4.8-high,,yok,60/60 (consensus); CCN 29 (en sade); temiz; 1265 satir; birlesik 100
+2026-07-09,004,codex,gpt-5.4-high,,yok,55/60 (5 testte consensus'tan ayri-muhtemelen yanlis); CCN 32; temiz kod; 10 commit; build cop commit'ledi (churn +271k anomali); birlesik 93.3
+2026-07-09,004,antigravity,gemini-3.1-pro-high,,yok,60/60 (consensus); CCN 172 (ASIRI karmasik-tek fonksiyonda 172 dal); 874 satir (en kisa); birlesik 100
+2026-07-17,017,claude-code,opus-4.8-high,,yok,359770/359770 (%100 - gercek out.txt); STL/algorithm yasagi+disk kalicilik+B+agac; cppcheck 2; CCN 28; 1840 satir; birlesik 96
+2026-07-17,017,cursor,opus-4.8-high,,yok,359770/359770 (%100); cppcheck 1; CCN 32; 1505 satir; en hizli 110ms; birlesik 98
+2026-07-17,017,codex,gpt-5.4-high,,yok,359770/359770 (%100); cppcheck 5; CCN 85 (karmasik); 1291 satir (en kisa); 19 commit; birlesik 92
+2026-07-17,017,antigravity,gemini-3.1-pro-high,,yok,345/359770 (~%0.1 - COKTU: cikti yanlis + basic_4 TLE 120s); 1920 satir ama calismyor; STL-yasagi/disk-kalicilik/performansta basarisiz; birlesik 12

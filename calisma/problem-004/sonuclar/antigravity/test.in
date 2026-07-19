@@ -1,0 +1,10 @@
+su root sjtu
+useradd x y 3 x
+su x y
+select 123
+modify -name="test" -author="auth" -keyword="k1|k2" -price=12.34
+import 10 100
+show
+buy 123 2
+show finance
+logout

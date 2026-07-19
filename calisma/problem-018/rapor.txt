@@ -1,0 +1,161 @@
+(problem 018 · kayit.csv'den 4 arac eslesti)
+
+================================================================
+ARAC: antigravity
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 118/118  (exec=100/100)
+  gecen 118/118 (consensus'a gore)
+Max bellek: ? MB · Max hiz: 338 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 1529 KB · Complexity avg/max: 4.4/121 · Yorum: %2.5
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=4.4) · BIRLESIK: 100.0/100
+
+Kod: 945 satir, 18 dosya
+  CMakeLists.txt
+  README.md
+  test.scm
+  test2.scm
+  test3.scm
+  src/Def.cpp
+  src/Def.hpp
+  src/evaluation.cpp [agent]  (599 satir)
+  src/expr.cpp
+  src/expr.hpp
+  src/main.cpp
+  src/parser.cpp [agent]  (346 satir)
+  src/RE.cpp
+  src/RE.hpp
+  src/syntax.cpp
+  src/syntax.hpp
+  src/value.cpp
+  src/value.hpp
+
+Git: repo yok
+
+================================================================
+ARAC: claude-code
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 118/118  (exec=100/100)
+  gecen 118/118 (consensus'a gore)
+Max bellek: ? MB · Max hiz: 198 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 1517 KB · Complexity avg/max: 4.0/118 · Yorum: %7.8
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=4.0) · BIRLESIK: 100.0/100
+
+Kod: 1098 satir, 16 dosya
+  .gitignore
+  CMakeLists.txt
+  README.md
+  src/Def.cpp
+  src/Def.hpp
+  src/evaluation.cpp [agent]  (720 satir)
+  src/expr.cpp
+  src/expr.hpp
+  src/main.cpp
+  src/parser.cpp [agent]  (378 satir)
+  src/RE.cpp
+  src/RE.hpp
+  src/syntax.cpp
+  src/syntax.hpp
+  src/value.cpp
+  src/value.hpp
+
+Git: repo yok
+
+================================================================
+ARAC: codex
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 118/118  (exec=100/100)
+  gecen 118/118 (consensus'a gore)
+Max bellek: ? MB · Max hiz: 247 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 1434 KB · Complexity avg/max: 4.1/92 · Yorum: %0.3
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=4.1) · BIRLESIK: 100.0/100
+
+Kod: 1185 satir, 15 dosya
+  CMakeLists.txt
+  README.md
+  src/Def.cpp
+  src/Def.hpp
+  src/evaluation.cpp [agent]  (793 satir)
+  src/expr.cpp
+  src/expr.hpp
+  src/main.cpp
+  src/parser.cpp [agent]  (392 satir)
+  src/RE.cpp
+  src/RE.hpp
+  src/syntax.cpp
+  src/syntax.hpp
+  src/value.cpp
+  src/value.hpp
+
+Git: 3 commit, +2243/-0 (churn)
+  Satir survival: -% (ilk commit'ten kalan) · Rewrite orani: 1.89x
+  Commit mesajlari:
+- problem-018/cursor: implement full Scheme interpreter
+  - problem-018: implement Scheme interpreter (parser + evaluator)
+  - AI kod araclari karsilastirmasi: 8 problem x 4 arac, analiz + sonuclar
+
+================================================================
+ARAC: cursor
+================================================================
+Derleme: cfg build_cmd
+
+Dogruluk: 118/118  (exec=100/100)
+  gecen 118/118 (consensus'a gore)
+Max bellek: ? MB · Max hiz: 242 ms
+
+Derleyici uyari (-Wall -Wextra): 0
+Binary: 1430 KB · Complexity avg/max: 3.8/46 · Yorum: %9.2
+Guvenlik (cppcheck): 0 · clang-tidy: 0
+Bellek sizintisi (valgrind): - byte · Kendi testi: yok
+Code Review (proxy): 100/100 (CCN=3.8) · BIRLESIK: 100.0/100
+
+Kod: 1145 satir, 16 dosya
+  .gitignore
+  CMakeLists.txt
+  README.md
+  src/Def.cpp
+  src/Def.hpp
+  src/evaluation.cpp [agent]  (762 satir)
+  src/expr.cpp
+  src/expr.hpp
+  src/main.cpp
+  src/parser.cpp [agent]  (383 satir)
+  src/RE.cpp
+  src/RE.hpp
+  src/syntax.cpp
+  src/syntax.hpp
+  src/value.cpp
+  src/value.hpp
+
+Git: repo yok
+
+================================================================
+OZET TABLO (kompakt · tam veri sonuclar.csv'de)
+================================================================
+arac         model                dogruluk  birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn   
+-----------  -------------------  --------  --------  -----  ------  --------  ---------  --------
+antigravity  gemini-3.1-pro-high  118/118   100.0     0      338     0         -          -       
+claude-code  opus-4.8-high        118/118   100.0     0      198     0         -          -       
+codex        gpt-5.4-high         118/118   100.0     0      247     0         -          +2243/-0
+cursor       opus-4.8-high        118/118   100.0     0      242     0         -          -       
+
+TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-018/sonuclar.csv
+
+Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-018/rapor.txt

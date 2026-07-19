@@ -1,0 +1,7 @@
+{
+  "aciklama": "GPU Attention Simulator - framework. Agent src.hpp'deki Calculate'i yazar (attention: softmax(Q.K^T).V, GPU-sim ops ile). main.cpp/simulator.hpp verili. Oracle: canonical main.cpp + simulator.hpp + agent src.hpp derlenir, canonical data/ (gercek ans.txt) ile calisir; resmi Rater 'Error Rate: X' basar (X=0 kusursuz). acc=1-X. GERCEK ground-truth (Rater beklenen cevaplarla kiyaslar). Sadece DOGRULUK (performans/cycle = advanced, olculmuyor).",
+  "build_cmd": "g++ -O2 -std=c++17 main.cpp -o code",
+  "kalite_glob": ["src.hpp"],
+  "correctness": "custom",
+  "mem_limit_mb": 512
+}

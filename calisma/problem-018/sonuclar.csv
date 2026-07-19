@@ -1,0 +1,5 @@
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
+018,antigravity,gemini-3.1-pro-high,118/118,100.0,100.0,0,0,0,-,338,1529,121,2.5,yok,100.0,-,945,-,-,-,-,,yok,118/118; CCN 121 (en karmasik); 945 sati
+018,claude-code,opus-4.8-high,118/118,100.0,100.0,0,0,0,-,198,1517,118,7.8,yok,100.0,-,1098,-,-,-,-,,yok,118/118 (consensus-oracle: 4 arac 118 te
+018,codex,gpt-5.4-high,118/118,100.0,100.0,0,0,0,-,247,1434,92,0.3,yok,100.0,-,1185,3,+2243/-0,-,1.89,,yok,118/118; CCN 92; 1185 satir (en cok); 3 
+018,cursor,opus-4.8-high,118/118,100.0,100.0,0,0,0,-,242,1430,46,9.2,yok,100.0,-,1145,-,-,-,-,,yok,118/118; CCN 46 (en sade/temiz); 1145 sa
