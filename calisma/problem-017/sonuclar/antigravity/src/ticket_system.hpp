@@ -7,12 +7,12 @@
 #include <iostream>
 #include <string>
 
+#include "file_array.hpp"
 #include "hashmap.hpp"
 #include "utils.hpp"
 #include "vector.hpp"
 
 static const int kMaxSta = 100;
-static const int kMaxDays = 92;
 static const int kNameLen = 32;
 static const int kIdLen = 24;
 static const int kMailLen = 32;
@@ -25,11 +25,12 @@ struct User {
   char name[kNameLen];
   char mail[kMailLen];
   int privilege;
-  int order_cnt;  // number of orders
   User() {
-    username[0] = password[0] = name[0] = mail[0] = 0;
+    username[0] = 0;
+    password[0] = 0;
+    name[0] = 0;
+    mail[0] = 0;
     privilege = 0;
-    order_cnt = 0;
   }
 };
 
@@ -38,35 +39,37 @@ struct Train {
   int stationNum;
   int seatNum;
   char stations[kMaxSta][kStaLen];
-  int prices[kMaxSta];       // prices[i] = price station i -> i+1
-  int startTime;             // minutes from midnight
-  int travelTimes[kMaxSta];  // i -> i+1
+  int prices[kMaxSta];
+  int startTime;
+  int travelTimes[kMaxSta];
   int stopoverTimes[kMaxSta];
-  int saleBegin;  // day id
+  int saleBegin;
   int saleEnd;
   char type;
   bool released;
   bool deleted;
-  // Precomputed: leave_offset[i] = minutes from start departure to leaving station i
-  // arrive_offset[i] = minutes from start departure to arriving at station i
+  int seat_offset;
   int leave_offset[kMaxSta];
   int arrive_offset[kMaxSta];
-  int prefix_price[kMaxSta];  // price from station 0 to i
+  int prefix_price[kMaxSta];
 
   Train() {
     trainID[0] = 0;
-    stationNum = seatNum = 0;
+    stationNum = 0;
+    seatNum = 0;
     startTime = 0;
-    saleBegin = saleEnd = 0;
+    saleBegin = 0;
+    saleEnd = 0;
     type = 'G';
     released = false;
     deleted = false;
-    memset(prices, 0, sizeof(prices));
-    memset(travelTimes, 0, sizeof(travelTimes));
-    memset(stopoverTimes, 0, sizeof(stopoverTimes));
-    memset(leave_offset, 0, sizeof(leave_offset));
-    memset(arrive_offset, 0, sizeof(arrive_offset));
-    memset(prefix_price, 0, sizeof(prefix_price));
+    seat_offset = -1;
+    std::memset(prices, 0, sizeof(prices));
+    std::memset(travelTimes, 0, sizeof(travelTimes));
+    std::memset(stopoverTimes, 0, sizeof(stopoverTimes));
+    std::memset(leave_offset, 0, sizeof(leave_offset));
+    std::memset(arrive_offset, 0, sizeof(arrive_offset));
+    std::memset(prefix_price, 0, sizeof(prefix_price));
     for (int i = 0; i < kMaxSta; ++i) stations[i][0] = 0;
   }
 
@@ -74,14 +77,12 @@ struct Train {
     leave_offset[0] = 0;
     arrive_offset[0] = 0;
     prefix_price[0] = 0;
-    int t = 0;
+    int minutes = 0;
     for (int i = 0; i + 1 < stationNum; ++i) {
-      t += travelTimes[i];
-      arrive_offset[i + 1] = t;
-      if (i + 1 < stationNum - 1) {
-        t += stopoverTimes[i];  // stopover at station i+1
-      }
-      leave_offset[i + 1] = t;
+      minutes += travelTimes[i];
+      arrive_offset[i + 1] = minutes;
+      if (i + 1 < stationNum - 1) minutes += stopoverTimes[i];
+      leave_offset[i + 1] = minutes;
       prefix_price[i + 1] = prefix_price[i] + prices[i];
     }
   }
@@ -97,17 +98,24 @@ struct Train {
 enum OrderStatus { kSuccess = 0, kPending = 1, kRefunded = 2 };
 
 struct Order {
-  int order_id;  // global sequential id (transaction time)
+  int order_id;
   int user_idx;
   int train_idx;
-  int start_day;  // departure day from train origin
+  int start_day;
   int from;
   int to;
   int num;
-  int price;  // unit price
+  int price;
   OrderStatus status;
   Order() {
-    order_id = user_idx = train_idx = start_day = from = to = num = price = 0;
+    order_id = 0;
+    user_idx = 0;
+    train_idx = 0;
+    start_day = 0;
+    from = 0;
+    to = 0;
+    num = 0;
+    price = 0;
     status = kSuccess;
   }
 };
@@ -127,108 +135,47 @@ struct TicketCand {
   int price;
   int seat;
   int time_cost;
+  char train_id[kIdLen];
+  TicketCand() {
+    train_idx = 0;
+    from = 0;
+    to = 0;
+    start_day = 0;
+    leave_abs = 0;
+    arrive_abs = 0;
+    price = 0;
+    seat = 0;
+    time_cost = 0;
+    train_id[0] = 0;
+  }
 };
 
 struct TransferCand {
-  TicketCand a, b;
+  TicketCand a;
+  TicketCand b;
   int total_time;
   int total_cost;
   int ride1_time;
+  TransferCand() {
+    total_time = 0;
+    total_cost = 0;
+    ride1_time = 0;
+  }
 };
 
 class TicketSystem {
   Vector<User> users_;
-  Vector<Train> trains_;
-  HashMap<int> user_idx_;   // username -> index
-  HashMap<int> train_idx_;  // trainID -> index
+  CachedFileArray<Train, 64> trains_;
+  CachedFileArray<Order, 128> orders_;
+  HashMap<int> user_idx_;
+  HashMap<int> train_idx_;
   StringSet logged_in_;
-
-  // station name -> list of StationRef (only released trains)
   HashMap<Vector<StationRef> *> station_map_;
-  Vector<Vector<StationRef> *> station_vecs_;  // owned pointers for cleanup
-
-  // seats_[train_idx] is a flat array: day_offset * (stationNum-1) + seg
-  // day_offset = start_day - saleBegin
-  Vector<int *> seats_;
-  Vector<int> seats_len_;
-
-  Vector<Order> orders_;
-  // user_orders_[user_idx] = list of order indices (newest last; query reverses)
+  Vector<Vector<StationRef> *> station_vecs_;
   Vector<Vector<int> > user_orders_;
-
-  // pending queue: order indices in FIFO
   Vector<int> pending_;
-
+  std::fstream seats_fs_;
   int next_order_id_;
-
-  void index_station(const char *sta, int ti, int si) {
-    Vector<StationRef> **pp = station_map_.find(sta);
-    if (!pp) {
-      Vector<StationRef> *v = new Vector<StationRef>();
-      StationRef r;
-      r.train_idx = ti;
-      r.sta_idx = si;
-      v->push_back(r);
-      station_map_.put(sta, v);
-      station_vecs_.push_back(v);
-    } else {
-      StationRef r;
-      r.train_idx = ti;
-      r.sta_idx = si;
-      (*pp)->push_back(r);
-    }
-  }
-
-  int *get_seats(int ti, int start_day) {
-    Train &tr = trains_[ti];
-    int day_off = start_day - tr.saleBegin;
-    int segs = tr.stationNum - 1;
-    return seats_[ti] + day_off * segs;
-  }
-
-  int remaining(int ti, int start_day, int from, int to) {
-    int *s = get_seats(ti, start_day);
-    int mn = s[from];
-    for (int i = from + 1; i < to; ++i) {
-      if (s[i] < mn) mn = s[i];
-    }
-    return mn;
-  }
-
-  void deduct(int ti, int start_day, int from, int to, int n) {
-    int *s = get_seats(ti, start_day);
-    for (int i = from; i < to; ++i) s[i] -= n;
-  }
-
-  void restore(int ti, int start_day, int from, int to, int n) {
-    int *s = get_seats(ti, start_day);
-    for (int i = from; i < to; ++i) s[i] += n;
-  }
-
-  void process_queue() {
-    for (int i = 0; i < pending_.size();) {
-      int oi = pending_[i];
-      Order &o = orders_[oi];
-      if (o.status != kPending) {
-        pending_.erase_at(i);
-        continue;
-      }
-      int rem = remaining(o.train_idx, o.start_day, o.from, o.to);
-      if (rem >= o.num) {
-        deduct(o.train_idx, o.start_day, o.from, o.to, o.num);
-        o.status = kSuccess;
-        pending_.erase_at(i);
-        // continue from same i after erase
-      } else {
-        ++i;
-      }
-    }
-  }
-
-  void print_user(const User &u) {
-    std::cout << u.username << ' ' << u.name << ' ' << u.mail << ' ' << u.privilege
-              << '\n';
-  }
 
   static void cpy(char *dst, const std::string &src, int maxlen) {
     int n = (int)src.size();
@@ -237,201 +184,295 @@ class TicketSystem {
     dst[n] = 0;
   }
 
- public:
-  TicketSystem() : next_order_id_(0) {}
+  void print_user(const User &u) const {
+    std::cout << u.username << ' ' << u.name << ' ' << u.mail << ' ' << u.privilege
+              << '\n';
+  }
 
-  ~TicketSystem() { clear_all(); }
+  void index_station(const char *sta, int train_idx, int sta_idx) {
+    Vector<StationRef> **pp = station_map_.find(sta);
+    StationRef ref;
+    ref.train_idx = train_idx;
+    ref.sta_idx = sta_idx;
+    if (!pp) {
+      Vector<StationRef> *vec = new Vector<StationRef>();
+      vec->push_back(ref);
+      station_map_.put(sta, vec);
+      station_vecs_.push_back(vec);
+    } else {
+      (*pp)->push_back(ref);
+    }
+  }
 
-  void clear_all() {
+  void clear_indexes() {
     for (int i = 0; i < station_vecs_.size(); ++i) delete station_vecs_[i];
     station_vecs_.clear();
     station_map_.clear();
-    for (int i = 0; i < seats_.size(); ++i) delete[] seats_[i];
-    seats_.clear();
-    seats_len_.clear();
-    users_.clear();
-    trains_.clear();
     user_idx_.clear();
     train_idx_.clear();
     logged_in_.clear();
-    orders_.clear();
+  }
+
+  void close_storage() {
+    trains_.close();
+    orders_.close();
+    if (seats_fs_.is_open()) {
+      seats_fs_.flush();
+      seats_fs_.close();
+    }
+  }
+
+  void open_storage(const std::string &prefix) {
+    trains_.open(prefix + "trains.dat");
+    orders_.open(prefix + "orders.dat");
+    seats_fs_.open((prefix + "seats.dat").c_str(),
+                   std::ios::in | std::ios::out | std::ios::binary);
+    if (!seats_fs_) {
+      seats_fs_.clear();
+      seats_fs_.open((prefix + "seats.dat").c_str(), std::ios::out | std::ios::binary);
+      seats_fs_.close();
+      seats_fs_.open((prefix + "seats.dat").c_str(),
+                     std::ios::in | std::ios::out | std::ios::binary);
+    }
+  }
+
+  void remove_storage_files(const std::string &prefix) {
+    close_storage();
+    std::remove((prefix + "meta.dat").c_str());
+    std::remove((prefix + "trains.dat").c_str());
+    std::remove((prefix + "orders.dat").c_str());
+    std::remove((prefix + "seats.dat").c_str());
+  }
+
+  void read_seats(const Train &tr, int start_day, int from, int len, int *buf) {
+    int segs = tr.stationNum - 1;
+    int day_off = start_day - tr.saleBegin;
+    int offset = tr.seat_offset + (day_off * segs + from) * (int)sizeof(int);
+    seats_fs_.clear();
+    seats_fs_.seekg(offset, std::ios::beg);
+    seats_fs_.read(reinterpret_cast<char *>(buf), len * sizeof(int));
+  }
+
+  void write_seats(const Train &tr, int start_day, int from, int len, int *buf) {
+    int segs = tr.stationNum - 1;
+    int day_off = start_day - tr.saleBegin;
+    int offset = tr.seat_offset + (day_off * segs + from) * (int)sizeof(int);
+    seats_fs_.clear();
+    seats_fs_.seekp(offset, std::ios::beg);
+    seats_fs_.write(reinterpret_cast<const char *>(buf), len * sizeof(int));
+    seats_fs_.flush();
+  }
+
+  int remaining(const Train &tr, int start_day, int from, int to) {
+    int len = to - from;
+    int stack_buf[kMaxSta];
+    int *buf = (len <= kMaxSta) ? stack_buf : new int[len];
+    read_seats(tr, start_day, from, len, buf);
+    int ans = buf[0];
+    for (int i = 1; i < len; ++i) {
+      if (buf[i] < ans) ans = buf[i];
+    }
+    if (buf != stack_buf) delete[] buf;
+    return ans;
+  }
+
+  void change_seats(const Train &tr, int start_day, int from, int to, int delta) {
+    int len = to - from;
+    int stack_buf[kMaxSta];
+    int *buf = (len <= kMaxSta) ? stack_buf : new int[len];
+    read_seats(tr, start_day, from, len, buf);
+    for (int i = 0; i < len; ++i) buf[i] += delta;
+    write_seats(tr, start_day, from, len, buf);
+    if (buf != stack_buf) delete[] buf;
+  }
+
+  void fill_ticket(TicketCand &cand, const Train &tr, int train_idx, int from, int to,
+                   int start_day) {
+    cand.train_idx = train_idx;
+    cand.from = from;
+    cand.to = to;
+    cand.start_day = start_day;
+    int base = start_day * 1440 + tr.startTime;
+    cand.leave_abs = base + tr.leave_offset[from];
+    cand.arrive_abs = base + tr.arrive_offset[to];
+    cand.price = tr.prefix_price[to] - tr.prefix_price[from];
+    cand.seat = remaining(tr, start_day, from, to);
+    cand.time_cost = cand.arrive_abs - cand.leave_abs;
+    cpy(cand.train_id, tr.trainID, kIdLen);
+  }
+
+  bool better_transfer(const TransferCand &x, const TransferCand &y, bool by_time) const {
+    if (by_time) {
+      if (x.total_time != y.total_time) return x.total_time < y.total_time;
+    } else {
+      if (x.total_cost != y.total_cost) return x.total_cost < y.total_cost;
+    }
+    if (x.ride1_time != y.ride1_time) return x.ride1_time < y.ride1_time;
+    int cmp1 = std::strcmp(x.a.train_id, y.a.train_id);
+    if (cmp1 != 0) return cmp1 < 0;
+    return std::strcmp(x.b.train_id, y.b.train_id) < 0;
+  }
+
+  void process_queue() {
+    for (int i = 0; i < pending_.size();) {
+      int order_index = pending_[i];
+      Order order = orders_.read(order_index);
+      if (order.status != kPending) {
+        pending_.erase_at(i);
+        continue;
+      }
+      Train tr = trains_.read(order.train_idx);
+      int rem = remaining(tr, order.start_day, order.from, order.to);
+      if (rem >= order.num) {
+        change_seats(tr, order.start_day, order.from, order.to, -order.num);
+        order.status = kSuccess;
+        orders_.update(order_index, order);
+        pending_.erase_at(i);
+      } else {
+        ++i;
+      }
+    }
+  }
+
+ public:
+  TicketSystem() : next_order_id_(0) {}
+
+  ~TicketSystem() {
+    close_storage();
+    clear_all();
+  }
+
+  void clear_all() {
+    clear_indexes();
+    users_.clear();
     user_orders_.clear();
     pending_.clear();
     next_order_id_ = 0;
   }
 
-  // ---------- persistence ----------
   void save(const char *prefix = "") {
     std::string p(prefix);
-    {
-      std::ofstream f(p + "users.dat", std::ios::binary);
-      int n = users_.size();
-      f.write((char *)&n, sizeof(n));
-      f.write((char *)&next_order_id_, sizeof(next_order_id_));
-      for (int i = 0; i < n; ++i) f.write((char *)&users_[i], sizeof(User));
+    close_storage();
+    std::ofstream out((p + "meta.dat").c_str(), std::ios::binary);
+    int user_count = users_.size();
+    out.write(reinterpret_cast<const char *>(&user_count), sizeof(user_count));
+    out.write(reinterpret_cast<const char *>(&next_order_id_), sizeof(next_order_id_));
+    for (int i = 0; i < user_count; ++i) {
+      out.write(reinterpret_cast<const char *>(&users_[i]), sizeof(User));
     }
-    {
-      std::ofstream f(p + "trains.dat", std::ios::binary);
-      int n = trains_.size();
-      f.write((char *)&n, sizeof(n));
-      for (int i = 0; i < n; ++i) f.write((char *)&trains_[i], sizeof(Train));
-    }
-    {
-      std::ofstream f(p + "seats.dat", std::ios::binary);
-      int n = seats_.size();
-      f.write((char *)&n, sizeof(n));
-      for (int i = 0; i < n; ++i) {
-        int len = seats_len_[i];
-        f.write((char *)&len, sizeof(len));
-        if (len > 0 && seats_[i]) f.write((char *)seats_[i], sizeof(int) * len);
+
+    int order_vec_count = user_orders_.size();
+    out.write(reinterpret_cast<const char *>(&order_vec_count), sizeof(order_vec_count));
+    for (int i = 0; i < order_vec_count; ++i) {
+      int cnt = user_orders_[i].size();
+      out.write(reinterpret_cast<const char *>(&cnt), sizeof(cnt));
+      for (int j = 0; j < cnt; ++j) {
+        int v = user_orders_[i][j];
+        out.write(reinterpret_cast<const char *>(&v), sizeof(v));
       }
     }
-    {
-      std::ofstream f(p + "orders.dat", std::ios::binary);
-      int n = orders_.size();
-      f.write((char *)&n, sizeof(n));
-      for (int i = 0; i < n; ++i) f.write((char *)&orders_[i], sizeof(Order));
-      int un = user_orders_.size();
-      f.write((char *)&un, sizeof(un));
-      for (int i = 0; i < un; ++i) {
-        int m = user_orders_[i].size();
-        f.write((char *)&m, sizeof(m));
-        for (int j = 0; j < m; ++j) {
-          int v = user_orders_[i][j];
-          f.write((char *)&v, sizeof(v));
-        }
-      }
-      int pn = pending_.size();
-      f.write((char *)&pn, sizeof(pn));
-      for (int i = 0; i < pn; ++i) {
-        int v = pending_[i];
-        f.write((char *)&v, sizeof(v));
-      }
+
+    int pending_count = pending_.size();
+    out.write(reinterpret_cast<const char *>(&pending_count), sizeof(pending_count));
+    for (int i = 0; i < pending_count; ++i) {
+      int v = pending_[i];
+      out.write(reinterpret_cast<const char *>(&v), sizeof(v));
     }
   }
 
   bool load(const char *prefix = "") {
     std::string p(prefix);
-    std::ifstream fu(p + "users.dat", std::ios::binary);
-    if (!fu) return false;
     clear_all();
-    int n = 0;
-    fu.read((char *)&n, sizeof(n));
-    fu.read((char *)&next_order_id_, sizeof(next_order_id_));
-    users_.resize(n);
-    for (int i = 0; i < n; ++i) {
-      fu.read((char *)&users_[i], sizeof(User));
+    open_storage(p);
+
+    std::ifstream in((p + "meta.dat").c_str(), std::ios::binary);
+    if (!in) return false;
+
+    int user_count = 0;
+    in.read(reinterpret_cast<char *>(&user_count), sizeof(user_count));
+    in.read(reinterpret_cast<char *>(&next_order_id_), sizeof(next_order_id_));
+    users_.resize(user_count);
+    user_orders_.resize(user_count);
+    for (int i = 0; i < user_count; ++i) {
+      in.read(reinterpret_cast<char *>(&users_[i]), sizeof(User));
       user_idx_.put(users_[i].username, i);
     }
-    user_orders_.resize(n);
 
-    std::ifstream ft(p + "trains.dat", std::ios::binary);
-    int tn = 0;
-    ft.read((char *)&tn, sizeof(tn));
-    trains_.resize(tn);
-    seats_.resize(tn);
-    seats_len_.resize(tn);
-    for (int i = 0; i < tn; ++i) {
-      seats_[i] = nullptr;
-      seats_len_[i] = 0;
-      ft.read((char *)&trains_[i], sizeof(Train));
-      if (!trains_[i].deleted) {
-        train_idx_.put(trains_[i].trainID, i);
-        if (trains_[i].released) {
-          for (int si = 0; si < trains_[i].stationNum; ++si) {
-            index_station(trains_[i].stations[si], i, si);
-          }
-        }
-      }
-    }
-
-    std::ifstream fs(p + "seats.dat", std::ios::binary);
-    int sn = 0;
-    fs.read((char *)&sn, sizeof(sn));
-    for (int i = 0; i < sn; ++i) {
-      int len = 0;
-      fs.read((char *)&len, sizeof(len));
-      seats_len_[i] = len;
-      if (len > 0) {
-        seats_[i] = new int[len];
-        fs.read((char *)seats_[i], sizeof(int) * len);
-      }
-    }
-
-    std::ifstream fo(p + "orders.dat", std::ios::binary);
-    int on = 0;
-    fo.read((char *)&on, sizeof(on));
-    orders_.resize(on);
-    for (int i = 0; i < on; ++i) fo.read((char *)&orders_[i], sizeof(Order));
-    int un = 0;
-    fo.read((char *)&un, sizeof(un));
-    if (un > user_orders_.size()) user_orders_.resize(un);
-    for (int i = 0; i < un; ++i) {
-      int m = 0;
-      fo.read((char *)&m, sizeof(m));
-      user_orders_[i].resize(m);
-      for (int j = 0; j < m; ++j) {
+    int order_vec_count = 0;
+    in.read(reinterpret_cast<char *>(&order_vec_count), sizeof(order_vec_count));
+    user_orders_.resize(order_vec_count);
+    for (int i = 0; i < order_vec_count; ++i) {
+      int cnt = 0;
+      in.read(reinterpret_cast<char *>(&cnt), sizeof(cnt));
+      user_orders_[i].resize(cnt);
+      for (int j = 0; j < cnt; ++j) {
         int v = 0;
-        fo.read((char *)&v, sizeof(v));
+        in.read(reinterpret_cast<char *>(&v), sizeof(v));
         user_orders_[i][j] = v;
       }
     }
-    int pn = 0;
-    fo.read((char *)&pn, sizeof(pn));
-    pending_.resize(pn);
-    for (int i = 0; i < pn; ++i) {
+
+    int pending_count = 0;
+    in.read(reinterpret_cast<char *>(&pending_count), sizeof(pending_count));
+    pending_.resize(pending_count);
+    for (int i = 0; i < pending_count; ++i) {
       int v = 0;
-      fo.read((char *)&v, sizeof(v));
+      in.read(reinterpret_cast<char *>(&v), sizeof(v));
       pending_[i] = v;
+    }
+
+    int train_count = trains_.size();
+    for (int i = 0; i < train_count; ++i) {
+      Train tr = trains_.read(i);
+      if (tr.deleted) continue;
+      train_idx_.put(tr.trainID, i);
+      if (tr.released) {
+        for (int j = 0; j < tr.stationNum; ++j) index_station(tr.stations[j], i, j);
+      }
     }
     return true;
   }
 
-  // ---------- commands ----------
   void add_user(const std::string &c, const std::string &u, const std::string &p,
                 const std::string &n, const std::string &m, int g) {
     if (user_idx_.contains(u.c_str())) {
       std::cout << "-1\n";
       return;
     }
-    User nu;
-    cpy(nu.username, u, kIdLen);
-    cpy(nu.password, p, kPassLen);
-    cpy(nu.name, n, kNameLen);
-    cpy(nu.mail, m, kMailLen);
+
+    User user;
+    cpy(user.username, u, kIdLen);
+    cpy(user.password, p, kPassLen);
+    cpy(user.name, n, kNameLen);
+    cpy(user.mail, m, kMailLen);
+
     if (users_.empty()) {
-      nu.privilege = 10;
+      user.privilege = 10;
     } else {
       if (!logged_in_.contains(c)) {
         std::cout << "-1\n";
         return;
       }
-      int ci;
-      user_idx_.get(c, ci);
-      if (g >= users_[ci].privilege) {
+      int cur_idx = 0;
+      user_idx_.get(c, cur_idx);
+      if (g >= users_[cur_idx].privilege) {
         std::cout << "-1\n";
         return;
       }
-      nu.privilege = g;
+      user.privilege = g;
     }
+
     int idx = users_.size();
-    users_.push_back(nu);
+    users_.push_back(user);
     user_idx_.put(u, idx);
     user_orders_.push_back(Vector<int>());
     std::cout << "0\n";
   }
 
   void login(const std::string &u, const std::string &p) {
-    int ui;
-    if (!user_idx_.get(u, ui)) {
-      std::cout << "-1\n";
-      return;
-    }
-    if (logged_in_.contains(u)) {
-      std::cout << "-1\n";
-      return;
-    }
-    if (std::strcmp(users_[ui].password, p.c_str()) != 0) {
+    int idx = 0;
+    if (!user_idx_.get(u, idx) || logged_in_.contains(u) ||
+        std::strcmp(users_[idx].password, p.c_str()) != 0) {
       std::cout << "-1\n";
       return;
     }
@@ -440,11 +481,10 @@ class TicketSystem {
   }
 
   void logout(const std::string &u) {
-    if (!logged_in_.contains(u)) {
+    if (!logged_in_.erase(u)) {
       std::cout << "-1\n";
       return;
     }
-    logged_in_.erase(u);
     std::cout << "0\n";
   }
 
@@ -453,16 +493,16 @@ class TicketSystem {
       std::cout << "-1\n";
       return;
     }
-    int ci, ui;
-    if (!user_idx_.get(c, ci) || !user_idx_.get(u, ui)) {
+    int cur_idx = 0, user_idx = 0;
+    if (!user_idx_.get(c, cur_idx) || !user_idx_.get(u, user_idx)) {
       std::cout << "-1\n";
       return;
     }
-    if (c != u && users_[ci].privilege <= users_[ui].privilege) {
+    if (c != u && users_[cur_idx].privilege <= users_[user_idx].privilege) {
       std::cout << "-1\n";
       return;
     }
-    print_user(users_[ui]);
+    print_user(users_[user_idx]);
   }
 
   void modify_profile(const std::string &c, const std::string &u, bool has_p,
@@ -472,24 +512,25 @@ class TicketSystem {
       std::cout << "-1\n";
       return;
     }
-    int ci, ui;
-    if (!user_idx_.get(c, ci) || !user_idx_.get(u, ui)) {
+    int cur_idx = 0, user_idx = 0;
+    if (!user_idx_.get(c, cur_idx) || !user_idx_.get(u, user_idx)) {
       std::cout << "-1\n";
       return;
     }
-    if (c != u && users_[ci].privilege <= users_[ui].privilege) {
+    if (c != u && users_[cur_idx].privilege <= users_[user_idx].privilege) {
       std::cout << "-1\n";
       return;
     }
-    if (has_g && g >= users_[ci].privilege) {
+    if (has_g && g >= users_[cur_idx].privilege) {
       std::cout << "-1\n";
       return;
     }
-    if (has_p) cpy(users_[ui].password, p, kPassLen);
-    if (has_n) cpy(users_[ui].name, n, kNameLen);
-    if (has_m) cpy(users_[ui].mail, m, kMailLen);
-    if (has_g) users_[ui].privilege = g;
-    print_user(users_[ui]);
+
+    if (has_p) cpy(users_[user_idx].password, p, kPassLen);
+    if (has_n) cpy(users_[user_idx].name, n, kNameLen);
+    if (has_m) cpy(users_[user_idx].mail, m, kMailLen);
+    if (has_g) users_[user_idx].privilege = g;
+    print_user(users_[user_idx]);
   }
 
   void add_train(const std::string &id, int n, int m, const std::string &s,
@@ -499,87 +540,80 @@ class TicketSystem {
       std::cout << "-1\n";
       return;
     }
+
     Train tr;
     cpy(tr.trainID, id, kIdLen);
     tr.stationNum = n;
     tr.seatNum = m;
     tr.type = y;
-    Vector<std::string> sts = split_pipe(s);
-    for (int i = 0; i < n; ++i) cpy(tr.stations[i], sts[i], kStaLen);
-    Vector<int> pr = split_pipe_int(p);
-    for (int i = 0; i < n - 1; ++i) tr.prices[i] = pr[i];
+
+    Vector<std::string> stations = split_pipe(s);
+    for (int i = 0; i < n; ++i) cpy(tr.stations[i], stations[i], kStaLen);
+
+    Vector<int> prices = split_pipe_int(p);
+    for (int i = 0; i < n - 1; ++i) tr.prices[i] = prices[i];
+
     tr.startTime = parse_time(x);
-    Vector<int> tt = split_pipe_int(t);
-    for (int i = 0; i < n - 1; ++i) tr.travelTimes[i] = tt[i];
-    Vector<int> so = split_pipe_int(o);
-    for (int i = 0; i < n - 2; ++i) tr.stopoverTimes[i] = so[i];
-    Vector<std::string> dd = split_pipe(d);
-    tr.saleBegin = parse_date(dd[0]);
-    tr.saleEnd = parse_date(dd[1]);
-    tr.released = false;
-    tr.deleted = false;
+
+    Vector<int> travel = split_pipe_int(t);
+    for (int i = 0; i < n - 1; ++i) tr.travelTimes[i] = travel[i];
+
+    Vector<int> stopover = split_pipe_int(o);
+    for (int i = 0; i < n - 2; ++i) tr.stopoverTimes[i] = stopover[i];
+
+    Vector<std::string> sale = split_pipe(d);
+    tr.saleBegin = parse_date(sale[0]);
+    tr.saleEnd = parse_date(sale[1]);
     tr.compute_offsets();
 
-    int ti = trains_.size();
-    trains_.push_back(tr);
-    train_idx_.put(id, ti);
+    seats_fs_.clear();
+    seats_fs_.seekp(0, std::ios::end);
+    std::streamoff end_pos = seats_fs_.tellp();
+    if (end_pos < 0) end_pos = 0;
+    tr.seat_offset = (int)end_pos;
 
-    int days = tr.saleEnd - tr.saleBegin + 1;
-    int segs = n - 1;
-    int len = days * segs;
-    int *arr = new int[len];
-    for (int i = 0; i < len; ++i) arr[i] = m;
-    seats_.push_back(arr);
-    seats_len_.push_back(len);
+    int len = (tr.saleEnd - tr.saleBegin + 1) * (tr.stationNum - 1);
+    int *buf = new int[len];
+    for (int i = 0; i < len; ++i) buf[i] = tr.seatNum;
+    seats_fs_.write(reinterpret_cast<const char *>(buf), len * sizeof(int));
+    seats_fs_.flush();
+    delete[] buf;
+
+    int idx = trains_.push_back(tr);
+    train_idx_.put(id, idx);
     std::cout << "0\n";
   }
 
   void release_train(const std::string &id) {
-    int ti;
-    if (!train_idx_.get(id, ti)) {
+    int idx = 0;
+    if (!train_idx_.get(id, idx)) {
       std::cout << "-1\n";
       return;
     }
-    Train &tr = trains_[ti];
-    if (tr.released || tr.deleted) {
+    Train tr = trains_.read(idx);
+    if (tr.deleted || tr.released) {
       std::cout << "-1\n";
       return;
     }
     tr.released = true;
-    for (int si = 0; si < tr.stationNum; ++si) {
-      index_station(tr.stations[si], ti, si);
-    }
-    std::cout << "0\n";
-  }
-
-  void delete_train(const std::string &id) {
-    int ti;
-    if (!train_idx_.get(id, ti)) {
-      std::cout << "-1\n";
-      return;
-    }
-    Train &tr = trains_[ti];
-    if (tr.released || tr.deleted) {
-      std::cout << "-1\n";
-      return;
-    }
-    tr.deleted = true;
-    train_idx_.erase(id);
+    trains_.update(idx, tr);
+    for (int i = 0; i < tr.stationNum; ++i) index_station(tr.stations[i], idx, i);
     std::cout << "0\n";
   }
 
   void query_train(const std::string &id, const std::string &ds) {
-    int ti;
-    if (!train_idx_.get(id, ti)) {
+    int idx = 0;
+    if (!train_idx_.get(id, idx)) {
       std::cout << "-1\n";
       return;
     }
-    Train &tr = trains_[ti];
+    Train tr = trains_.read(idx);
     int day = parse_date(ds);
     if (day < tr.saleBegin || day > tr.saleEnd) {
       std::cout << "-1\n";
       return;
     }
+
     std::cout << tr.trainID << ' ' << tr.type << '\n';
     int base = day * 1440 + tr.startTime;
     for (int i = 0; i < tr.stationNum; ++i) {
@@ -591,6 +625,7 @@ class TicketSystem {
         format_datetime(base + tr.arrive_offset[i], buf);
         std::cout << buf;
       }
+
       std::cout << " -> ";
       if (i == tr.stationNum - 1) {
         std::cout << "xx-xx xx:xx";
@@ -599,190 +634,145 @@ class TicketSystem {
         format_datetime(base + tr.leave_offset[i], buf);
         std::cout << buf;
       }
+
       std::cout << ' ' << tr.prefix_price[i] << ' ';
       if (i == tr.stationNum - 1) {
         std::cout << "x\n";
+      } else if (!tr.released) {
+        std::cout << tr.seatNum << '\n';
       } else {
-        int rem;
-        if (!tr.released) {
-          rem = tr.seatNum;
-        } else {
-          rem = get_seats(ti, day)[i];
-        }
-        std::cout << rem << '\n';
+        std::cout << remaining(tr, day, i, i + 1) << '\n';
       }
     }
+  }
+
+  void delete_train(const std::string &id) {
+    int idx = 0;
+    if (!train_idx_.get(id, idx)) {
+      std::cout << "-1\n";
+      return;
+    }
+    Train tr = trains_.read(idx);
+    if (tr.deleted || tr.released) {
+      std::cout << "-1\n";
+      return;
+    }
+    tr.deleted = true;
+    trains_.update(idx, tr);
+    train_idx_.erase(id);
+    std::cout << "0\n";
   }
 
   void query_ticket(const std::string &from, const std::string &to,
                     const std::string &ds, bool by_time) {
     int day = parse_date(ds);
-    Vector<StationRef> **pp = station_map_.find(from);
     Vector<TicketCand> cands;
+    Vector<StationRef> **pp = station_map_.find(from);
     if (pp && *pp) {
       Vector<StationRef> &refs = **pp;
       for (int i = 0; i < refs.size(); ++i) {
-        int ti = refs[i].train_idx;
-        int fi = refs[i].sta_idx;
-        Train &tr = trains_[ti];
-        if (!tr.released || tr.deleted) continue;
-        int ti_to = tr.find_station(to.c_str());
-        if (ti_to < 0 || ti_to <= fi) continue;
-        // leave day from boarding station = day
-        // start_day * 1440 + startTime + leave_offset[fi]  's day part == day
-        // leave_abs = start_day*1440 + startTime + leave_offset[fi]
-        // leave_abs / 1440 == day
-        // start_day*1440 + startTime + leave_offset[fi] = day*1440 + (startTime+leave_offset[fi])%1440
-        // Actually: leave_tod_total = startTime + leave_offset[fi]
-        // leave_day = start_day + leave_tod_total / 1440
-        // we need leave_day == day => start_day = day - leave_tod_total/1440
-        int leave_from_start = tr.startTime + tr.leave_offset[fi];
+        int train_index = refs[i].train_idx;
+        int from_index = refs[i].sta_idx;
+        Train tr = trains_.read(train_index);
+        if (tr.deleted || !tr.released) continue;
+
+        int to_index = tr.find_station(to.c_str());
+        if (to_index <= from_index) continue;
+
+        int leave_from_start = tr.startTime + tr.leave_offset[from_index];
         int start_day = day - leave_from_start / 1440;
         if (start_day < tr.saleBegin || start_day > tr.saleEnd) continue;
-        TicketCand c;
-        c.train_idx = ti;
-        c.from = fi;
-        c.to = ti_to;
-        c.start_day = start_day;
-        int base = start_day * 1440 + tr.startTime;
-        c.leave_abs = base + tr.leave_offset[fi];
-        c.arrive_abs = base + tr.arrive_offset[ti_to];
-        c.price = tr.prefix_price[ti_to] - tr.prefix_price[fi];
-        c.seat = remaining(ti, start_day, fi, ti_to);
-        c.time_cost = c.arrive_abs - c.leave_abs;
-        cands.push_back(c);
+
+        TicketCand cand;
+        fill_ticket(cand, tr, train_index, from_index, to_index, start_day);
+        cands.push_back(cand);
       }
     }
+
     if (by_time) {
       sort_vec(cands, [&](const TicketCand &a, const TicketCand &b) {
         if (a.time_cost != b.time_cost) return a.time_cost < b.time_cost;
-        return std::strcmp(trains_[a.train_idx].trainID, trains_[b.train_idx].trainID) < 0;
+        return std::strcmp(a.train_id, b.train_id) < 0;
       });
     } else {
       sort_vec(cands, [&](const TicketCand &a, const TicketCand &b) {
         if (a.price != b.price) return a.price < b.price;
-        return std::strcmp(trains_[a.train_idx].trainID, trains_[b.train_idx].trainID) < 0;
+        return std::strcmp(a.train_id, b.train_id) < 0;
       });
     }
+
     std::cout << cands.size() << '\n';
     for (int i = 0; i < cands.size(); ++i) {
-      TicketCand &c = cands[i];
-      Train &tr = trains_[c.train_idx];
-      char lb[32], ab[32];
-      format_datetime(c.leave_abs, lb);
-      format_datetime(c.arrive_abs, ab);
-      std::cout << tr.trainID << ' ' << tr.stations[c.from] << ' ' << lb << " -> "
-                << tr.stations[c.to] << ' ' << ab << ' ' << c.price << ' ' << c.seat
-                << '\n';
+      Train tr = trains_.read(cands[i].train_idx);
+      char leave_buf[32], arrive_buf[32];
+      format_datetime(cands[i].leave_abs, leave_buf);
+      format_datetime(cands[i].arrive_abs, arrive_buf);
+      std::cout << cands[i].train_id << ' ' << tr.stations[cands[i].from] << ' '
+                << leave_buf << " -> " << tr.stations[cands[i].to] << ' ' << arrive_buf
+                << ' ' << cands[i].price << ' ' << cands[i].seat << '\n';
     }
   }
 
   void query_transfer(const std::string &from, const std::string &to,
                       const std::string &ds, bool by_time) {
     int day = parse_date(ds);
-    Vector<StationRef> **pp = station_map_.find(from);
     bool found = false;
     TransferCand best;
+    Vector<StationRef> **pp = station_map_.find(from);
     if (pp && *pp) {
       Vector<StationRef> &refs = **pp;
-      // Collect all candidate first-leg trains
       for (int i = 0; i < refs.size(); ++i) {
-        int ti1 = refs[i].train_idx;
-        int fi = refs[i].sta_idx;
-        Train &tr1 = trains_[ti1];
-        if (!tr1.released || tr1.deleted) continue;
-        int leave_from_start = tr1.startTime + tr1.leave_offset[fi];
+        int train1_index = refs[i].train_idx;
+        int from_index = refs[i].sta_idx;
+        Train tr1 = trains_.read(train1_index);
+        if (tr1.deleted || !tr1.released) continue;
+
+        int leave_from_start = tr1.startTime + tr1.leave_offset[from_index];
         int start_day1 = day - leave_from_start / 1440;
         if (start_day1 < tr1.saleBegin || start_day1 > tr1.saleEnd) continue;
+
         int base1 = start_day1 * 1440 + tr1.startTime;
-        int leave1 = base1 + tr1.leave_offset[fi];
-
-        // Transfer at any later station on train1 (not destination)
-        for (int mid = fi + 1; mid < tr1.stationNum; ++mid) {
-          // Don't transfer if mid is the final destination we're going to
-          // (that would be direct, but we need exactly one transfer)
+        for (int mid = from_index + 1; mid < tr1.stationNum; ++mid) {
           if (std::strcmp(tr1.stations[mid], to.c_str()) == 0) continue;
-
           int arrive_mid = base1 + tr1.arrive_offset[mid];
           Vector<StationRef> **pp2 = station_map_.find(tr1.stations[mid]);
           if (!pp2 || !*pp2) continue;
+
           Vector<StationRef> &refs2 = **pp2;
           for (int j = 0; j < refs2.size(); ++j) {
-            int ti2 = refs2[j].train_idx;
+            int train2_index = refs2[j].train_idx;
             int mid2 = refs2[j].sta_idx;
-            if (ti2 == ti1) continue;
-            Train &tr2 = trains_[ti2];
-            if (!tr2.released || tr2.deleted) continue;
-            int ti_to = tr2.find_station(to.c_str());
-            if (ti_to < 0 || ti_to <= mid2) continue;
+            if (train2_index == train1_index) continue;
 
-            // train2 must leave mid at or after arrive_mid
-            // leave2_abs = start_day2*1440 + startTime2 + leave_offset[mid2]
-            // need leave2_abs >= arrive_mid
-            // Also boarding day at mid for train2 can be any day >= arrive day
-            // Iterate possible start_day2 in sale range
-            // leave2 = start_day2*1440 + st2 + lo2 >= arrive_mid
-            // start_day2 >= ceil((arrive_mid - st2 - lo2) / 1440)
-            int lo2 = tr2.startTime + tr2.leave_offset[mid2];
-            // leave = start_day2*1440 + lo2 >= arrive_mid
-            // start_day2*1440 >= arrive_mid - lo2
-            int need = arrive_mid - lo2;
-            int start_day2 = (need <= 0) ? 0 : (need + 1439) / 1440;
-            if (start_day2 < tr2.saleBegin) start_day2 = tr2.saleBegin;
-            if (start_day2 > tr2.saleEnd) continue;
+            Train tr2 = trains_.read(train2_index);
+            if (tr2.deleted || !tr2.released) continue;
+            int to_index = tr2.find_station(to.c_str());
+            if (to_index <= mid2) continue;
 
-            int base2 = start_day2 * 1440 + tr2.startTime;
+            int leave2_from_start = tr2.startTime + tr2.leave_offset[mid2];
+            int need_start_day = (arrive_mid - leave2_from_start + 1439) / 1440;
+            if (arrive_mid <= leave2_from_start) need_start_day = 0;
+            if (need_start_day < tr2.saleBegin) need_start_day = tr2.saleBegin;
+            if (need_start_day > tr2.saleEnd) continue;
+
+            int base2 = need_start_day * 1440 + tr2.startTime;
             int leave2 = base2 + tr2.leave_offset[mid2];
             if (leave2 < arrive_mid) {
-              // try next day
-              ++start_day2;
-              if (start_day2 > tr2.saleEnd) continue;
-              base2 = start_day2 * 1440 + tr2.startTime;
+              ++need_start_day;
+              if (need_start_day > tr2.saleEnd) continue;
+              base2 = need_start_day * 1440 + tr2.startTime;
               leave2 = base2 + tr2.leave_offset[mid2];
               if (leave2 < arrive_mid) continue;
             }
 
-            int arrive2 = base2 + tr2.arrive_offset[ti_to];
             TransferCand cand;
-            cand.a.train_idx = ti1;
-            cand.a.from = fi;
-            cand.a.to = mid;
-            cand.a.start_day = start_day1;
-            cand.a.leave_abs = leave1;
-            cand.a.arrive_abs = arrive_mid;
-            cand.a.price = tr1.prefix_price[mid] - tr1.prefix_price[fi];
-            cand.a.seat = remaining(ti1, start_day1, fi, mid);
-            cand.a.time_cost = arrive_mid - leave1;
-
-            cand.b.train_idx = ti2;
-            cand.b.from = mid2;
-            cand.b.to = ti_to;
-            cand.b.start_day = start_day2;
-            cand.b.leave_abs = leave2;
-            cand.b.arrive_abs = arrive2;
-            cand.b.price = tr2.prefix_price[ti_to] - tr2.prefix_price[mid2];
-            cand.b.seat = remaining(ti2, start_day2, mid2, ti_to);
-            cand.b.time_cost = arrive2 - leave2;
-
-            cand.total_time = arrive2 - leave1;
+            fill_ticket(cand.a, tr1, train1_index, from_index, mid, start_day1);
+            fill_ticket(cand.b, tr2, train2_index, mid2, to_index, need_start_day);
+            cand.total_time = cand.b.arrive_abs - cand.a.leave_abs;
             cand.total_cost = cand.a.price + cand.b.price;
             cand.ride1_time = cand.a.time_cost;
 
-            auto better = [&](const TransferCand &x, const TransferCand &y) -> bool {
-              if (by_time) {
-                if (x.total_time != y.total_time) return x.total_time < y.total_time;
-              } else {
-                if (x.total_cost != y.total_cost) return x.total_cost < y.total_cost;
-              }
-              if (x.ride1_time != y.ride1_time) return x.ride1_time < y.ride1_time;
-              int cmp1 = std::strcmp(trains_[x.a.train_idx].trainID,
-                                     trains_[y.a.train_idx].trainID);
-              if (cmp1 != 0) return cmp1 < 0;
-              return std::strcmp(trains_[x.b.train_idx].trainID,
-                                 trains_[y.b.train_idx].trainID) < 0;
-            };
-
-            if (!found || better(cand, best)) {
+            if (!found || better_transfer(cand, best, by_time)) {
               best = cand;
               found = true;
             }
@@ -790,19 +780,22 @@ class TicketSystem {
         }
       }
     }
+
     if (!found) {
       std::cout << "0\n";
       return;
     }
-    auto print_leg = [&](TicketCand &c) {
-      Train &tr = trains_[c.train_idx];
-      char lb[32], ab[32];
-      format_datetime(c.leave_abs, lb);
-      format_datetime(c.arrive_abs, ab);
-      std::cout << tr.trainID << ' ' << tr.stations[c.from] << ' ' << lb << " -> "
-                << tr.stations[c.to] << ' ' << ab << ' ' << c.price << ' ' << c.seat
-                << '\n';
+
+    auto print_leg = [&](const TicketCand &cand) {
+      Train tr = trains_.read(cand.train_idx);
+      char leave_buf[32], arrive_buf[32];
+      format_datetime(cand.leave_abs, leave_buf);
+      format_datetime(cand.arrive_abs, arrive_buf);
+      std::cout << cand.train_id << ' ' << tr.stations[cand.from] << ' ' << leave_buf
+                << " -> " << tr.stations[cand.to] << ' ' << arrive_buf << ' '
+                << cand.price << ' ' << cand.seat << '\n';
     };
+
     print_leg(best.a);
     print_leg(best.b);
   }
@@ -813,63 +806,64 @@ class TicketSystem {
       std::cout << "-1\n";
       return;
     }
-    int ui, ti;
-    if (!user_idx_.get(u, ui) || !train_idx_.get(id, ti)) {
+
+    int user_index = 0, train_index = 0;
+    if (!user_idx_.get(u, user_index) || !train_idx_.get(id, train_index)) {
       std::cout << "-1\n";
       return;
     }
-    Train &tr = trains_[ti];
-    if (!tr.released || tr.deleted) {
+
+    Train tr = trains_.read(train_index);
+    if (tr.deleted || !tr.released || n <= 0 || n > tr.seatNum) {
       std::cout << "-1\n";
       return;
     }
-    if (n <= 0 || n > tr.seatNum) {
+
+    int from_index = tr.find_station(f.c_str());
+    int to_index = tr.find_station(t.c_str());
+    if (from_index < 0 || to_index <= from_index) {
       std::cout << "-1\n";
       return;
     }
-    int fi = tr.find_station(f.c_str());
-    int ti_to = tr.find_station(t.c_str());
-    if (fi < 0 || ti_to < 0 || fi >= ti_to) {
-      std::cout << "-1\n";
-      return;
-    }
+
     int day = parse_date(ds);
-    int leave_from_start = tr.startTime + tr.leave_offset[fi];
+    int leave_from_start = tr.startTime + tr.leave_offset[from_index];
     int start_day = day - leave_from_start / 1440;
     if (start_day < tr.saleBegin || start_day > tr.saleEnd) {
       std::cout << "-1\n";
       return;
     }
-    int price = tr.prefix_price[ti_to] - tr.prefix_price[fi];
-    int rem = remaining(ti, start_day, fi, ti_to);
 
-    Order o;
-    o.order_id = next_order_id_++;
-    o.user_idx = ui;
-    o.train_idx = ti;
-    o.start_day = start_day;
-    o.from = fi;
-    o.to = ti_to;
-    o.num = n;
-    o.price = price;
+    Order order;
+    order.order_id = next_order_id_++;
+    order.user_idx = user_index;
+    order.train_idx = train_index;
+    order.start_day = start_day;
+    order.from = from_index;
+    order.to = to_index;
+    order.num = n;
+    order.price = tr.prefix_price[to_index] - tr.prefix_price[from_index];
 
+    int rem = remaining(tr, start_day, from_index, to_index);
     if (rem >= n) {
-      deduct(ti, start_day, fi, ti_to, n);
-      o.status = kSuccess;
-      int oi = orders_.size();
-      orders_.push_back(o);
-      user_orders_[ui].push_back(oi);
-      std::cout << (long long)price * n << '\n';
-    } else if (queue) {
-      o.status = kPending;
-      int oi = orders_.size();
-      orders_.push_back(o);
-      user_orders_[ui].push_back(oi);
-      pending_.push_back(oi);
-      std::cout << "queue\n";
-    } else {
-      std::cout << "-1\n";
+      change_seats(tr, start_day, from_index, to_index, -n);
+      order.status = kSuccess;
+      int order_index = orders_.push_back(order);
+      user_orders_[user_index].push_back(order_index);
+      std::cout << (long long)order.price * n << '\n';
+      return;
     }
+
+    if (!queue) {
+      std::cout << "-1\n";
+      return;
+    }
+
+    order.status = kPending;
+    int order_index = orders_.push_back(order);
+    user_orders_[user_index].push_back(order_index);
+    pending_.push_back(order_index);
+    std::cout << "queue\n";
   }
 
   void query_order(const std::string &u) {
@@ -877,25 +871,28 @@ class TicketSystem {
       std::cout << "-1\n";
       return;
     }
-    int ui;
-    if (!user_idx_.get(u, ui)) {
+
+    int user_index = 0;
+    if (!user_idx_.get(u, user_index)) {
       std::cout << "-1\n";
       return;
     }
-    Vector<int> &uos = user_orders_[ui];
-    std::cout << uos.size() << '\n';
-    for (int i = uos.size() - 1; i >= 0; --i) {
-      Order &o = orders_[uos[i]];
-      Train &tr = trains_[o.train_idx];
-      const char *st =
-          o.status == kSuccess ? "success" : (o.status == kPending ? "pending" : "refunded");
-      int base = o.start_day * 1440 + tr.startTime;
-      char lb[32], ab[32];
-      format_datetime(base + tr.leave_offset[o.from], lb);
-      format_datetime(base + tr.arrive_offset[o.to], ab);
-      std::cout << '[' << st << "] " << tr.trainID << ' ' << tr.stations[o.from] << ' '
-                << lb << " -> " << tr.stations[o.to] << ' ' << ab << ' ' << o.price << ' '
-                << o.num << '\n';
+
+    Vector<int> &orders = user_orders_[user_index];
+    std::cout << orders.size() << '\n';
+    for (int i = orders.size() - 1; i >= 0; --i) {
+      Order order = orders_.read(orders[i]);
+      Train tr = trains_.read(order.train_idx);
+      const char *status = order.status == kSuccess
+                               ? "success"
+                               : (order.status == kPending ? "pending" : "refunded");
+      int base = order.start_day * 1440 + tr.startTime;
+      char leave_buf[32], arrive_buf[32];
+      format_datetime(base + tr.leave_offset[order.from], leave_buf);
+      format_datetime(base + tr.arrive_offset[order.to], arrive_buf);
+      std::cout << '[' << status << "] " << tr.trainID << ' ' << tr.stations[order.from]
+                << ' ' << leave_buf << " -> " << tr.stations[order.to] << ' '
+                << arrive_buf << ' ' << order.price << ' ' << order.num << '\n';
     }
   }
 
@@ -904,46 +901,51 @@ class TicketSystem {
       std::cout << "-1\n";
       return;
     }
-    int ui;
-    if (!user_idx_.get(u, ui)) {
+
+    int user_index = 0;
+    if (!user_idx_.get(u, user_index)) {
       std::cout << "-1\n";
       return;
     }
-    Vector<int> &uos = user_orders_[ui];
-    if (n < 1 || n > uos.size()) {
+
+    Vector<int> &orders = user_orders_[user_index];
+    if (n < 1 || n > orders.size()) {
       std::cout << "-1\n";
       return;
     }
-    int oi = uos[uos.size() - n];
-    Order &o = orders_[oi];
-    if (o.status == kRefunded) {
+
+    int order_index = orders[orders.size() - n];
+    Order order = orders_.read(order_index);
+    if (order.status == kRefunded) {
       std::cout << "-1\n";
       return;
     }
-    if (o.status == kSuccess) {
-      restore(o.train_idx, o.start_day, o.from, o.to, o.num);
-      o.status = kRefunded;
-      process_queue();
-    } else if (o.status == kPending) {
-      o.status = kRefunded;
-      // will be cleaned from pending on next process or here
+
+    if (order.status == kPending) {
+      order.status = kRefunded;
+      orders_.update(order_index, order);
       for (int i = 0; i < pending_.size(); ++i) {
-        if (pending_[i] == oi) {
+        if (pending_[i] == order_index) {
           pending_.erase_at(i);
           break;
         }
       }
+      std::cout << "0\n";
+      return;
     }
+
+    Train tr = trains_.read(order.train_idx);
+    change_seats(tr, order.start_day, order.from, order.to, order.num);
+    order.status = kRefunded;
+    orders_.update(order_index, order);
+    process_queue();
     std::cout << "0\n";
   }
 
   void clean() {
     clear_all();
-    // remove data files
-    std::remove("users.dat");
-    std::remove("trains.dat");
-    std::remove("seats.dat");
-    std::remove("orders.dat");
+    remove_storage_files("");
+    open_storage("");
     std::cout << "0\n";
   }
 
