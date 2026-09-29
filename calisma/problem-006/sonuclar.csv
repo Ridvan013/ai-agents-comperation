@@ -1,5 +1,5 @@
-problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
-006,antigravity,gemini-3.1-pro-high,0/40,0,0.0,0,0,0,-,-,-,26,43.1,yok,0.0,-,304,-,-,-,-,,yok,0/40 DERLENMEDI (server.h'yi advanced.cp
-006,claude-code,opus-4.8-high,40/40,100.0,100.0,0,0,0,-,15,17,19,28.4,yok,100.0,3,275,3,+383/-108,22.2,1.39,,yok,40/40 tam; CCN 19; 275 satir; 3 commit; 
-006,codex,gpt-5.4-high,40/40,100.0,100.0,0,0,0,-,21,37,12,39.2,yok,100.0,3,334,3,+334/-0,100.0,1.0,,yok,40/40 tam; CCN 12 (en sade); 334 satir; 
-006,cursor,opus-4.8-high,40/40,100.0,100.0,0,0,0,-,16,31,19,27.8,yok,100.0,3,281,4,+370/-89,28.5,1.32,,yok,40/40 tam; CCN 19; 281 satir; 4 commit; 
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not,exec_lim,tle,mle,cpu_ms
+006,antigravity,gemini-3.1-pro-high,0/40,0,0.0,0,0,0,-,-,-,26,43.1,yok,0.0,-,304,-,-,-,-,,yok,0/40 DERLENMEDI (server.h'yi advanced.cp,0.0,-,-,-
+006,claude-code,opus-4.8-high,40/40,100.0,100.0,0,0,0,-,60,17,19,28.4,yok,100.0,3,275,-,-,-,-,,yok,40/40 tam; CCN 19; 275 satir; 3 commit; ,100.0,0,0,0
+006,codex,gpt-5.4-high,40/40,100.0,100.0,0,0,0,-,78,37,12,39.2,yok,100.0,3,334,-,-,-,-,,yok,40/40 tam; CCN 12 (en sade); 334 satir; ,100.0,0,0,20
+006,cursor,opus-4.8-high,40/40,100.0,100.0,0,0,0,-,35,31,19,27.8,yok,100.0,3,281,-,-,-,-,,yok,40/40 tam; CCN 19; 281 satir; 4 commit; ,100.0,0,0,0

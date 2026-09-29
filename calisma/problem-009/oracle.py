@@ -12,6 +12,10 @@ Yontem (canonical ref_data ile - agent kurcalayamaz):
 Cikti (analiz.py'nin parse ettigi): son satir 'SONUC gecen=X toplam=N ms=M rss_kb=R'
 """
 import sys, os, subprocess, time, re, shutil, tempfile
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import olcum
+
+L = olcum.Limit("009")
 
 exe = os.path.abspath(sys.argv[1])
 SOL = os.path.dirname(exe)               # agent klasoru
@@ -25,7 +29,7 @@ def norm(s):
     return s.replace("\r\n", "\n").rstrip("\n")
 
 
-gecen = toplam = 0
+gecen = gecen_lim = toplam = 0
 max_ms = 0.0
 max_rss = 0   # SADECE test binary'sinin RSS'i (g++ derleyici bellegi haric - /usr/bin/time ile)
 
@@ -44,19 +48,20 @@ for t in TESTS:
         continue
     try:
         t0 = time.monotonic()
-        # /usr/bin/time -v: test binary'sinin kendi peak RSS'ini verir (derleyici degil)
-        r = subprocess.run(["/usr/bin/time", "-v", binp], capture_output=True, text=True, timeout=30)
+        # /usr/bin/time: test binary'sinin kendi CPU/peak RSS'i (derleyici degil)
+        r = olcum.run([binp], timeout=30)
         max_ms = max(max_ms, (time.monotonic() - t0) * 1000)
-        m = re.search(r"Maximum resident set size \(kbytes\):\s*(\d+)", r.stderr)
-        if m:
-            max_rss = max(max_rss, int(m.group(1)))
+        max_rss = max(max_rss, r.rss_kb or 0)
     except subprocess.TimeoutExpired:
+        L.ok(None)
         print(f"{t}: TLE")
         continue
+    lim_ok = L.ok(r)
     want = open(ans, encoding="utf-8", errors="replace").read()
     if norm(r.stdout) == norm(want):
         gecen += 1
-        print(f"{t}: PASS")
+        gecen_lim += int(lim_ok)
+        print(f"{t}: PASS" + ("" if lim_ok else " (limit asildi)"))
     else:
         print(f"{t}: FAIL")
 
@@ -74,4 +79,5 @@ if shutil.which("valgrind"):
         except subprocess.TimeoutExpired:
             leak_byte = -1
 
+print(L.satir(gecen_lim, toplam))
 print(f"SONUC gecen={gecen} toplam={toplam} ms={max_ms:.0f} rss_kb={max_rss} leak_byte={leak_byte}")

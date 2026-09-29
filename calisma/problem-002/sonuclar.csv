@@ -1,5 +1,5 @@
-problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
-002,antigravity,gemini-3.1-pro-high,352/352,100.0,100.0,0,0,1,0,29,37,17,5.9,var,100.0,3,471,1,+471/-0,100.0,1.0,,yok,352/352 tam; kendi testi; 471 satir (en 
-002,claude-code,opus-4.8-high,352/352,100.0,100.0,0,0,1,0,13,55,16,13.7,var,100.0,3,875,4,+886/-11,0.8,1.01,,yok,352/352 tam (floor bolme dahil); kendi t
-002,codex,gpt-5.4-high,352/352,100.0,100.0,0,0,1,0,11,36,11,4.5,var,100.0,3,638,2,+638/-0,100.0,1.0,,yok,352/352 tam; kendi testi; CCN 11 (en sad
-002,cursor,opus-4.8-high,352/352,100.0,100.0,0,0,1,0,10,36,26,13.7,var,100.0,3,701,5,+713/-12,0.9,1.02,,yok,352/352 tam; kendi testi; CCN 26 (en kar
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not,exec_lim,tle,mle,cpu_ms
+002,antigravity,gemini-3.1-pro-high,352/352,100.0,100.0,0,0,1,0,22,37,17,5.9,var,100.0,3,471,-,-,-,-,,yok,352/352 tam; kendi testi; 471 satir (en ,100.0,0,0,0
+002,claude-code,opus-4.8-high,352/352,100.0,100.0,0,0,1,0,7,55,16,13.7,var,100.0,3,875,-,-,-,-,,yok,352/352 tam (floor bolme dahil); kendi t,100.0,0,0,0
+002,codex,gpt-5.4-high,352/352,100.0,100.0,0,0,1,0,8,36,11,4.5,var,100.0,3,638,-,-,-,-,,yok,352/352 tam; kendi testi; CCN 11 (en sad,100.0,0,0,0
+002,cursor,opus-4.8-high,352/352,100.0,100.0,0,0,1,0,13,36,26,13.7,var,100.0,3,701,-,-,-,-,,yok,352/352 tam; kendi testi; CCN 26 (en kar,100.0,0,0,0

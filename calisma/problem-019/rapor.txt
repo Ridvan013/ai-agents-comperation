@@ -3,11 +3,13 @@
 ================================================================
 ARAC: antigravity
 ================================================================
-Derleme: cfg build_cmd
+Derleme: temiz derleme: cfg build_cmd
 
 Dogruluk: 10000/10000  (exec=100/100)
   Error Rate: 0.000000 -> acc %100.00
-Max bellek: 14 MB · Max hiz: 1007 ms
+  LIMIT gecen=10000 toplam=10000 tl_ms=1000 ml_mb=244 tle=0 mle=0 cpu_ms=90 rss_kb=14876
+Max bellek: 14 MB · Max hiz: 357 ms
+Resmi limitlerle (TL 1000 ms CPU, ML 244 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 90 ms · max RSS 14 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 96 KB · Complexity avg/max: 4.0/7 · Yorum: %5.3
@@ -15,27 +17,25 @@ Guvenlik (cppcheck): 0 · clang-tidy: 1
 Bellek sizintisi (valgrind): - byte · Kendi testi: yok
 Code Review (proxy): 100/100 (CCN=4.0) · BIRLESIK: 100.0/100
 
-Kod: 113 satir, 9 dosya
-  CMakeLists.txt
-  main.cpp
+Kod: 113 satir, 5 dosya
   README.md
+  main.cpp
+  CMakeLists.txt
   simulator.hpp
   src.hpp [agent]  (113 satir)
-  data/ans.txt
-  data/keys.txt
-  data/queries.txt
-  data/values.txt
 
 Git: repo yok
 
 ================================================================
 ARAC: claude-code
 ================================================================
-Derleme: cfg build_cmd
+Derleme: temiz derleme: cfg build_cmd
 
 Dogruluk: 10000/10000  (exec=100/100)
   Error Rate: 0.000000 -> acc %100.00
-Max bellek: 112 MB · Max hiz: 1135 ms
+  LIMIT gecen=10000 toplam=10000 tl_ms=1000 ml_mb=244 tle=0 mle=0 cpu_ms=140 rss_kb=114756
+Max bellek: 112 MB · Max hiz: 227 ms
+Resmi limitlerle (TL 1000 ms CPU, ML 244 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 140 ms · max RSS 112 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 80 KB · Complexity avg/max: 2.0/4 · Yorum: %19.3
@@ -43,27 +43,25 @@ Guvenlik (cppcheck): 0 · clang-tidy: 1
 Bellek sizintisi (valgrind): - byte · Kendi testi: yok
 Code Review (proxy): 100/100 (CCN=2.0) · BIRLESIK: 100.0/100
 
-Kod: 207 satir, 9 dosya
-  CMakeLists.txt
-  main.cpp
+Kod: 207 satir, 5 dosya
   README.md
+  main.cpp
+  CMakeLists.txt
   simulator.hpp
   src.hpp [agent]  (207 satir)
-  data/ans.txt
-  data/keys.txt
-  data/queries.txt
-  data/values.txt
 
 Git: repo yok
 
 ================================================================
 ARAC: codex
 ================================================================
-Derleme: cfg build_cmd
+Derleme: temiz derleme: cfg build_cmd
 
 Dogruluk: 10000/10000  (exec=100/100)
   Error Rate: 0.000000 -> acc %100.00
-Max bellek: 69 MB · Max hiz: 346 ms
+  LIMIT gecen=10000 toplam=10000 tl_ms=1000 ml_mb=244 tle=0 mle=0 cpu_ms=120 rss_kb=71156
+Max bellek: 69 MB · Max hiz: 191 ms
+Resmi limitlerle (TL 1000 ms CPU, ML 244 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 120 ms · max RSS 69 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 80 KB · Complexity avg/max: 5.5/10 · Yorum: %0.0
@@ -71,21 +69,36 @@ Guvenlik (cppcheck): 0 · clang-tidy: 1
 Bellek sizintisi (valgrind): - byte · Kendi testi: yok
 Code Review (proxy): 100/100 (CCN=5.5) · BIRLESIK: 100.0/100
 
-Kod: 108 satir, 9 dosya
-  CMakeLists.txt
-  main.cpp
+Kod: 108 satir, 5 dosya
   README.md
+  main.cpp
+  CMakeLists.txt
   simulator.hpp
   src.hpp [agent]  (108 satir)
-  data/ans.txt
-  data/keys.txt
-  data/queries.txt
-  data/values.txt
 
-Git: 7 commit, +480/-0 (churn)
-  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 4.44x
+Git: 26 commit, +593/-0 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 5.49x
   Commit mesajlari:
-- Implement bookstore management system with file persistence.
+- 12 problem x 4 arac tamamlandi (48 kosu) + 004/017/018/019 eklendi
+  - Persist state on EOF
+  - problem-017/antigravity: persist trains/orders/seats on disk
+  - Handle repeated exit commands in test inputs
+  - problem-017/antigravity: remove unused file_array.hpp
+  - problem-017/antigravity: implement train ticket management system
+  - problem-015/claude-code: implement on-disk B+ tree file storage
+  - problem-017/claude-code: drop unused locals in query_transfer
+  - problem-017/claude-code: implement train ticket management system
+  - Implement persistent ticket system solution
+  - Add build scaffold for problem 017
+  - Implement train ticket management system for problem-017.
+  - problem-004/claude-code: clarify leaf descent in the B+ tree
+  - problem-004/claude-code: fix money formatting for negative amounts
+  - problem-004/claude-code: document B+ tree cache sizing; ignore code.exe
+  - problem-004/claude-code: rewrite bookstore on disk-resident B+ tree indices
+  - problem-004/claude-code: implement bookstore management system
+  - Implement bookstore management system
+  - Fix modify iterator invalidation and fstream failbit handling.
+  - Implement bookstore management system with file persistence.
   - problem-019/claude-code: implement attention via rank-1 GPU kernels
   - Implement optimized attention solver
   - problem-019/cursor: implement tiled GPU attention on the simulator
@@ -96,11 +109,13 @@ Git: 7 commit, +480/-0 (churn)
 ================================================================
 ARAC: cursor
 ================================================================
-Derleme: cfg build_cmd
+Derleme: temiz derleme: cfg build_cmd
 
 Dogruluk: 10000/10000  (exec=100/100)
   Error Rate: 0.000000 -> acc %100.00
-Max bellek: 331 MB · Max hiz: 842 ms
+  LIMIT gecen=0 toplam=10000 tl_ms=1000 ml_mb=244 tle=0 mle=1 cpu_ms=470 rss_kb=339596
+Max bellek: 331 MB · Max hiz: 535 ms
+Resmi limitlerle (TL 1000 ms CPU, ML 244 MiB): exec_lim=0.0 · TLE=0 MLE=1 · max CPU 470 ms · max RSS 331 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 80 KB · Complexity avg/max: 2.3/5 · Yorum: %4.2
@@ -109,15 +124,15 @@ Bellek sizintisi (valgrind): - byte · Kendi testi: yok
 Code Review (proxy): 100/100 (CCN=2.3) · BIRLESIK: 100.0/100
 
 Kod: 165 satir, 10 dosya
-  .gitignore
-  CMakeLists.txt
-  main.cpp
   README.md
+  main.cpp
+  CMakeLists.txt
   simulator.hpp
   src.hpp [agent]  (165 satir)
-  data/ans.txt
-  data/keys.txt
+  .gitignore
   data/queries.txt
+  data/keys.txt
+  data/ans.txt
   data/values.txt
 
 Git: repo yok
@@ -127,11 +142,11 @@ OZET TABLO (kompakt · tam veri sonuclar.csv'de)
 ================================================================
 arac         model                dogruluk     birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn  
 -----------  -------------------  -----------  --------  -----  ------  --------  ---------  -------
-antigravity  gemini-3.1-pro-high  10000/10000  100.0     0      1007    0         -          -      
-claude-code  opus-4.8-high        10000/10000  100.0     0      1135    0         -          -      
-codex        gpt-5.4-high         10000/10000  100.0     0      346     0         -          +480/-0
-cursor       opus-4.8-high        10000/10000  100.0     0      842     0         -          -      
+antigravity  gemini-3.1-pro-high  10000/10000  100.0     0      357     0         -          -      
+claude-code  opus-4.8-high        10000/10000  100.0     0      227     0         -          -      
+codex        gpt-5.4-high         10000/10000  100.0     0      191     0         -          +593/-0
+cursor       opus-4.8-high        10000/10000  100.0     0      535     0         -          -      
 
-TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-019/sonuclar.csv
+TAM veri -> calisma/problem-019/sonuclar.csv
 
-Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-019/rapor.txt
+Detayli rapor: calisma/problem-019/rapor.txt

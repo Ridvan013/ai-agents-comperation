@@ -1,5 +1,5 @@
-problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
-014,antigravity,gemini-3.1-pro-high,34/34,100.0,100.0,0,0,-,-,303,654,16,3.0,var,100.0,5,474,1,+474/-0,100.0,1.0,,yok,34/34 tam; kendi testi; CCN 16; 474 sati
-014,claude-code,opus-4.8-high,34/34,100.0,100.0,0,0,-,-,89,596,12,4.8,var,100.0,7,497,4,+655/-158,100.0,1.32,,yok,34/34 tam; kendi testi; CCN 12 (en sade)
-014,codex,gpt-5.4-high,0/34,0,0.0,0,0,-,-,-,-,27,0.0,var,0.0,-,1169,2,+1173/-4,0.1,1.0,,yok,0/34 DERLENMEDI (kendi C++ hatalari: boz
-014,cursor,opus-4.8-high,34/34,100.0,100.0,0,0,-,-,81,594,33,6.1,var,100.0,6,684,3,+689/-5,100.0,1.01,,yok,34/34 tam; kendi testi; CCN 33 (en karma
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not,exec_lim,tle,mle,cpu_ms
+014,antigravity,gemini-3.1-pro-high,34/34,100.0,100.0,0,0,-,-,163,654,16,3.0,var,100.0,5,474,-,-,-,-,,yok,34/34 tam; kendi testi; CCN 16; 474 sati,100.0,0,0,120
+014,claude-code,opus-4.8-high,34/34,100.0,100.0,0,0,-,-,63,596,12,4.8,var,100.0,6,497,-,-,-,-,,yok,34/34 tam; kendi testi; CCN 12 (en sade),100.0,0,0,40
+014,codex,gpt-5.4-high,0/34,0,0.0,0,0,-,-,-,-,27,0.0,var,0.0,-,1169,-,-,-,-,,yok,0/34 DERLENMEDI (kendi C++ hatalari: boz,0.0,-,-,-
+014,cursor,opus-4.8-high,34/34,100.0,100.0,0,0,-,-,321,594,33,6.1,var,100.0,6,684,-,-,-,-,,yok,34/34 tam; kendi testi; CCN 33 (en karma,100.0,0,0,310

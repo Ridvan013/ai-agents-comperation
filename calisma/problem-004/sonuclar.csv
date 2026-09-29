@@ -1,5 +1,5 @@
-problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
-004,antigravity,gemini-3.1-pro-high,60/60,100.0,100.0,0,0,13,-,264,87,172,0.0,yok,100.0,-,874,-,-,-,-,,yok,60/60 (consensus); CCN 172 (ASIRI karmas
-004,claude-code,opus-4.8-high,60/60,100.0,80.0,2,14,0,-,31,193,18,9.2,yok,96.0,-,1871,-,-,-,-,,yok,60/60 (consensus); YENIDEN kosuldu (ilk 
-004,codex,gpt-5.4-high,55/60,91.7,100.0,0,0,0,-,66,302,32,0.0,yok,93.3,-,1246,14,+272918/-1475,100.0,219.04,,yok,55/60 (5 testte consensus'tan ayri-muhte
-004,cursor,opus-4.8-high,60/60,100.0,100.0,0,0,0,-,505,241,29,1.4,yok,100.0,-,1265,-,-,-,-,,yok,60/60 (consensus); CCN 29 (en sade); tem
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not,exec_lim,tle,mle,cpu_ms
+004,antigravity,gemini-3.1-pro-high,60/60,100.0,100.0,0,0,13,-,33,87,172,0.0,yok,100.0,4,874,-,-,-,-,,yok,60/60 (consensus); CCN 172 (ASIRI karmas,100.0,0,0,20
+004,claude-code,opus-4.8-high,60/60,100.0,80.0,2,14,0,-,59,193,18,9.2,yok,96.0,4,1871,-,-,-,-,,yok,60/60 (consensus); YENIDEN kosuldu (ilk ,100.0,0,0,10
+004,codex,gpt-5.4-high,55/60,91.7,100.0,0,0,0,-,97,302,32,0.0,yok,93.3,4,1246,26,+1575591/-2694,100.0,1264.52,,yok,55/60 (5 testte consensus'tan ayri-muhte,91.7,0,0,10
+004,cursor,opus-4.8-high,60/60,100.0,100.0,0,0,0,-,64,241,29,1.4,yok,100.0,4,1265,-,-,-,-,,yok,60/60 (consensus); CCN 29 (en sade); tem,100.0,0,0,10

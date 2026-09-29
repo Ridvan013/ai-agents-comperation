@@ -12,7 +12,10 @@ Yontem (canonical, agent kurcalayamaz):
 Cikti: son satir 'SONUC gecen=X toplam=N ms=M rss_kb=R'
 """
 import sys, os, subprocess, time, re, tempfile, shutil
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import olcum
 
+L = olcum.Limit("002")
 exe = os.path.abspath(sys.argv[1])
 SOL = os.path.dirname(exe)
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -53,17 +56,17 @@ rss = 0
 try:
     t0 = time.monotonic()
     with open(INPUT, "rb") as fin:
-        r = subprocess.run(["/usr/bin/time", "-v", binp], stdin=fin,
-                           capture_output=True, text=True, timeout=60)
+        r = olcum.run([binp], stdin=fin, timeout=60)
     ms = (time.monotonic() - t0) * 1000
-    m = re.search(r"Maximum resident set size \(kbytes\):\s*(\d+)", r.stderr)
-    if m:
-        rss = int(m.group(1))
+    rss = r.rss_kb or 0
+    lim_ok = L.ok(r)   # tek kosu = tek test case
     got = norm(r.stdout.split("\n"))
     while got and got[-1] == "":
         got.pop()
 except subprocess.TimeoutExpired:
     print("TLE (60sn)")
+    L.ok(None)
+    print(L.satir(0, toplam))
     print(f"SONUC gecen=0 toplam={toplam} ms=60000 rss_kb=0")
     os.unlink(binp)
     sys.exit(0)
@@ -97,4 +100,5 @@ try:
     os.unlink(binp)
 except Exception:
     pass
+print(L.satir(gecen if lim_ok else 0, toplam))
 print(f"SONUC gecen={gecen} toplam={toplam} ms={ms:.0f} rss_kb={rss} leak_byte={leak_byte}")

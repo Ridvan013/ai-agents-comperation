@@ -15,6 +15,11 @@ Yontem (canonical harness ile - agent kurcalayamaz):
 Cikti (analiz.py'nin parse ettigi): son satir 'SONUC gecen=X toplam=N ms=M rss_kb=R'
 """
 import sys, os, subprocess, time, re, tempfile, shutil
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import olcum
+
+L = olcum.Limit("020")
+lim_ok = False
 
 exe = os.path.abspath(sys.argv[1])
 SOL = os.path.dirname(exe)               # agent klasoru
@@ -48,14 +53,15 @@ with tempfile.TemporaryDirectory() as td:
         sys.exit(0)
     try:
         t0 = time.monotonic()
-        r = subprocess.run(["/usr/bin/time", "-v", binp], capture_output=True, text=True, timeout=30)
+        r = olcum.run([binp], timeout=30)
         ms = (time.monotonic() - t0) * 1000
         out = r.stdout
-        m = re.search(r"Maximum resident set size \(kbytes\):\s*(\d+)", r.stderr)
-        if m:
-            rss = int(m.group(1))
+        rss = r.rss_kb or 0
+        lim_ok = L.ok(r)   # tek kosu = tek test case
     except subprocess.TimeoutExpired:
         print("TLE (30sn)")
+        L.ok(None)
+        print(L.satir(0, TOPLAM_PHASE))
         print(f"SONUC gecen=0 toplam={TOPLAM_PHASE} ms=30000 rss_kb=0")
         sys.exit(0)
 
@@ -81,4 +87,5 @@ with tempfile.TemporaryDirectory() as td:
         except subprocess.TimeoutExpired:
             leak_byte = -1
 
+print(L.satir(gecen if lim_ok else 0, TOPLAM_PHASE))
 print(f"SONUC gecen={gecen} toplam={TOPLAM_PHASE} ms={ms:.0f} rss_kb={rss} leak_byte={leak_byte}")

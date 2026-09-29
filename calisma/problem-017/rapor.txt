@@ -3,102 +3,95 @@
 ================================================================
 ARAC: antigravity
 ================================================================
-Derleme: hazir 'code'
+Derleme: temiz derleme: cmake+make
 
-Dogruluk: 345/359770  (exec=0/100)
-  basic_3: FAIL  (191/8542 satir dogru, %2.2)
-  basic_4: TLE (120sn)
-  basic_5: FAIL  (85/95625 satir dogru, %0.1)
-  basic_6: FAIL  (69/209481 satir dogru, %0.0)
-Max bellek: ? MB · Max hiz: 469 ms
+Dogruluk: 698/359770  (exec=0/100)
+  basic_3: FAIL  (375/8542 satir dogru, %4.4)
+  basic_4: FAIL  (323/46122 satir dogru, %0.7)
+  basic_5: FAIL  (0/95625 satir dogru, %0.0)
+  basic_6: FAIL  (0/209481 satir dogru, %0.0)
+  LIMIT gecen=698 toplam=359770 tl_ms=40000 ml_mb=47 tle=0 mle=0 cpu_ms=60 rss_kb=18572
+Max bellek: 18 MB · Max hiz: 669 ms
+Resmi limitlerle (TL 40000 ms CPU, ML 47 MiB): exec_lim=0.2 · TLE=0 MLE=0 · max CPU 60 ms · max RSS 18 MB
 
-Derleyici uyari (-Wall -Wextra): 15
-Binary: 130 KB · Complexity avg/max: 4.3/88 · Yorum: %0.8
-Guvenlik (cppcheck): 7 · clang-tidy: 14
-Bellek sizintisi (valgrind): - byte · Kendi testi: yok
-Code Review (proxy): 60/100 (CCN=4.3, 7 guvenlik(-40)) · BIRLESIK: 12.1/100
+Derleyici uyari (-Wall -Wextra): 57
+Binary: 134 KB · Complexity avg/max: 3.8/42 · Yorum: %2.3
+Guvenlik (cppcheck): 18 · clang-tidy: -
+Bellek sizintisi (valgrind): - byte · Kendi testi: var
+Code Review (proxy): 60/100 (CCN=3.8, 18 guvenlik(-40)) · BIRLESIK: 12.2/100
 
-Kod: 1920 satir, 66 dosya
-  .gitignore
-  bpt.hpp  (403 satir)
-  CMakeLists.txt
-  main.cpp  (193 satir)
-  managers.hpp  (245 satir)
-  models.hpp  (151 satir)
-  orders.dat
+Kod: 1900 satir, 55 dosya
+  utility.hpp  (89 satir)
+  vector.hpp  (142 satir)
+  user.cpp  (1 satir)
+  test_bptree.cpp  (22 satir)
   README.md
-  seats.dat
-  station_idx.dat
-  ticket_manager.hpp  (520 satir)
-  trains.dat
-  train_idx.dat
-  train_manager.hpp  (232 satir)
-  users.dat
-  user_idx.dat
-  utils.hpp  (176 satir)
+  main.cpp  (116 satir)
+  system.hpp  (900 satir)
+  CMakeLists.txt
+  bptree.hpp  (476 satir)
+  .gitignore
+  models.hpp  (154 satir)
   data/basic_1/1.in
-  data/basic_1/my.ans
-  data/basic_2/1.in
-  data/basic_3/1.in
-  data/basic_3/2.in
-  data/basic_3/3.in
-  data/basic_3/4.in
-  data/basic_3/5.in
-  data/basic_3/diff.txt
-  data/basic_3/gen.py
-  data/basic_3/in.txt
-  data/basic_3/my.err
-  data/basic_3/my.out
-  data/basic_3/my_debug.out
-  data/basic_3/out.txt
-  data/basic_4/1.in
-  data/basic_4/2.in
-  data/basic_4/3.in
-  data/basic_4/4.in
-  data/basic_4/5.in
-  data/basic_4/gen.py
-  data/basic_4/in.txt
-  data/basic_4/out.txt
-  data/basic_5/1.in
-  data/basic_5/10.in
+  data/basic_5/out.txt
   data/basic_5/2.in
+  data/basic_5/10.in
+  data/basic_5/9.in
+  data/basic_5/6.in
+  data/basic_5/5.in
+  data/basic_5/in.txt
   data/basic_5/3.in
   data/basic_5/4.in
-  data/basic_5/5.in
-  data/basic_5/6.in
-  data/basic_5/7.in
   data/basic_5/8.in
-  data/basic_5/9.in
   data/basic_5/gen.py
-  data/basic_5/in.txt
-  data/basic_5/out.txt
-  data/basic_6/1.in
-  data/basic_6/10.in
+  data/basic_5/1.in
+  data/basic_5/7.in
+  data/basic_2/1.in
+  data/basic_6/out.txt
   data/basic_6/2.in
+  data/basic_6/10.in
+  data/basic_6/9.in
+  data/basic_6/6.in
+  data/basic_6/5.in
+  data/basic_6/in.txt
   data/basic_6/3.in
   data/basic_6/4.in
-  data/basic_6/5.in
-  data/basic_6/6.in
-  data/basic_6/7.in
   data/basic_6/8.in
-  data/basic_6/9.in
   data/basic_6/gen.py
-  data/basic_6/in.txt
-  data/basic_6/out.txt
+  data/basic_6/1.in
+  data/basic_6/7.in
+  data/basic_3/out.txt
+  data/basic_3/2.in
+  data/basic_3/5.in
+  data/basic_3/in.txt
+  data/basic_3/3.in
+  data/basic_3/4.in
+  data/basic_3/gen.py
+  data/basic_3/1.in
+  data/basic_4/out.txt
+  data/basic_4/2.in
+  data/basic_4/5.in
+  data/basic_4/in.txt
+  data/basic_4/3.in
+  data/basic_4/4.in
+  data/basic_4/gen.py
+  data/basic_4/1.in
 
 Git: repo yok
 
 ================================================================
 ARAC: claude-code
 ================================================================
-Derleme: hazir 'code'
+Derleme: temiz derleme: cmake+make
 
 Dogruluk: 359770/359770  (exec=100/100)
   basic_3: PASS  (8542/8542 satir dogru, %100.0)
   basic_4: PASS  (46122/46122 satir dogru, %100.0)
   basic_5: PASS  (95625/95625 satir dogru, %100.0)
   basic_6: PASS  (209481/209481 satir dogru, %100.0)
-Max bellek: ? MB · Max hiz: 641 ms
+  LIMIT gecen=359770 toplam=359770 tl_ms=40000 ml_mb=47 tle=0 mle=0 cpu_ms=490 rss_kb=10808
+Max bellek: 10 MB · Max hiz: 521 ms
+Resmi limitlerle (TL 40000 ms CPU, ML 47 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 490 ms · max RSS 10 MB
 
 Derleyici uyari (-Wall -Wextra): 2
 Binary: 106 KB · Complexity avg/max: 3.2/28 · Yorum: %6.5
@@ -106,74 +99,32 @@ Guvenlik (cppcheck): 2 · clang-tidy: 0
 Bellek sizintisi (valgrind): - byte · Kendi testi: yok
 Code Review (proxy): 80/100 (CCN=3.2, 2 guvenlik(-20)) · BIRLESIK: 96.0/100
 
-Kod: 1840 satir, 53 dosya
-  .gitignore
-  CMakeLists.txt
-  main.cpp  (891 satir)
+Kod: 1840 satir, 9 dosya
   README.md
-  data/basic_1/1.in
-  data/basic_2/1.in
-  data/basic_3/1.in
-  data/basic_3/2.in
-  data/basic_3/3.in
-  data/basic_3/4.in
-  data/basic_3/5.in
-  data/basic_3/gen.py
-  data/basic_3/in.txt
-  data/basic_3/out.txt
-  data/basic_4/1.in
-  data/basic_4/2.in
-  data/basic_4/3.in
-  data/basic_4/4.in
-  data/basic_4/5.in
-  data/basic_4/gen.py
-  data/basic_4/in.txt
-  data/basic_4/out.txt
-  data/basic_5/1.in
-  data/basic_5/10.in
-  data/basic_5/2.in
-  data/basic_5/3.in
-  data/basic_5/4.in
-  data/basic_5/5.in
-  data/basic_5/6.in
-  data/basic_5/7.in
-  data/basic_5/8.in
-  data/basic_5/9.in
-  data/basic_5/gen.py
-  data/basic_5/in.txt
-  data/basic_5/out.txt
-  data/basic_6/1.in
-  data/basic_6/10.in
-  data/basic_6/2.in
-  data/basic_6/3.in
-  data/basic_6/4.in
-  data/basic_6/5.in
-  data/basic_6/6.in
-  data/basic_6/7.in
-  data/basic_6/8.in
-  data/basic_6/9.in
-  data/basic_6/gen.py
-  data/basic_6/in.txt
-  data/basic_6/out.txt
-  src/bplustree.hpp  (397 satir)
+  main.cpp  (891 satir)
+  CMakeLists.txt
+  .gitignore
   src/datetime.hpp  (55 satir)
-  src/records.hpp  (169 satir)
+  src/bplustree.hpp  (397 satir)
   src/storage.hpp  (165 satir)
   src/utils.hpp  (163 satir)
+  src/records.hpp  (169 satir)
 
 Git: repo yok
 
 ================================================================
 ARAC: codex
 ================================================================
-Derleme: hazir 'code'
+Derleme: temiz derleme: cmake+make
 
 Dogruluk: 359770/359770  (exec=100/100)
   basic_3: PASS  (8542/8542 satir dogru, %100.0)
   basic_4: PASS  (46122/46122 satir dogru, %100.0)
   basic_5: PASS  (95625/95625 satir dogru, %100.0)
   basic_6: PASS  (209481/209481 satir dogru, %100.0)
-Max bellek: ? MB · Max hiz: 121 ms
+  LIMIT gecen=359770 toplam=359770 tl_ms=40000 ml_mb=47 tle=0 mle=0 cpu_ms=90 rss_kb=6068
+Max bellek: 5 MB · Max hiz: 99 ms
+Resmi limitlerle (TL 40000 ms CPU, ML 47 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 90 ms · max RSS 5 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 76 KB · Complexity avg/max: 5.6/85 · Yorum: %0.0
@@ -181,60 +132,23 @@ Guvenlik (cppcheck): 5 · clang-tidy: 0
 Bellek sizintisi (valgrind): - byte · Kendi testi: yok
 Code Review (proxy): 60/100 (CCN=5.6, 5 guvenlik(-40)) · BIRLESIK: 92.0/100
 
-Kod: 1291 satir, 48 dosya
-  .gitignore
-  CMakeLists.txt
-  main.cpp  (1291 satir)
+Kod: 1291 satir, 4 dosya
   README.md
-  data/basic_1/1.in
-  data/basic_2/1.in
-  data/basic_3/1.in
-  data/basic_3/2.in
-  data/basic_3/3.in
-  data/basic_3/4.in
-  data/basic_3/5.in
-  data/basic_3/gen.py
-  data/basic_3/in.txt
-  data/basic_3/out.txt
-  data/basic_4/1.in
-  data/basic_4/2.in
-  data/basic_4/3.in
-  data/basic_4/4.in
-  data/basic_4/5.in
-  data/basic_4/gen.py
-  data/basic_4/in.txt
-  data/basic_4/out.txt
-  data/basic_5/1.in
-  data/basic_5/10.in
-  data/basic_5/2.in
-  data/basic_5/3.in
-  data/basic_5/4.in
-  data/basic_5/5.in
-  data/basic_5/6.in
-  data/basic_5/7.in
-  data/basic_5/8.in
-  data/basic_5/9.in
-  data/basic_5/gen.py
-  data/basic_5/in.txt
-  data/basic_5/out.txt
-  data/basic_6/1.in
-  data/basic_6/10.in
-  data/basic_6/2.in
-  data/basic_6/3.in
-  data/basic_6/4.in
-  data/basic_6/5.in
-  data/basic_6/6.in
-  data/basic_6/7.in
-  data/basic_6/8.in
-  data/basic_6/9.in
-  data/basic_6/gen.py
-  data/basic_6/in.txt
-  data/basic_6/out.txt
+  main.cpp  (1291 satir)
+  CMakeLists.txt
+  .gitignore
 
-Git: 19 commit, +277606/-1481 (churn)
-  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 215.03x
+Git: 26 commit, +1575591/-2694 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1220.44x
   Commit mesajlari:
-- problem-017/claude-code: drop unused locals in query_transfer
+- 12 problem x 4 arac tamamlandi (48 kosu) + 004/017/018/019 eklendi
+  - Persist state on EOF
+  - problem-017/antigravity: persist trains/orders/seats on disk
+  - Handle repeated exit commands in test inputs
+  - problem-017/antigravity: remove unused file_array.hpp
+  - problem-017/antigravity: implement train ticket management system
+  - problem-015/claude-code: implement on-disk B+ tree file storage
+  - problem-017/claude-code: drop unused locals in query_transfer
   - problem-017/claude-code: implement train ticket management system
   - Implement persistent ticket system solution
   - Add build scaffold for problem 017
@@ -257,14 +171,16 @@ Git: 19 commit, +277606/-1481 (churn)
 ================================================================
 ARAC: cursor
 ================================================================
-Derleme: hazir 'code'
+Derleme: temiz derleme: cmake+make
 
 Dogruluk: 359770/359770  (exec=100/100)
   basic_3: PASS  (8542/8542 satir dogru, %100.0)
   basic_4: PASS  (46122/46122 satir dogru, %100.0)
   basic_5: PASS  (95625/95625 satir dogru, %100.0)
   basic_6: PASS  (209481/209481 satir dogru, %100.0)
-Max bellek: ? MB · Max hiz: 95 ms
+  LIMIT gecen=359770 toplam=359770 tl_ms=40000 ml_mb=47 tle=0 mle=0 cpu_ms=120 rss_kb=10060
+Max bellek: 9 MB · Max hiz: 160 ms
+Resmi limitlerle (TL 40000 ms CPU, ML 47 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 120 ms · max RSS 9 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 80 KB · Complexity avg/max: 3.7/32 · Yorum: %2.7
@@ -272,79 +188,28 @@ Guvenlik (cppcheck): 1 · clang-tidy: 0
 Bellek sizintisi (valgrind): - byte · Kendi testi: yok
 Code Review (proxy): 90/100 (CCN=3.7, 1 guvenlik(-10)) · BIRLESIK: 98.0/100
 
-Kod: 1505 satir, 59 dosya
-  .gitignore
-  ALL_BUILD.vcxproj
-  ALL_BUILD.vcxproj.filters
-  CMakeLists.txt
-  code.vcxproj
-  code.vcxproj.filters
+Kod: 1505 satir, 8 dosya
   README.md
-  ticket_system.sln
-  ZERO_CHECK.vcxproj
-  ZERO_CHECK.vcxproj.filters
-  data/basic_1/1.in
-  data/basic_2/1.in
-  data/basic_3/1.in
-  data/basic_3/2.in
-  data/basic_3/3.in
-  data/basic_3/4.in
-  data/basic_3/5.in
-  data/basic_3/gen.py
-  data/basic_3/in.txt
-  data/basic_3/out.txt
-  data/basic_4/1.in
-  data/basic_4/2.in
-  data/basic_4/3.in
-  data/basic_4/4.in
-  data/basic_4/5.in
-  data/basic_4/gen.py
-  data/basic_4/in.txt
-  data/basic_4/out.txt
-  data/basic_5/1.in
-  data/basic_5/10.in
-  data/basic_5/2.in
-  data/basic_5/3.in
-  data/basic_5/4.in
-  data/basic_5/5.in
-  data/basic_5/6.in
-  data/basic_5/7.in
-  data/basic_5/8.in
-  data/basic_5/9.in
-  data/basic_5/gen.py
-  data/basic_5/in.txt
-  data/basic_5/out.txt
-  data/basic_6/1.in
-  data/basic_6/10.in
-  data/basic_6/2.in
-  data/basic_6/3.in
-  data/basic_6/4.in
-  data/basic_6/5.in
-  data/basic_6/6.in
-  data/basic_6/7.in
-  data/basic_6/8.in
-  data/basic_6/9.in
-  data/basic_6/gen.py
-  data/basic_6/in.txt
-  data/basic_6/out.txt
-  src/hashmap.hpp  (210 satir)
-  src/main.cpp  (106 satir)
-  src/ticket_system.hpp  (957 satir)
-  src/utils.hpp  (127 satir)
+  CMakeLists.txt
+  .gitignore
   src/vector.hpp  (105 satir)
+  src/main.cpp  (106 satir)
+  src/hashmap.hpp  (210 satir)
+  src/utils.hpp  (127 satir)
+  src/ticket_system.hpp  (957 satir)
 
 Git: repo yok
 
 ================================================================
 OZET TABLO (kompakt · tam veri sonuclar.csv'de)
 ================================================================
-arac         model                dogruluk       birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn        
------------  -------------------  -------------  --------  -----  ------  --------  ---------  -------------
-antigravity  gemini-3.1-pro-high  345/359770     12.1      15     469     7         -          -            
-claude-code  opus-4.8-high        359770/359770  96.0      2      641     2         -          -            
-codex        gpt-5.4-high         359770/359770  92.0      0      121     5         -          +277606/-1481
-cursor       opus-4.8-high        359770/359770  98.0      0      95      1         -          -            
+arac         model                dogruluk       birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn         
+-----------  -------------------  -------------  --------  -----  ------  --------  ---------  --------------
+antigravity  gemini-3.1-pro-high  698/359770     12.2      57     669     18        -          -             
+claude-code  opus-4.8-high        359770/359770  96.0      2      521     2         -          -             
+codex        gpt-5.4-high         359770/359770  92.0      0      99      5         -          +1575591/-2694
+cursor       opus-4.8-high        359770/359770  98.0      0      160     1         -          -             
 
-TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-017/sonuclar.csv
+TAM veri -> calisma/problem-017/sonuclar.csv
 
-Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-017/rapor.txt
+Detayli rapor: calisma/problem-017/rapor.txt

@@ -3,11 +3,13 @@
 ================================================================
 ARAC: antigravity
 ================================================================
-Derleme: hazir 'code'
+Derleme: temiz derleme: cmake+make
 
 Dogruluk: 60/60  (exec=100/100)
   gecen 60/60 (consensus'a gore)
-Max bellek: ? MB · Max hiz: 264 ms
+  LIMIT gecen=60 toplam=60 tl_ms=10000 ml_mb=64 tle=0 mle=0 cpu_ms=20 rss_kb=4136
+Max bellek: 4 MB · Max hiz: 33 ms
+Resmi limitlerle (TL 10000 ms CPU, ML 64 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 20 ms · max RSS 4 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 87 KB · Complexity avg/max: 6.6/172 · Yorum: %0.0
@@ -15,31 +17,25 @@ Guvenlik (cppcheck): 0 · clang-tidy: 13
 Bellek sizintisi (valgrind): - byte · Kendi testi: yok
 Code Review (proxy): 100/100 (CCN=6.6) · BIRLESIK: 100.0/100
 
-Kod: 874 satir, 13 dosya
-  author_index.dat
-  books.dat
-  CMakeLists.txt
-  code.cpp  (874 satir)
-  finance.dat
-  isbn_index.dat
-  keyword_index.dat
-  name_index.dat
-  README.md
+Kod: 874 satir, 5 dosya
   test.in
+  README.md
+  CMakeLists.txt
   test2.in
-  users.dat
-  user_index.dat
+  code.cpp  (874 satir)
 
 Git: repo yok
 
 ================================================================
 ARAC: claude-code
 ================================================================
-Derleme: hazir 'code'
+Derleme: temiz derleme: cmake+make
 
 Dogruluk: 60/60  (exec=100/100)
   gecen 60/60 (consensus'a gore)
-Max bellek: ? MB · Max hiz: 31 ms
+  LIMIT gecen=60 toplam=60 tl_ms=10000 ml_mb=64 tle=0 mle=0 cpu_ms=10 rss_kb=4944
+Max bellek: 4 MB · Max hiz: 59 ms
+Resmi limitlerle (TL 10000 ms CPU, ML 64 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 10 ms · max RSS 4 MB
 
 Derleyici uyari (-Wall -Wextra): 14
 Binary: 193 KB · Complexity avg/max: 3.0/18 · Yorum: %9.2
@@ -48,33 +44,35 @@ Bellek sizintisi (valgrind): - byte · Kendi testi: yok
 Code Review (proxy): 80/100 (CCN=3.0, 2 guvenlik(-20)) · BIRLESIK: 96.0/100
 
 Kod: 1871 satir, 16 dosya
-  .gitignore
-  CMakeLists.txt
   README.md
+  CMakeLists.txt
+  .gitignore
+  src/bookstore.cpp  (134 satir)
+  src/common.hpp  (248 satir)
+  src/main.cpp  (23 satir)
+  src/log_system.hpp  (51 satir)
   src/account_system.cpp  (137 satir)
+  src/records.hpp  (54 satir)
+  src/bplus_tree.hpp  (445 satir)
+  src/book_system.cpp  (238 satir)
+  src/log_system.cpp  (177 satir)
+  src/book_system.hpp  (53 satir)
+  src/bookstore.hpp  (39 satir)
   src/account_system.hpp  (63 satir)
   src/block_file.hpp  (209 satir)
-  src/bookstore.cpp  (134 satir)
-  src/bookstore.hpp  (39 satir)
-  src/book_system.cpp  (238 satir)
-  src/book_system.hpp  (53 satir)
-  src/bplus_tree.hpp  (445 satir)
-  src/common.hpp  (248 satir)
-  src/log_system.cpp  (177 satir)
-  src/log_system.hpp  (51 satir)
-  src/main.cpp  (23 satir)
-  src/records.hpp  (54 satir)
 
 Git: repo yok
 
 ================================================================
 ARAC: codex
 ================================================================
-Derleme: hazir 'code'
+Derleme: temiz derleme: cmake+make
 
 Dogruluk: 55/60  (exec=92/100)
   gecen 55/60 (consensus'a gore)
-Max bellek: ? MB · Max hiz: 66 ms
+  LIMIT gecen=55 toplam=60 tl_ms=10000 ml_mb=64 tle=0 mle=0 cpu_ms=10 rss_kb=4144
+Max bellek: 4 MB · Max hiz: 97 ms
+Resmi limitlerle (TL 10000 ms CPU, ML 64 MiB): exec_lim=91.7 · TLE=0 MLE=0 · max CPU 10 ms · max RSS 4 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 302 KB · Complexity avg/max: 3.8/32 · Yorum: %0.0
@@ -83,15 +81,27 @@ Bellek sizintisi (valgrind): - byte · Kendi testi: yok
 Code Review (proxy): 100/100 (CCN=3.8) · BIRLESIK: 93.3/100
 
 Kod: 1246 satir, 4 dosya
-  .gitignore
-  CMakeLists.txt
   README.md
+  CMakeLists.txt
+  .gitignore
   src/main.cpp  (1246 satir)
 
-Git: 14 commit, +272918/-1475 (churn)
-  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 219.04x
+Git: 26 commit, +1575591/-2694 (churn)
+  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1264.52x
   Commit mesajlari:
-- problem-004/claude-code: clarify leaf descent in the B+ tree
+- 12 problem x 4 arac tamamlandi (48 kosu) + 004/017/018/019 eklendi
+  - Persist state on EOF
+  - problem-017/antigravity: persist trains/orders/seats on disk
+  - Handle repeated exit commands in test inputs
+  - problem-017/antigravity: remove unused file_array.hpp
+  - problem-017/antigravity: implement train ticket management system
+  - problem-015/claude-code: implement on-disk B+ tree file storage
+  - problem-017/claude-code: drop unused locals in query_transfer
+  - problem-017/claude-code: implement train ticket management system
+  - Implement persistent ticket system solution
+  - Add build scaffold for problem 017
+  - Implement train ticket management system for problem-017.
+  - problem-004/claude-code: clarify leaf descent in the B+ tree
   - problem-004/claude-code: fix money formatting for negative amounts
   - problem-004/claude-code: document B+ tree cache sizing; ignore code.exe
   - problem-004/claude-code: rewrite bookstore on disk-resident B+ tree indices
@@ -109,11 +119,13 @@ Git: 14 commit, +272918/-1475 (churn)
 ================================================================
 ARAC: cursor
 ================================================================
-Derleme: hazir 'code'
+Derleme: temiz derleme: cmake+make
 
 Dogruluk: 60/60  (exec=100/100)
   gecen 60/60 (consensus'a gore)
-Max bellek: ? MB · Max hiz: 505 ms
+  LIMIT gecen=60 toplam=60 tl_ms=10000 ml_mb=64 tle=0 mle=0 cpu_ms=10 rss_kb=4356
+Max bellek: 4 MB · Max hiz: 64 ms
+Resmi limitlerle (TL 10000 ms CPU, ML 64 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 10 ms · max RSS 4 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 241 KB · Complexity avg/max: 6.9/29 · Yorum: %1.4
@@ -122,25 +134,25 @@ Bellek sizintisi (valgrind): - byte · Kendi testi: yok
 Code Review (proxy): 100/100 (CCN=6.9) · BIRLESIK: 100.0/100
 
 Kod: 1265 satir, 6 dosya
-  .gitignore
-  CMakeLists.txt
   README.md
+  CMakeLists.txt
+  .gitignore
   src/bookstore.cpp  (1135 satir)
-  src/bookstore.hpp  (114 satir)
   src/main.cpp  (16 satir)
+  src/bookstore.hpp  (114 satir)
 
 Git: repo yok
 
 ================================================================
 OZET TABLO (kompakt · tam veri sonuclar.csv'de)
 ================================================================
-arac         model                dogruluk  birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn        
------------  -------------------  --------  --------  -----  ------  --------  ---------  -------------
-antigravity  gemini-3.1-pro-high  60/60     100.0     0      264     0         -          -            
-claude-code  opus-4.8-high        60/60     96.0      14     31      2         -          -            
-codex        gpt-5.4-high         55/60     93.3      0      66      0         -          +272918/-1475
-cursor       opus-4.8-high        60/60     100.0     0      505     0         -          -            
+arac         model                dogruluk  birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn         
+-----------  -------------------  --------  --------  -----  ------  --------  ---------  --------------
+antigravity  gemini-3.1-pro-high  60/60     100.0     0      33      0         -          -             
+claude-code  opus-4.8-high        60/60     96.0      14     59      2         -          -             
+codex        gpt-5.4-high         55/60     93.3      0      97      0         -          +1575591/-2694
+cursor       opus-4.8-high        60/60     100.0     0      64      0         -          -             
 
-TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-004/sonuclar.csv
+TAM veri -> calisma/problem-004/sonuclar.csv
 
-Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-004/rapor.txt
+Detayli rapor: calisma/problem-004/rapor.txt

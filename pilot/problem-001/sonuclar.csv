@@ -1,5 +1,5 @@
-problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
-001,antigravity,gemini-3.1-pro-high,6/6,100.0,100.0,0,0,0,0,11,16,2,0.0,yok,100.0,3,11,2,+17/-0,100.0,1.55,,yok,long long; derleyemedi (mingw yok) kendi
-001,claude-code,opus-4.8-high,6/6,100.0,100.0,0,0,0,0,8,16,2,0.0,yok,100.0,3,12,1,+18/-0,100.0,1.5,,yok,long long kullandi; 6/6 gecti; 1 commit;
-001,codex,gpt-5.4-high,6/6,100.0,100.0,0,0,0,0,9,16,2,0.0,yok,100.0,3,13,2,+19/-0,100.0,1.46,,yok,g++ ile test etti ama sadece 2e9'a kadar
-001,cursor,opus-4.8-high,6/6,100.0,100.0,0,0,0,0,8,16,2,0.0,yok,100.0,3,9,1,+15/-0,100.0,1.67,,yok,long long; g++ ile derleyip kendi test e
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not,exec_lim,tle,mle,cpu_ms
+001,antigravity,gemini-3.1-pro-high,6/6,100.0,100.0,0,0,0,0,2,16,2,0.0,yok,100.0,3,11,-,-,-,-,,yok,long long; derleyemedi (mingw yok) kendi,100.0,0,0,0
+001,claude-code,opus-4.8-high,6/6,100.0,100.0,0,0,0,0,2,16,2,0.0,yok,100.0,3,12,-,-,-,-,,yok,long long kullandi; 6/6 gecti; 1 commit;,100.0,0,0,0
+001,codex,gpt-5.4-high,6/6,100.0,100.0,0,0,0,0,1,16,2,0.0,yok,100.0,3,13,-,-,-,-,,yok,g++ ile test etti ama sadece 2e9'a kadar,100.0,0,0,0
+001,cursor,opus-4.8-high,6/6,100.0,100.0,0,0,0,0,12,16,2,0.0,yok,100.0,3,9,-,-,-,-,,yok,long long; g++ ile derleyip kendi test e,100.0,0,0,0

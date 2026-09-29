@@ -1,5 +1,5 @@
-problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
-005,antigravity,gemini-3.1-pro-high,8/16,50.0,60.0,0,0,0,0,191,49,28,12.9,yok,52.0,17,249,1,+249/-0,100.0,1.0,,yok,8/16 (encoder 8/8 DOGRU
-005,claude-code,opus-4.8-high,16/16,100.0,60.0,0,0,0,0,185,49,28,16.5,yok,92.0,17,242,2,+249/-7,55.4,1.03,,yok,16/16 (enc+dec tam); git init+2 commit (
-005,codex,gpt-5.4-high,8/16,50.0,60.0,0,0,0,0,184,49,41,12.5,yok,52.0,17,256,0,-,-,-,,yok,8/16 (4 resim tam enc+dec; 4 resim ikisi
-005,cursor,opus-4.8-high,16/16,100.0,76.0,0,0,0,0,103,50,30,19.9,var,95.2,16,266,3,+283/-17,46.6,1.06,,yok,16/16 (enc+dec tam); kendi test harness'
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not,exec_lim,tle,mle,cpu_ms
+005,antigravity,gemini-3.1-pro-high,8/16,50.0,60.0,0,0,0,0,324,49,28,12.9,yok,52.0,3,249,-,-,-,-,,yok,8/16 (encoder 8/8 DOGRU,50.0,0,0,130
+005,claude-code,opus-4.8-high,16/16,100.0,60.0,0,0,0,0,168,49,28,16.5,yok,92.0,3,242,-,-,-,-,,yok,16/16 (enc+dec tam); git init+2 commit (,100.0,0,0,60
+005,codex,gpt-5.4-high,8/16,50.0,60.0,0,0,0,0,148,49,41,12.5,yok,52.0,3,256,-,-,-,-,,yok,8/16 (4 resim tam enc+dec; 4 resim ikisi,50.0,0,0,50
+005,cursor,opus-4.8-high,16/16,100.0,76.0,0,0,0,0,46,50,30,19.9,var,95.2,3,266,-,-,-,-,,yok,16/16 (enc+dec tam); kendi test harness',100.0,0,0,10

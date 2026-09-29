@@ -12,6 +12,10 @@ Yontem (canonical ref_data ile - agent kurcalayamaz):
 Cikti: son satir 'SONUC gecen=X toplam=N ms=M rss_kb=R'
 """
 import sys, os, subprocess, time, re, tempfile, shutil
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import olcum
+
+L = olcum.Limit("013")
 
 exe = os.path.abspath(sys.argv[1])
 SOL = os.path.dirname(exe)
@@ -28,7 +32,7 @@ tests = sorted(d for d in os.listdir(REF)
                if os.path.isfile(os.path.join(REF, d, "code.cpp"))
                and os.path.isfile(os.path.join(REF, d, "answer.txt")))
 
-gecen = toplam = 0
+gecen = gecen_lim = toplam = 0
 max_ms = 0.0
 max_rss = 0
 
@@ -50,23 +54,23 @@ for t in tests:
     try:
         t0 = time.monotonic()
         with tempfile.TemporaryDirectory() as wd:
-            r = subprocess.run(["/usr/bin/time", "-v", binp], cwd=wd,
-                               capture_output=True, text=True, timeout=30)
+            r = olcum.run([binp], cwd=wd, timeout=30)
             max_ms = max(max_ms, (time.monotonic() - t0) * 1000)
-            m = re.search(r"Maximum resident set size \(kbytes\):\s*(\d+)", r.stderr)
-            if m:
-                max_rss = max(max_rss, int(m.group(1)))
+            max_rss = max(max_rss, r.rss_kb or 0)
             if tgt and os.path.isfile(os.path.join(wd, tgt)):
                 got = open(os.path.join(wd, tgt), encoding="utf-8", errors="replace").read()
             else:
                 got = r.stdout
     except subprocess.TimeoutExpired:
+        L.ok(None)
         print(f"{t}: TLE")
         continue
+    lim_ok = L.ok(r)
     want = open(ans, encoding="utf-8", errors="replace").read()
     if norm(got) == norm(want):
         gecen += 1
-        print(f"{t}: PASS")
+        gecen_lim += int(lim_ok)
+        print(f"{t}: PASS" + ("" if lim_ok else " (limit asildi)"))
     else:
         print(f"{t}: FAIL")
 
@@ -92,4 +96,5 @@ if shutil.which("valgrind") and tests:
         except subprocess.TimeoutExpired:
             leak_byte = -1
 
+print(L.satir(gecen_lim, toplam))
 print(f"SONUC gecen={gecen} toplam={toplam} ms={max_ms:.0f} rss_kb={max_rss} leak_byte={leak_byte}")

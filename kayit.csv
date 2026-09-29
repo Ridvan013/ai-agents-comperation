@@ -46,4 +46,4 @@ tarih,problem,arac,model,tur_sayisi,mudahale,not
 2026-07-17,017,claude-code,opus-4.8-high,,yok,359770/359770 (%100 - gercek out.txt); STL/algorithm yasagi+disk kalicilik+B+agac; cppcheck 2; CCN 28; 1840 satir; birlesik 96
 2026-07-17,017,cursor,opus-4.8-high,,yok,359770/359770 (%100); cppcheck 1; CCN 32; 1505 satir; en hizli 110ms; birlesik 98
 2026-07-17,017,codex,gpt-5.4-high,,yok,359770/359770 (%100); cppcheck 5; CCN 85 (karmasik); 1291 satir (en kisa); 19 commit; birlesik 92
-2026-07-17,017,antigravity,gemini-3.1-pro-high,,yok,345/359770 (~%0.1 - COKTU: cikti yanlis + basic_4 TLE 120s); 1920 satir ama calismyor; STL-yasagi/disk-kalicilik/performansta basarisiz; birlesik 12
+2026-09-29,017,antigravity,gemini-3.1-pro-high,,yok,"698/359770 (%0.2) - YENIDEN KOSU 2026-09-29: her grupta segfault (kendi Windows derlemesi de cokuyor); ilk kosu gecersiz (klasordeki kod Cursor'in 017 cozumunun kopyasiydi, Cursor ile commitlenmis); cppcheck 18; g++ 57 uyari"

@@ -14,6 +14,10 @@ Yontem (canonical, agent kurcalayamaz):
 Cikti: son satir 'SONUC gecen=X toplam=N ms=M rss_kb=R'
 """
 import sys, os, subprocess, time, re
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import olcum
+
+L = olcum.Limit("019")
 
 exe = os.path.abspath(sys.argv[1])
 SOL = os.path.dirname(exe)
@@ -41,15 +45,15 @@ ms = 0.0
 rss = 0
 try:
     t0 = time.monotonic()
-    r = subprocess.run(["/usr/bin/time", "-v", binp], cwd=REF,
-                       capture_output=True, text=True, timeout=120)
+    r = olcum.run([binp], cwd=REF, timeout=120)
     ms = (time.monotonic() - t0) * 1000
-    m = re.search(r"Maximum resident set size \(kbytes\):\s*(\d+)", r.stderr)
-    if m:
-        rss = int(m.group(1))
+    rss = r.rss_kb or 0
+    lim_ok = L.ok(r)   # tek kosu = tek test case
     out = r.stdout + r.stderr
 except subprocess.TimeoutExpired:
     print("TLE (120sn)")
+    L.ok(None)
+    print(L.satir(0, T))
     print(f"SONUC gecen=0 toplam={T} ms=120000 rss_kb=0")
     try: os.unlink(binp)
     except Exception: pass
@@ -67,4 +71,5 @@ else:
 
 try: os.unlink(binp)
 except Exception: pass
+print(L.satir(gecen if lim_ok else 0, T))
 print(f"SONUC gecen={gecen} toplam={T} ms={ms:.0f} rss_kb={rss}")

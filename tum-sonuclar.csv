@@ -1,49 +1,49 @@
-problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
-001,antigravity,gemini-3.1-pro-high,6/6,100.0,100.0,0,0,0,0,11,16,2,0.0,yok,100.0,3,11,2,+17/-0,100.0,1.55,,yok,long long; derleyemedi (mingw yok) kendi
-001,claude-code,opus-4.8-high,6/6,100.0,100.0,0,0,0,0,8,16,2,0.0,yok,100.0,3,12,1,+18/-0,100.0,1.5,,yok,long long kullandi; 6/6 gecti; 1 commit;
-001,codex,gpt-5.4-high,6/6,100.0,100.0,0,0,0,0,9,16,2,0.0,yok,100.0,3,13,2,+19/-0,100.0,1.46,,yok,g++ ile test etti ama sadece 2e9'a kadar
-001,cursor,opus-4.8-high,6/6,100.0,100.0,0,0,0,0,8,16,2,0.0,yok,100.0,3,9,1,+15/-0,100.0,1.67,,yok,long long; g++ ile derleyip kendi test e
-002,antigravity,gemini-3.1-pro-high,352/352,100.0,100.0,0,0,1,0,29,37,17,5.9,var,100.0,3,471,1,+471/-0,100.0,1.0,,yok,352/352 tam; kendi testi; 471 satir (en 
-002,claude-code,opus-4.8-high,352/352,100.0,100.0,0,0,1,0,13,55,16,13.7,var,100.0,3,875,4,+886/-11,0.8,1.01,,yok,352/352 tam (floor bolme dahil); kendi t
-002,codex,gpt-5.4-high,352/352,100.0,100.0,0,0,1,0,11,36,11,4.5,var,100.0,3,638,2,+638/-0,100.0,1.0,,yok,352/352 tam; kendi testi; CCN 11 (en sad
-002,cursor,opus-4.8-high,352/352,100.0,100.0,0,0,1,0,10,36,26,13.7,var,100.0,3,701,5,+713/-12,0.9,1.02,,yok,352/352 tam; kendi testi; CCN 26 (en kar
-004,antigravity,gemini-3.1-pro-high,60/60,100.0,100.0,0,0,13,-,264,87,172,0.0,yok,100.0,-,874,-,-,-,-,,yok,60/60 (consensus); CCN 172 (ASIRI karmas
-004,claude-code,opus-4.8-high,60/60,100.0,80.0,2,14,0,-,31,193,18,9.2,yok,96.0,-,1871,-,-,-,-,,yok,60/60 (consensus); YENIDEN kosuldu (ilk 
-004,codex,gpt-5.4-high,55/60,91.7,100.0,0,0,0,-,66,302,32,0.0,yok,93.3,-,1246,14,+272918/-1475,100.0,219.04,,yok,55/60 (5 testte consensus'tan ayri-muhte
-004,cursor,opus-4.8-high,60/60,100.0,100.0,0,0,0,-,505,241,29,1.4,yok,100.0,-,1265,-,-,-,-,,yok,60/60 (consensus); CCN 29 (en sade); tem
-005,antigravity,gemini-3.1-pro-high,8/16,50.0,60.0,0,0,0,0,191,49,28,12.9,yok,52.0,17,249,1,+249/-0,100.0,1.0,,yok,8/16 (encoder 8/8 DOGRU
-005,claude-code,opus-4.8-high,16/16,100.0,60.0,0,0,0,0,185,49,28,16.5,yok,92.0,17,242,2,+249/-7,55.4,1.03,,yok,16/16 (enc+dec tam); git init+2 commit (
-005,codex,gpt-5.4-high,8/16,50.0,60.0,0,0,0,0,184,49,41,12.5,yok,52.0,17,256,0,-,-,-,,yok,8/16 (4 resim tam enc+dec; 4 resim ikisi
-005,cursor,opus-4.8-high,16/16,100.0,76.0,0,0,0,0,103,50,30,19.9,var,95.2,16,266,3,+283/-17,46.6,1.06,,yok,16/16 (enc+dec tam); kendi test harness'
-006,antigravity,gemini-3.1-pro-high,0/40,0,0.0,0,0,0,-,-,-,26,43.1,yok,0.0,-,304,-,-,-,-,,yok,0/40 DERLENMEDI (server.h'yi advanced.cp
-006,claude-code,opus-4.8-high,40/40,100.0,100.0,0,0,0,-,15,17,19,28.4,yok,100.0,3,275,3,+383/-108,22.2,1.39,,yok,40/40 tam; CCN 19; 275 satir; 3 commit; 
-006,codex,gpt-5.4-high,40/40,100.0,100.0,0,0,0,-,21,37,12,39.2,yok,100.0,3,334,3,+334/-0,100.0,1.0,,yok,40/40 tam; CCN 12 (en sade); 334 satir; 
-006,cursor,opus-4.8-high,40/40,100.0,100.0,0,0,0,-,16,31,19,27.8,yok,100.0,3,281,4,+370/-89,28.5,1.32,,yok,40/40 tam; CCN 19; 281 satir; 4 commit; 
-009,antigravity,gemini-3.1-pro-high,7/7,100.0,100.0,0,0,0,0,814,31,8,1.9,var,100.0,653,368,-,-,-,-,,yok,7/7 tam; kendi testini yazdi; commit YOK
-009,claude-code,opus-4.8-high,7/7,100.0,100.0,0,0,0,0,715,27,6,22.9,yok,100.0,653,528,3,+609/-81,27.8,1.15,,yok,7/7 tam; 3 commit; survival %27.8; CCN 6
-009,codex,gpt-5.4-high,7/7,100.0,100.0,0,0,0,0,754,31,8,19.1,yok,100.0,653,648,3,+702/-54,26.9,1.08,,yok,7/7 tam; bu sefer git CALISTI (3 commit 
-009,cursor,opus-4.8-high,7/7,100.0,100.0,0,0,0,0,768,27,6,26.6,yok,100.0,653,537,2,+595/-58,31.7,1.11,,yok,7/7 tam; 2 commit; survival %31.7; CCN 6
-013,antigravity,gemini-3.1-pro-high,10/10,100.0,100.0,0,0,0,0,1420,36,12,0.0,yok,100.0,80,490,1,+490/-0,100.0,1.0,,yok,10/10 tam; 1 commit; CCN 12; yorum yok; 
-013,claude-code,opus-4.8-high,10/10,100.0,100.0,0,0,0,0,1809,35,11,6.1,yok,100.0,80,428,3,+601/-173,11.7,1.4,,yok,10/10 tam; 3 commit; survival %11.7; CCN
-013,codex,gpt-5.4-high,10/10,100.0,60.0,4,0,0,0,1583,40,7,0.6,yok,92.0,95,515,0,-,-,-,,yok,10/10 tam AMA cppcheck 4 (noexcept-ihlal
-013,cursor,opus-4.8-high,10/10,100.0,90.0,1,0,0,0,1349,40,7,19.8,yok,98.0,80,567,3,+773/-206,3.0,1.36,,yok,10/10 tam; cppcheck 1 (null-deref parent
-014,antigravity,gemini-3.1-pro-high,34/34,100.0,100.0,0,0,-,-,303,654,16,3.0,var,100.0,5,474,1,+474/-0,100.0,1.0,,yok,34/34 tam; kendi testi; CCN 16; 474 sati
-014,claude-code,opus-4.8-high,34/34,100.0,100.0,0,0,-,-,89,596,12,4.8,var,100.0,7,497,4,+655/-158,100.0,1.32,,yok,34/34 tam; kendi testi; CCN 12 (en sade)
-014,codex,gpt-5.4-high,0/34,0,0.0,0,0,-,-,-,-,27,0.0,var,0.0,-,1169,2,+1173/-4,0.1,1.0,,yok,0/34 DERLENMEDI (kendi C++ hatalari: boz
-014,cursor,opus-4.8-high,34/34,100.0,100.0,0,0,-,-,81,594,33,6.1,var,100.0,6,684,3,+689/-5,100.0,1.01,,yok,34/34 tam; kendi testi; CCN 33 (en karma
-017,antigravity,gemini-3.1-pro-high,345/359770,0.1,60.0,7,15,14,-,469,130,88,0.8,yok,12.1,-,1920,-,-,-,-,,yok,345/359770 (~%0.1 - COKTU: cikti yanlis 
-017,claude-code,opus-4.8-high,359770/359770,100.0,80.0,2,2,0,-,641,106,28,6.5,yok,96.0,-,1840,-,-,-,-,,yok,359770/359770 (%100 - gercek out.txt); S
-017,codex,gpt-5.4-high,359770/359770,100.0,60.0,5,0,0,-,121,76,85,0.0,yok,92.0,-,1291,19,+277606/-1481,100.0,215.03,,yok,359770/359770 (%100); cppcheck 5; CCN 85
-017,cursor,opus-4.8-high,359770/359770,100.0,90.0,1,0,0,-,95,80,32,2.7,yok,98.0,-,1505,-,-,-,-,,yok,359770/359770 (%100); cppcheck 1; CCN 32
-018,antigravity,gemini-3.1-pro-high,118/118,100.0,100.0,0,0,0,-,338,1529,121,2.5,yok,100.0,-,945,-,-,-,-,,yok,118/118; CCN 121 (en karmasik); 945 sati
-018,claude-code,opus-4.8-high,118/118,100.0,100.0,0,0,0,-,198,1517,118,7.8,yok,100.0,-,1098,-,-,-,-,,yok,118/118 (consensus-oracle: 4 arac 118 te
-018,codex,gpt-5.4-high,118/118,100.0,100.0,0,0,0,-,247,1434,92,0.3,yok,100.0,-,1185,3,+2243/-0,-,1.89,,yok,118/118; CCN 92; 1185 satir (en cok); 3 
-018,cursor,opus-4.8-high,118/118,100.0,100.0,0,0,0,-,242,1430,46,9.2,yok,100.0,-,1145,-,-,-,-,,yok,118/118; CCN 46 (en sade/temiz); 1145 sa
-019,antigravity,gemini-3.1-pro-high,10000/10000,100.0,100.0,0,0,1,-,1007,96,7,5.3,yok,100.0,14,113,-,-,-,-,,yok,acc %100 (Error Rate 0; final kod 112 sa
-019,claude-code,opus-4.8-high,10000/10000,100.0,100.0,0,0,1,-,1135,80,4,19.3,yok,100.0,112,207,-,-,-,-,,yok,acc %100 (Error Rate 0; gercek ans.txt);
-019,codex,gpt-5.4-high,10000/10000,100.0,100.0,0,0,1,-,346,80,10,0.0,yok,100.0,69,108,7,+480/-0,100.0,4.44,,yok,acc %100; CCN 10; 108 satir (en kisa); 6
-019,cursor,opus-4.8-high,10000/10000,100.0,100.0,0,0,1,-,842,80,5,4.2,yok,100.0,331,165,-,-,-,-,,yok,acc %100; CCN 5; 165 satir; en yavas (80
-020,antigravity,gemini-3.1-pro-high,9/9,100.0,100.0,0,0,0,0,35,20,15,0.0,yok,100.0,3,164,1,+164/-0,100.0,1.0,,yok,9/9 tam; 1 commit; yorum yok; CCN 15; 16
-020,claude-code,opus-4.8-high,9/9,100.0,100.0,0,0,0,0,30,20,15,6.4,yok,100.0,2,202,1,+202/-0,100.0,1.0,,yok,9/9 tam; 1 commit; CCN 15; 202 satir; te
-020,codex,gpt-5.4-high,9/9,100.0,100.0,0,0,-,0,33,20,12,0.0,yok,100.0,1,262,1,+262/-0,100.0,1.0,,yok,9/9 tam; 1 commit; en uzun (262 satir); 
-020,cursor,opus-4.8-high,9/9,100.0,90.0,1,0,0,0,36,20,11,11.9,yok,98.0,1,194,3,+203/-9,6.7,1.05,,yok,9/9 tam AMA cppcheck UB buldu (shiftNega
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not,exec_lim,tle,mle,cpu_ms
+001,antigravity,gemini-3.1-pro-high,6/6,100.0,100.0,0,0,0,0,2,16,2,0.0,yok,100.0,3,11,-,-,-,-,,yok,long long; derleyemedi (mingw yok) kendi,100.0,0,0,0
+001,claude-code,opus-4.8-high,6/6,100.0,100.0,0,0,0,0,2,16,2,0.0,yok,100.0,3,12,-,-,-,-,,yok,long long kullandi; 6/6 gecti; 1 commit;,100.0,0,0,0
+001,codex,gpt-5.4-high,6/6,100.0,100.0,0,0,0,0,1,16,2,0.0,yok,100.0,3,13,-,-,-,-,,yok,g++ ile test etti ama sadece 2e9'a kadar,100.0,0,0,0
+001,cursor,opus-4.8-high,6/6,100.0,100.0,0,0,0,0,12,16,2,0.0,yok,100.0,3,9,-,-,-,-,,yok,long long; g++ ile derleyip kendi test e,100.0,0,0,0
+002,antigravity,gemini-3.1-pro-high,352/352,100.0,100.0,0,0,1,0,22,37,17,5.9,var,100.0,3,471,-,-,-,-,,yok,352/352 tam; kendi testi; 471 satir (en ,100.0,0,0,0
+002,claude-code,opus-4.8-high,352/352,100.0,100.0,0,0,1,0,7,55,16,13.7,var,100.0,3,875,-,-,-,-,,yok,352/352 tam (floor bolme dahil); kendi t,100.0,0,0,0
+002,codex,gpt-5.4-high,352/352,100.0,100.0,0,0,1,0,8,36,11,4.5,var,100.0,3,638,-,-,-,-,,yok,352/352 tam; kendi testi; CCN 11 (en sad,100.0,0,0,0
+002,cursor,opus-4.8-high,352/352,100.0,100.0,0,0,1,0,13,36,26,13.7,var,100.0,3,701,-,-,-,-,,yok,352/352 tam; kendi testi; CCN 26 (en kar,100.0,0,0,0
+004,antigravity,gemini-3.1-pro-high,60/60,100.0,100.0,0,0,13,-,33,87,172,0.0,yok,100.0,4,874,-,-,-,-,,yok,60/60 (consensus); CCN 172 (ASIRI karmas,100.0,0,0,20
+004,claude-code,opus-4.8-high,60/60,100.0,80.0,2,14,0,-,59,193,18,9.2,yok,96.0,4,1871,-,-,-,-,,yok,60/60 (consensus); YENIDEN kosuldu (ilk ,100.0,0,0,10
+004,codex,gpt-5.4-high,55/60,91.7,100.0,0,0,0,-,97,302,32,0.0,yok,93.3,4,1246,26,+1575591/-2694,100.0,1264.52,,yok,55/60 (5 testte consensus'tan ayri-muhte,91.7,0,0,10
+004,cursor,opus-4.8-high,60/60,100.0,100.0,0,0,0,-,64,241,29,1.4,yok,100.0,4,1265,-,-,-,-,,yok,60/60 (consensus); CCN 29 (en sade); tem,100.0,0,0,10
+005,antigravity,gemini-3.1-pro-high,8/16,50.0,60.0,0,0,0,0,324,49,28,12.9,yok,52.0,3,249,-,-,-,-,,yok,8/16 (encoder 8/8 DOGRU,50.0,0,0,130
+005,claude-code,opus-4.8-high,16/16,100.0,60.0,0,0,0,0,168,49,28,16.5,yok,92.0,3,242,-,-,-,-,,yok,16/16 (enc+dec tam); git init+2 commit (,100.0,0,0,60
+005,codex,gpt-5.4-high,8/16,50.0,60.0,0,0,0,0,148,49,41,12.5,yok,52.0,3,256,-,-,-,-,,yok,8/16 (4 resim tam enc+dec; 4 resim ikisi,50.0,0,0,50
+005,cursor,opus-4.8-high,16/16,100.0,76.0,0,0,0,0,46,50,30,19.9,var,95.2,3,266,-,-,-,-,,yok,16/16 (enc+dec tam); kendi test harness',100.0,0,0,10
+006,antigravity,gemini-3.1-pro-high,0/40,0,0.0,0,0,0,-,-,-,26,43.1,yok,0.0,-,304,-,-,-,-,,yok,0/40 DERLENMEDI (server.h'yi advanced.cp,0.0,-,-,-
+006,claude-code,opus-4.8-high,40/40,100.0,100.0,0,0,0,-,60,17,19,28.4,yok,100.0,3,275,-,-,-,-,,yok,40/40 tam; CCN 19; 275 satir; 3 commit; ,100.0,0,0,0
+006,codex,gpt-5.4-high,40/40,100.0,100.0,0,0,0,-,78,37,12,39.2,yok,100.0,3,334,-,-,-,-,,yok,40/40 tam; CCN 12 (en sade); 334 satir; ,100.0,0,0,20
+006,cursor,opus-4.8-high,40/40,100.0,100.0,0,0,0,-,35,31,19,27.8,yok,100.0,3,281,-,-,-,-,,yok,40/40 tam; CCN 19; 281 satir; 4 commit; ,100.0,0,0,0
+009,antigravity,gemini-3.1-pro-high,7/7,100.0,100.0,0,0,0,0,673,31,8,1.9,var,100.0,653,368,-,-,-,-,,yok,7/7 tam; kendi testini yazdi; commit YOK,100.0,0,0,670
+009,claude-code,opus-4.8-high,7/7,100.0,100.0,0,0,0,0,690,27,6,22.9,yok,100.0,653,528,-,-,-,-,,yok,7/7 tam; 3 commit; survival %27.8; CCN 6,100.0,0,0,700
+009,codex,gpt-5.4-high,7/7,100.0,100.0,0,0,0,0,670,31,8,19.1,yok,100.0,653,648,-,-,-,-,,yok,7/7 tam; bu sefer git CALISTI (3 commit ,100.0,0,0,680
+009,cursor,opus-4.8-high,7/7,100.0,100.0,0,0,0,0,699,27,6,26.6,yok,100.0,653,537,-,-,-,-,,yok,7/7 tam; 2 commit; survival %31.7; CCN 6,100.0,0,0,700
+013,antigravity,gemini-3.1-pro-high,10/10,100.0,100.0,0,0,0,0,1244,36,12,0.0,yok,100.0,79,490,-,-,-,-,,yok,10/10 tam; 1 commit; CCN 12; yorum yok; ,100.0,0,0,1260
+013,claude-code,opus-4.8-high,10/10,100.0,100.0,0,0,0,0,1159,35,11,6.1,yok,100.0,79,428,-,-,-,-,,yok,10/10 tam; 3 commit; survival %11.7; CCN,100.0,0,0,1170
+013,codex,gpt-5.4-high,10/10,100.0,60.0,4,0,0,0,1307,40,7,0.6,yok,92.0,95,515,-,-,-,-,,yok,10/10 tam AMA cppcheck 4 (noexcept-ihlal,100.0,0,0,1320
+013,cursor,opus-4.8-high,10/10,100.0,90.0,1,0,0,0,1110,40,7,19.8,yok,98.0,79,567,-,-,-,-,,yok,10/10 tam; cppcheck 1 (null-deref parent,100.0,0,0,1130
+014,antigravity,gemini-3.1-pro-high,34/34,100.0,100.0,0,0,-,-,163,654,16,3.0,var,100.0,5,474,-,-,-,-,,yok,34/34 tam; kendi testi; CCN 16; 474 sati,100.0,0,0,120
+014,claude-code,opus-4.8-high,34/34,100.0,100.0,0,0,-,-,63,596,12,4.8,var,100.0,6,497,-,-,-,-,,yok,34/34 tam; kendi testi; CCN 12 (en sade),100.0,0,0,40
+014,codex,gpt-5.4-high,0/34,0,0.0,0,0,-,-,-,-,27,0.0,var,0.0,-,1169,-,-,-,-,,yok,0/34 DERLENMEDI (kendi C++ hatalari: boz,0.0,-,-,-
+014,cursor,opus-4.8-high,34/34,100.0,100.0,0,0,-,-,321,594,33,6.1,var,100.0,6,684,-,-,-,-,,yok,34/34 tam; kendi testi; CCN 33 (en karma,100.0,0,0,310
+017,antigravity,gemini-3.1-pro-high,698/359770,0.2,60.0,18,57,-,-,669,134,42,2.3,var,12.2,18,1900,-,-,-,-,,yok,698/359770 (%0.2) - YENIDEN KOSU 2026-09,0.2,0,0,60
+017,claude-code,opus-4.8-high,359770/359770,100.0,80.0,2,2,0,-,521,106,28,6.5,yok,96.0,10,1840,-,-,-,-,,yok,359770/359770 (%100 - gercek out.txt); S,100.0,0,0,490
+017,codex,gpt-5.4-high,359770/359770,100.0,60.0,5,0,0,-,99,76,85,0.0,yok,92.0,5,1291,26,+1575591/-2694,100.0,1220.44,,yok,359770/359770 (%100); cppcheck 5; CCN 85,100.0,0,0,90
+017,cursor,opus-4.8-high,359770/359770,100.0,90.0,1,0,0,-,160,80,32,2.7,yok,98.0,9,1505,-,-,-,-,,yok,359770/359770 (%100); cppcheck 1; CCN 32,100.0,0,0,120
+018,antigravity,gemini-3.1-pro-high,118/118,100.0,100.0,0,0,0,-,76,1528,121,2.5,yok,100.0,4,945,-,-,-,-,,yok,118/118; CCN 121 (en karmasik); 945 sati,100.0,0,0,10
+018,claude-code,opus-4.8-high,118/118,100.0,100.0,0,0,0,-,78,1516,118,7.8,yok,100.0,4,1098,-,-,-,-,,yok,118/118 (consensus-oracle: 4 arac 118 te,100.0,0,0,10
+018,codex,gpt-5.4-high,118/118,100.0,100.0,0,0,0,-,67,1433,92,0.3,yok,100.0,4,1185,26,+4373/-0,100.0,3.69,,yok,118/118; CCN 92; 1185 satir (en cok); 3 ,100.0,0,0,0
+018,cursor,opus-4.8-high,118/118,100.0,100.0,0,0,0,-,82,1430,46,9.2,yok,100.0,4,1145,-,-,-,-,,yok,118/118; CCN 46 (en sade/temiz); 1145 sa,100.0,0,0,10
+019,antigravity,gemini-3.1-pro-high,10000/10000,100.0,100.0,0,0,1,-,357,96,7,5.3,yok,100.0,14,113,-,-,-,-,,yok,acc %100 (Error Rate 0; final kod 112 sa,100.0,0,0,90
+019,claude-code,opus-4.8-high,10000/10000,100.0,100.0,0,0,1,-,227,80,4,19.3,yok,100.0,112,207,-,-,-,-,,yok,acc %100 (Error Rate 0; gercek ans.txt);,100.0,0,0,140
+019,codex,gpt-5.4-high,10000/10000,100.0,100.0,0,0,1,-,191,80,10,0.0,yok,100.0,69,108,26,+593/-0,100.0,5.49,,yok,acc %100; CCN 10; 108 satir (en kisa); 6,100.0,0,0,120
+019,cursor,opus-4.8-high,10000/10000,100.0,100.0,0,0,1,-,535,80,5,4.2,yok,100.0,331,165,-,-,-,-,,yok,acc %100; CCN 5; 165 satir; en yavas (80,0.0,0,1,470
+020,antigravity,gemini-3.1-pro-high,9/9,100.0,100.0,0,0,0,0,32,20,15,0.0,yok,100.0,2,164,-,-,-,-,,yok,9/9 tam; 1 commit; yorum yok; CCN 15; 16,100.0,0,0,30
+020,claude-code,opus-4.8-high,9/9,100.0,100.0,0,0,0,0,32,20,15,6.4,yok,100.0,2,202,-,-,-,-,,yok,9/9 tam; 1 commit; CCN 15; 202 satir; te,100.0,0,0,30
+020,codex,gpt-5.4-high,9/9,100.0,100.0,0,0,-,0,30,20,12,0.0,yok,100.0,1,262,-,-,-,-,,yok,9/9 tam; 1 commit; en uzun (262 satir); ,100.0,0,0,10
+020,cursor,opus-4.8-high,9/9,100.0,90.0,1,0,0,0,43,20,11,11.9,yok,98.0,1,194,-,-,-,-,,yok,9/9 tam AMA cppcheck UB buldu (shiftNega,100.0,0,0,20

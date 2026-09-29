@@ -15,10 +15,13 @@ bu yuzden dogru kod referans .qoi'yi birebir uretir.
 Cikti (analiz.py'nin parse ettigi): son satir 'SONUC gecen=X toplam=N ms=M'
 """
 import sys, os, subprocess, tempfile, time, resource, shutil, re
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import olcum
 
 exe = os.path.abspath(sys.argv[1])
 HERE = os.path.dirname(os.path.abspath(__file__))
 RESIM = os.path.join(HERE, "resim")
+L = olcum.Limit("005")
 
 SETS = [
     ("rgb",  "-3", "ppm", ["pic1", "pic2", "pic3", "testcard"]),
@@ -27,10 +30,12 @@ SETS = [
 
 
 def run(flag_de, girdi, td):
-    return subprocess.run([exe] + flag_de, input=girdi, capture_output=True, cwd=td, timeout=60).stdout
+    """(stdout, limit_ok) - her cagri ayri bir test-case kosusudur."""
+    r = olcum.run([exe] + flag_de, input=girdi, cwd=td, timeout=60, text=False)
+    return r.stdout, L.ok(r)
 
 
-gecen = toplam = 0
+gecen = gecen_lim = toplam = 0
 max_ms = 0.0
 
 for tur, flag, ext, imgs in SETS:
@@ -45,21 +50,23 @@ for tur, flag, ext, imgs in SETS:
         with tempfile.TemporaryDirectory() as td:
             try:
                 t0 = time.monotonic()
-                enc = run(["-e", flag], img_b, td)          # encode
-                dec = run(["-d", flag], ref_b, td)          # decode ref qoi -> ppm
-                reenc = run(["-e", flag], dec, td)          # re-encode -> qoi'
+                enc, enc_lim = run(["-e", flag], img_b, td)      # encode
+                dec, dec_lim = run(["-d", flag], ref_b, td)      # decode ref qoi -> ppm
+                reenc, re_lim = run(["-e", flag], dec, td)       # re-encode -> qoi'
                 max_ms = max(max_ms, (time.monotonic() - t0) * 1000)
                 enc_ok = (enc == ref_b)
                 dec_ok = (reenc == ref_b)
                 gecen += int(enc_ok) + int(dec_ok)
+                gecen_lim += int(enc_ok and enc_lim) + int(dec_ok and dec_lim and re_lim)
                 print(f"{tur}/{name}: encode={'PASS' if enc_ok else 'FAIL'} · decode={'PASS' if dec_ok else 'FAIL'}")
             except subprocess.TimeoutExpired:
+                L.ok(None)
                 print(f"{tur}/{name}: TLE (encode+decode FAIL)")
             except Exception as e:
                 print(f"{tur}/{name}: HATA ({e})")
 
-# cocuk process'lerin en yuksek RSS'i (KB, Linux) - bellek metrigi icin
-rss_kb = resource.getrusage(resource.RUSAGE_CHILDREN).ru_maxrss
+# en yuksek RSS: sadece agent programi (/usr/bin/time ile, her kosu ayri)
+rss_kb = L.max_rss_kb
 
 # --- LEAK: bir encode islemini (rgb/testcard, en kucuk) valgrind ile ---
 leak_byte = -1
@@ -74,4 +81,5 @@ if shutil.which("valgrind") and os.path.isfile(exe) and os.path.isfile(img):
     except subprocess.TimeoutExpired:
         leak_byte = -1
 
+print(L.satir(gecen_lim, toplam))
 print(f"SONUC gecen={gecen} toplam={toplam} ms={max_ms:.0f} rss_kb={rss_kb} leak_byte={leak_byte}")

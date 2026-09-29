@@ -1,5 +1,5 @@
-problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not
-017,antigravity,gemini-3.1-pro-high,345/359770,0.1,60.0,7,15,14,-,469,130,88,0.8,yok,12.1,-,1920,-,-,-,-,,yok,345/359770 (~%0.1 - COKTU: cikti yanlis 
-017,claude-code,opus-4.8-high,359770/359770,100.0,80.0,2,2,0,-,641,106,28,6.5,yok,96.0,-,1840,-,-,-,-,,yok,359770/359770 (%100 - gercek out.txt); S
-017,codex,gpt-5.4-high,359770/359770,100.0,60.0,5,0,0,-,121,76,85,0.0,yok,92.0,-,1291,19,+277606/-1481,100.0,215.03,,yok,359770/359770 (%100); cppcheck 5; CCN 85
-017,cursor,opus-4.8-high,359770/359770,100.0,90.0,1,0,0,-,95,80,32,2.7,yok,98.0,-,1505,-,-,-,-,,yok,359770/359770 (%100); cppcheck 1; CCN 32
+problem,arac,model,dogruluk,exec_score,cr_score,guvenlik,uyari,clang_tidy,leak_byte,hiz_ms,binary_kb,max_ccn,yorum_orani,kendi_testi,birlesik,max_mb,satir,commit,churn,survival,rewrite,tur,mudahale,not,exec_lim,tle,mle,cpu_ms
+017,antigravity,gemini-3.1-pro-high,698/359770,0.2,60.0,18,57,-,-,669,134,42,2.3,var,12.2,18,1900,-,-,-,-,,yok,698/359770 (%0.2) - YENIDEN KOSU 2026-09,0.2,0,0,60
+017,claude-code,opus-4.8-high,359770/359770,100.0,80.0,2,2,0,-,521,106,28,6.5,yok,96.0,10,1840,-,-,-,-,,yok,359770/359770 (%100 - gercek out.txt); S,100.0,0,0,490
+017,codex,gpt-5.4-high,359770/359770,100.0,60.0,5,0,0,-,99,76,85,0.0,yok,92.0,5,1291,26,+1575591/-2694,100.0,1220.44,,yok,359770/359770 (%100); cppcheck 5; CCN 85,100.0,0,0,90
+017,cursor,opus-4.8-high,359770/359770,100.0,90.0,1,0,0,-,160,80,32,2.7,yok,98.0,9,1505,-,-,-,-,,yok,359770/359770 (%100); cppcheck 1; CCN 32,100.0,0,0,120

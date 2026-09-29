@@ -20,6 +20,10 @@ Linux/WSL'de: python3 analiz.py
 import os, sys, glob, shutil, subprocess, csv, re, time, json
 
 HERE = os.path.dirname(os.path.abspath(__file__))
+for _d in (os.path.dirname(HERE), os.path.join(os.path.dirname(os.path.dirname(HERE)), "calisma")):
+    if os.path.isfile(os.path.join(_d, "olcum.py")):   # calisma/ veya pilot/ altindan
+        sys.path.insert(0, _d); break
+import olcum   # calisma/olcum.py: resmi TL/ML limitleri + temiz kopya
 SONUC_DIR = os.path.join(HERE, "sonuclar")
 TEST_DIR = os.path.join(HERE, "testler")
 TIME_LIMIT = 5
@@ -89,6 +93,11 @@ def read_kayit(pid):
     return out
 
 
+def goreli(yol):
+    """Raporlara repo kokune gore GORELI yol yaz (kullanici adi / yerel klasor yapisi sizmasin)."""
+    return os.path.relpath(yol, os.path.abspath(os.path.join(HERE, "..", "..")))
+
+
 def baslik(s):
     print("\n" + "=" * 64); print(s); print("=" * 64)
 
@@ -124,40 +133,38 @@ def kalite_kaynaklar(sol_dir):
 
 
 # ---------- DERLEME ----------
-def build(sol_dir):
-    code_path = os.path.join(sol_dir, "code")
+def build(sol_dir, bdir):
+    """HER ZAMAN KAYNAKTAN, TEMIZ derleme. bdir = olcum.temiz_kopya(sol_dir): cozumun git'te
+    izlenen dosyalarinin taze kopyasi (eski 'code' binary'si, CMake cache, build/ YOK).
+    Hazir binary asla kullanilmaz (017-antigravity'de bayat binary test edilmisti)."""
+    code_path = os.path.join(bdir, "code")
     # FRAMEWORK: cfg.build_cmd varsa onu kullan
     bc = CFG.get("build_cmd")
     if bc:
         if CFG.get("kalite_glob"):
-            has = any(glob.glob(os.path.join(sol_dir, "**", g), recursive=True) for g in CFG["kalite_glob"])
+            has = any(glob.glob(os.path.join(bdir, "**", g), recursive=True) for g in CFG["kalite_glob"])
             if not has:
                 return None, "agent dosyasi yok (arac henuz calistirilmadi mi?)"
+        r = subprocess.run(bc, shell=True, cwd=bdir, capture_output=True, text=True)
         if os.path.isfile(code_path):
-            try: os.remove(code_path)
-            except Exception: pass
-        r = subprocess.run(bc, shell=True, cwd=sol_dir, capture_output=True, text=True)
-        if os.path.isfile(code_path):
-            return code_path, "cfg build_cmd"
+            return code_path, "temiz derleme: cfg build_cmd"
         try:
             with open(os.path.join(sol_dir, "derleme_hata.log"), "w") as f: f.write(r.stderr)
         except Exception: pass
         return None, "DERLEME HATASI (tam: derleme_hata.log): " + r.stderr.strip()[:150]
     # STANDALONE (varsayilan)
-    sources = kaynaklar(sol_dir)
+    sources = kaynaklar(bdir)
     if not sources:
         return None, "kaynak kod yok (arac henuz calistirilmadi mi?)"
-    if os.path.isfile(code_path) and os.access(code_path, os.X_OK):
-        return code_path, "hazir 'code'"
-    if os.path.isfile(os.path.join(sol_dir, "CMakeLists.txt")):
-        subprocess.run(["cmake", "."], cwd=sol_dir, capture_output=True, text=True)
-        subprocess.run(["make"], cwd=sol_dir, capture_output=True, text=True)
+    if os.path.isfile(os.path.join(bdir, "CMakeLists.txt")):
+        subprocess.run(["cmake", "."], cwd=bdir, capture_output=True, text=True)
+        subprocess.run(["make"], cwd=bdir, capture_output=True, text=True)
         if os.path.isfile(code_path):
-            return code_path, "cmake+make"
+            return code_path, "temiz derleme: cmake+make"
     r = subprocess.run(["g++", "-O2", "-std=c++17", "-o", code_path] + sources,
                        capture_output=True, text=True)
     if r.returncode == 0 and os.path.isfile(code_path):
-        return code_path, "g++ fallback"
+        return code_path, "temiz derleme: g++ fallback"
     # tam derleme hatasini dosyaya kaydet
     try:
         with open(os.path.join(sol_dir, "derleme_hata.log"), "w") as f:
@@ -172,9 +179,16 @@ def derleyici_uyari(sol_dir):
     if not kalite: return None
     try:
         if CFG.get("build_cmd"):
-            # framework: tam build'i -Wall -Wextra ile, agent dosyasina ait uyarilari say
+            # framework: tam build'i -Wall -Wextra ile (ayri temiz kopyada), agent dosyasina ait uyarilari say
             cmd = re.sub(r"\bg\+\+\b", "g++ -Wall -Wextra", CFG["build_cmd"], count=1)
-            r = subprocess.run(cmd, shell=True, cwd=sol_dir, capture_output=True, text=True, timeout=120)
+            # sol_dir burada zaten temiz kopya; build artigi karismasin diye ayrica kopyala
+            wdir = os.path.join(os.path.dirname(sol_dir), os.path.basename(sol_dir) + "_uyari")
+            shutil.copytree(sol_dir, wdir, ignore=shutil.ignore_patterns("code", "build", "CMakeFiles",
+                                                                        "CMakeCache.txt"))
+            try:
+                r = subprocess.run(cmd, shell=True, cwd=wdir, capture_output=True, text=True, timeout=120)
+            finally:
+                shutil.rmtree(wdir, ignore_errors=True)
             adlar = [os.path.basename(f) for f in kalite]
             cnt = sum(1 for line in r.stderr.splitlines()
                       if "warning:" in line and any(n in line for n in adlar))
@@ -212,9 +226,12 @@ def run_one(exe, girdi):
         return "", None, "TLE", TIME_LIMIT * 1000
 
 
+LIM = {}   # resmi limitli sonuc: gecen, toplam, tle, mle, cpu_ms, rss_kb (oracle LIMIT satirindan)
+
 def dogruluk(exe):
     tests = sorted(glob.glob(os.path.join(TEST_DIR, "*.in")))
-    passed = 0; detay = []; max_rss = 0; max_ms = 0
+    passed = passed_lim = 0; detay = []; max_rss = 0; max_ms = 0
+    L = olcum.Limit(problem_id())
     for tin in tests:
         ad = os.path.basename(tin)[:-3]
         girdi = open(tin).read()
@@ -230,9 +247,18 @@ def dogruluk(exe):
             detay.append(f"  Test {ad}: RE (runtime error), gelen={cikti!r}")
         elif cikti == beklenen:
             passed += 1
-            detay.append(f"  Test {ad}: PASS  (gelen={cikti!r}, {ms:.0f} ms" + (f", {rss//1024} MB)" if rss else ")"))
+            # resmi limit: CPU suresi + RSS ayrica olculur
+            try:
+                lim_ok = L.ok(olcum.run([exe], input=girdi, timeout=TIME_LIMIT))
+            except subprocess.TimeoutExpired:
+                lim_ok = L.ok(None)
+            passed_lim += int(lim_ok)
+            detay.append(f"  Test {ad}: PASS  (gelen={cikti!r}, {ms:.0f} ms" + (f", {rss//1024} MB)" if rss else ")")
+                         + ("" if lim_ok else " [resmi limit asildi]"))
         else:
             detay.append(f"  Test {ad}: WA  (beklenen={beklenen!r}, gelen={cikti!r})")
+    LIM.update(gecen=passed_lim, toplam=len(tests), tle=L.tle, mle=L.mle,
+               cpu_ms=L.max_cpu_ms, rss_kb=L.max_rss_kb)
     return passed, len(tests), detay, max_rss, max_ms
 
 
@@ -253,6 +279,13 @@ def custom_dogruluk(exe):
         return 0, 0, [f"  (oracle hatasi: {e})"], 0, 0
     gecen = toplam = 0; max_rss = 0; max_ms = 0; detay = []
     for line in (r.stdout + r.stderr).splitlines():
+        ml = re.match(r"LIMIT gecen=(\d+) toplam=(\d+) tl_ms=\d+ ml_mb=\d+ tle=(\d+) mle=(\d+) "
+                      r"cpu_ms=([\d.]+) rss_kb=(\d+)", line)
+        if ml:
+            LIM.update(gecen=int(ml.group(1)), toplam=int(ml.group(2)), tle=int(ml.group(3)),
+                       mle=int(ml.group(4)), cpu_ms=float(ml.group(5)), rss_kb=int(ml.group(6)))
+            detay.append("  " + line)
+            continue
         m = re.match(r"SONUC gecen=(\d+) toplam=(\d+)(?: ms=([\d.]+))?(?: rss_kb=(\d+))?(?: leak_byte=(-?\d+))?", line)
         if m:
             gecen = int(m.group(1)); toplam = int(m.group(2))
@@ -471,7 +504,7 @@ def main():
     sys.stdout = Tee(orig, rf)
     try:
         _main()
-        print(f"\nDetayli rapor: {rapor_yol}")
+        print(f"\nDetayli rapor: {goreli(rapor_yol)}")
     finally:
         sys.stdout = orig
         rf.close()
@@ -497,7 +530,14 @@ def _main():
     for arac in araclar:
         sol = os.path.join(SONUC_DIR, arac)
         baslik(f"ARAC: {arac}")
-        exe, durum = build(sol)
+        # repodaki kaynaktan taze kopya (cfg.sabit_surum varsa o commit'ten). Derleme, testler ve
+        # TUM kod metrikleri bu kopya uzerinde -> olculen kaynak == test edilen kaynak.
+        surum = (CFG.get("sabit_surum") or {}).get(arac)
+        bdir = olcum.temiz_kopya(sol, surum)
+        if surum:
+            print(f"Kaynak surumu sabit: commit {surum} (cfg.sabit_surum)")
+        LIM.clear()
+        exe, durum = build(sol, bdir)
         print(f"Derleme: {durum}")
 
         if exe:
@@ -509,25 +549,38 @@ def _main():
             print(f"Max bellek: {max_rss//1024 if max_rss else '?'} MB · Max hiz: {max_ms:.0f} ms")
         else:
             if CFG.get("correctness") == "custom":
-                # build basarisiz -> oracle yine de test sayisini bildirir (0/N, 0/0 degil)
-                gecen, toplam, detay, _, _ = custom_dogruluk(os.path.join(sol, "code"))
+                # build basarisiz -> oracle yine de test sayisini bildirir (0/N, 0/0 degil).
+                # exe yolu temiz kopyada -> var olmayan binary (eski 'code' ASLA calistirilmaz)
+                gecen, toplam, detay, _, _ = custom_dogruluk(os.path.join(bdir, "code"))
             else:
                 gecen, toplam = 0, len(ilk_test)
             exec_score, max_rss, max_ms = 0, 0, 0
             print(f"\nDogruluk: {gecen}/{toplam} (derlenemedi)")
+        # resmi zaman/bellek limitleriyle (ProjDevBench) dogruluk
+        if LIM.get("toplam"):
+            exec_lim = LIM["gecen"] / LIM["toplam"] * 100
+        else:
+            exec_lim = 0.0 if gecen == 0 else None
+        tl_ms, ml_mb = olcum.LIMITS.get(pid, (None, None))
+        if exec_lim is not None:
+            print(f"Resmi limitlerle (TL {tl_ms} ms CPU, ML {ml_mb} MiB): exec_lim={exec_lim:.1f} "
+                  f"· TLE={LIM.get('tle', 0)} MLE={LIM.get('mle', 0)} "
+                  f"· max CPU {LIM.get('cpu_ms', 0):.0f} ms · max RSS {LIM.get('rss_kb', 0)//1024} MB")
+        if not max_rss and LIM.get("rss_kb"):
+            max_rss = LIM["rss_kb"]
 
         # statik + ek metrikler
-        uyari = derleyici_uyari(sol)
+        uyari = derleyici_uyari(bdir)
         bkb = binary_kb(exe) if exe else "-"
-        avg_ccn, max_ccn = lizard_ccn(sol)
-        sg = cppcheck_say(sol)
-        tidy = clang_tidy_say(sol)
+        avg_ccn, max_ccn = lizard_ccn(bdir)
+        sg = cppcheck_say(bdir)
+        tidy = clang_tidy_say(bdir)
         if CFG.get("correctness") == "custom":
             leak = CUSTOM_LEAK                       # framework: oracle valgrind ile olctu (kucuk test)
         else:
             leak = valgrind_leak(exe, ilk_girdi) if exe else None
-        dosyalar, satir, yorum_orani = kod_metrikleri(sol)
-        kendi_test = kendi_testi_var(sol)
+        dosyalar, satir, yorum_orani = kod_metrikleri(bdir)
+        kendi_test = kendi_testi_var(bdir)
         cr, crnot = cr_proxy(avg_ccn, sg, exe is not None)
 
         print(f"\nDerleyici uyari (-Wall -Wextra): {uyari if uyari is not None else '-'}")
@@ -576,7 +629,12 @@ def _main():
             "tur": kayit.get(arac, {}).get("tur_sayisi", "-"),
             "mudahale": kayit.get(arac, {}).get("mudahale", "-"),
             "not": (kayit.get(arac, {}).get("not", "-") or "-")[:40],
+            "exec_lim": round(exec_lim, 1) if exec_lim is not None else "-",
+            "tle": LIM.get("tle", "-") if exe else "-",
+            "mle": LIM.get("mle", "-") if exe else "-",
+            "cpu_ms": round(LIM["cpu_ms"]) if exe and "cpu_ms" in LIM else "-",
         })
+        shutil.rmtree(bdir, ignore_errors=True)
 
     # OZET (ekran kompakt)
     baslik("OZET TABLO (kompakt · tam veri sonuclar.csv'de)")
@@ -590,11 +648,11 @@ def _main():
     kol_csv = ["problem", "arac", "model", "dogruluk", "exec_score", "cr_score", "guvenlik",
                "uyari", "clang_tidy", "leak_byte", "hiz_ms", "binary_kb", "max_ccn", "yorum_orani",
                "kendi_testi", "birlesik", "max_mb", "satir", "commit", "churn", "survival",
-               "rewrite", "tur", "mudahale", "not"]
+               "rewrite", "tur", "mudahale", "not", "exec_lim", "tle", "mle", "cpu_ms"]
     csv_yol = os.path.join(HERE, "sonuclar.csv")
     with open(csv_yol, "w", newline="") as f:
         w = csv.DictWriter(f, fieldnames=kol_csv); w.writeheader(); w.writerows(ozet)
-    print(f"\nTAM veri -> {csv_yol}")
+    print(f"\nTAM veri -> {goreli(csv_yol)}")
 
     # master birlesik CSV'yi otomatik tazele (kok/birlestir.py)
     kok = os.path.abspath(os.path.join(HERE, "..", ".."))

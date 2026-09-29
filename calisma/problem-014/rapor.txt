@@ -3,7 +3,7 @@
 ================================================================
 ARAC: antigravity
 ================================================================
-Derleme: cfg build_cmd
+Derleme: temiz derleme: cfg build_cmd
 
 Dogruluk: 34/34  (exec=100/100)
   BigIntegerTest0: PASS
@@ -40,7 +40,9 @@ Dogruluk: 34/34  (exec=100/100)
   test7: PASS
   test8: PASS
   test9: PASS
-Max bellek: 5 MB · Max hiz: 303 ms
+  LIMIT gecen=34 toplam=34 tl_ms=16000 ml_mb=512 tle=0 mle=0 cpu_ms=120 rss_kb=5996
+Max bellek: 5 MB · Max hiz: 163 ms
+Resmi limitlerle (TL 16000 ms CPU, ML 512 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 120 ms · max RSS 5 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 654 KB · Complexity avg/max: 3.6/16 · Yorum: %3.0
@@ -49,82 +51,79 @@ Bellek sizintisi (valgrind): - byte · Kendi testi: var
 Code Review (proxy): 100/100 (CCN=3.6) · BIRLESIK: 100.0/100
 
 Kod: 474 satir, 66 dosya
-  .gitignore
-  CMakeLists.txt
   README.md
-  docs/antlr_guide.md
-  docs/grammar.md
-  docs/workflow_details.md
-  generated/CMakeLists.txt
-  generated/libPyAntlr.a
-  generated/Python3Lexer.cpp
-  generated/Python3Lexer.h
-  generated/Python3Lexer.interp
-  generated/Python3Lexer.tokens
-  generated/Python3Parser.cpp
-  generated/Python3Parser.h
-  generated/Python3Parser.interp
-  generated/Python3Parser.tokens
-  generated/Python3ParserBaseVisitor.cpp
-  generated/Python3ParserBaseVisitor.h
-  generated/Python3ParserVisitor.cpp
-  generated/Python3ParserVisitor.h
-  src/BigInt.cpp
-  src/BigInt.h
-  src/Evalvisitor.cpp [agent]  (412 satir)
-  src/Evalvisitor.h [agent]  (62 satir)
-  src/main.cpp
-  src/Scope.cpp
-  src/Scope.h
-  src/Value.cpp
-  src/Value.h
+  CMakeLists.txt
+  .gitignore
   testcases/test.py
-  testcases/basic-testcases/test0.in
-  testcases/basic-testcases/test1.in
-  testcases/basic-testcases/test10.in
-  testcases/basic-testcases/test11.in
-  testcases/basic-testcases/test12.in
-  testcases/basic-testcases/test13.in
-  testcases/basic-testcases/test14.in
-  testcases/basic-testcases/test15.in
-  testcases/basic-testcases/test2.in
-  testcases/basic-testcases/test3.in
-  testcases/basic-testcases/test4.in
-  testcases/basic-testcases/test5.in
-  testcases/basic-testcases/test6.in
-  testcases/basic-testcases/test7.in
-  testcases/basic-testcases/test8.in
-  testcases/basic-testcases/test9.in
-  testcases/bigint-testcases/BigIntegerTest0.in
-  testcases/bigint-testcases/BigIntegerTest1.in
-  testcases/bigint-testcases/BigIntegerTest10.in
-  testcases/bigint-testcases/BigIntegerTest11.in
-  testcases/bigint-testcases/BigIntegerTest12.in
+  testcases/bigint-testcases/BigIntegerTest5.in
+  testcases/bigint-testcases/BigIntegerTest18.in
+  testcases/bigint-testcases/BigIntegerTest17.in
   testcases/bigint-testcases/BigIntegerTest13.in
-  testcases/bigint-testcases/BigIntegerTest14.in
   testcases/bigint-testcases/BigIntegerTest15.in
   testcases/bigint-testcases/BigIntegerTest16.in
-  testcases/bigint-testcases/BigIntegerTest17.in
-  testcases/bigint-testcases/BigIntegerTest18.in
   testcases/bigint-testcases/BigIntegerTest19.in
-  testcases/bigint-testcases/BigIntegerTest2.in
+  testcases/bigint-testcases/BigIntegerTest14.in
   testcases/bigint-testcases/BigIntegerTest3.in
-  testcases/bigint-testcases/BigIntegerTest4.in
-  testcases/bigint-testcases/BigIntegerTest5.in
   testcases/bigint-testcases/BigIntegerTest6.in
+  testcases/bigint-testcases/BigIntegerTest2.in
+  testcases/bigint-testcases/BigIntegerTest0.in
   testcases/bigint-testcases/BigIntegerTest7.in
+  testcases/bigint-testcases/BigIntegerTest12.in
   testcases/bigint-testcases/BigIntegerTest8.in
+  testcases/bigint-testcases/BigIntegerTest1.in
   testcases/bigint-testcases/BigIntegerTest9.in
+  testcases/bigint-testcases/BigIntegerTest10.in
+  testcases/bigint-testcases/BigIntegerTest11.in
+  testcases/bigint-testcases/BigIntegerTest4.in
+  testcases/basic-testcases/test8.in
+  testcases/basic-testcases/test12.in
+  testcases/basic-testcases/test5.in
+  testcases/basic-testcases/test0.in
+  testcases/basic-testcases/test14.in
+  testcases/basic-testcases/test3.in
+  testcases/basic-testcases/test1.in
+  testcases/basic-testcases/test4.in
+  testcases/basic-testcases/test9.in
+  testcases/basic-testcases/test2.in
+  testcases/basic-testcases/test6.in
+  testcases/basic-testcases/test13.in
+  testcases/basic-testcases/test10.in
+  testcases/basic-testcases/test15.in
+  testcases/basic-testcases/test7.in
+  testcases/basic-testcases/test11.in
+  docs/workflow_details.md
+  docs/antlr_guide.md
+  docs/grammar.md
+  generated/Python3Parser.h
+  generated/Python3Lexer.tokens
+  generated/Python3ParserVisitor.cpp
+  generated/Python3Lexer.interp
+  generated/CMakeLists.txt
+  generated/libPyAntlr.a
+  generated/Python3Parser.interp
+  generated/Python3ParserBaseVisitor.h
+  generated/Python3Parser.cpp
+  generated/Python3ParserVisitor.h
+  generated/Python3Lexer.h
+  generated/Python3Parser.tokens
+  generated/Python3Lexer.cpp
+  generated/Python3ParserBaseVisitor.cpp
+  src/Scope.h
+  src/BigInt.cpp
+  src/Scope.cpp
+  src/main.cpp
+  src/Value.h
+  src/Evalvisitor.h [agent]  (62 satir)
+  src/Value.cpp
+  src/Evalvisitor.cpp [agent]  (412 satir)
+  src/BigInt.h
 
-Git: 1 commit, +474/-0 (churn)
-  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1.0x
-  Commit mesajlari:
-- Implement Python Interpreter
+Git: repo yok
 
 ================================================================
 ARAC: claude-code
 ================================================================
-Derleme: cfg build_cmd
+Derleme: temiz derleme: cfg build_cmd
 
 Dogruluk: 34/34  (exec=100/100)
   BigIntegerTest0: PASS
@@ -161,7 +160,9 @@ Dogruluk: 34/34  (exec=100/100)
   test7: PASS
   test8: PASS
   test9: PASS
-Max bellek: 7 MB · Max hiz: 89 ms
+  LIMIT gecen=34 toplam=34 tl_ms=16000 ml_mb=512 tle=0 mle=0 cpu_ms=40 rss_kb=6300
+Max bellek: 6 MB · Max hiz: 63 ms
+Resmi limitlerle (TL 16000 ms CPU, ML 512 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 40 ms · max RSS 6 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 596 KB · Complexity avg/max: 3.8/12 · Yorum: %4.8
@@ -170,76 +171,70 @@ Bellek sizintisi (valgrind): - byte · Kendi testi: var
 Code Review (proxy): 100/100 (CCN=3.8) · BIRLESIK: 100.0/100
 
 Kod: 497 satir, 62 dosya
-  .gitignore
-  CMakeLists.txt
   README.md
-  docs/antlr_guide.md
-  docs/grammar.md
-  docs/workflow_details.md
-  generated/CMakeLists.txt
-  generated/libPyAntlr.a
-  generated/Python3Lexer.cpp
-  generated/Python3Lexer.h
-  generated/Python3Lexer.interp
-  generated/Python3Lexer.tokens
-  generated/Python3Parser.cpp
-  generated/Python3Parser.h
-  generated/Python3Parser.interp
-  generated/Python3Parser.tokens
-  generated/Python3ParserBaseVisitor.cpp
-  generated/Python3ParserBaseVisitor.h
-  generated/Python3ParserVisitor.cpp
-  generated/Python3ParserVisitor.h
-  src/BigInt.h
-  src/Evalvisitor.cpp [agent]  (1 satir)
-  src/Evalvisitor.h [agent]  (496 satir)
-  src/main.cpp
-  src/PyValue.h
+  CMakeLists.txt
+  .gitignore
   testcases/test.py
-  testcases/basic-testcases/test0.in
-  testcases/basic-testcases/test1.in
-  testcases/basic-testcases/test10.in
-  testcases/basic-testcases/test11.in
-  testcases/basic-testcases/test12.in
-  testcases/basic-testcases/test13.in
-  testcases/basic-testcases/test14.in
-  testcases/basic-testcases/test15.in
-  testcases/basic-testcases/test2.in
-  testcases/basic-testcases/test3.in
-  testcases/basic-testcases/test4.in
-  testcases/basic-testcases/test5.in
-  testcases/basic-testcases/test6.in
-  testcases/basic-testcases/test7.in
-  testcases/basic-testcases/test8.in
-  testcases/basic-testcases/test9.in
-  testcases/bigint-testcases/BigIntegerTest0.in
-  testcases/bigint-testcases/BigIntegerTest1.in
-  testcases/bigint-testcases/BigIntegerTest10.in
-  testcases/bigint-testcases/BigIntegerTest11.in
-  testcases/bigint-testcases/BigIntegerTest12.in
+  testcases/bigint-testcases/BigIntegerTest5.in
+  testcases/bigint-testcases/BigIntegerTest18.in
+  testcases/bigint-testcases/BigIntegerTest17.in
   testcases/bigint-testcases/BigIntegerTest13.in
-  testcases/bigint-testcases/BigIntegerTest14.in
   testcases/bigint-testcases/BigIntegerTest15.in
   testcases/bigint-testcases/BigIntegerTest16.in
-  testcases/bigint-testcases/BigIntegerTest17.in
-  testcases/bigint-testcases/BigIntegerTest18.in
   testcases/bigint-testcases/BigIntegerTest19.in
-  testcases/bigint-testcases/BigIntegerTest2.in
+  testcases/bigint-testcases/BigIntegerTest14.in
   testcases/bigint-testcases/BigIntegerTest3.in
-  testcases/bigint-testcases/BigIntegerTest4.in
-  testcases/bigint-testcases/BigIntegerTest5.in
   testcases/bigint-testcases/BigIntegerTest6.in
+  testcases/bigint-testcases/BigIntegerTest2.in
+  testcases/bigint-testcases/BigIntegerTest0.in
   testcases/bigint-testcases/BigIntegerTest7.in
+  testcases/bigint-testcases/BigIntegerTest12.in
   testcases/bigint-testcases/BigIntegerTest8.in
+  testcases/bigint-testcases/BigIntegerTest1.in
   testcases/bigint-testcases/BigIntegerTest9.in
+  testcases/bigint-testcases/BigIntegerTest10.in
+  testcases/bigint-testcases/BigIntegerTest11.in
+  testcases/bigint-testcases/BigIntegerTest4.in
+  testcases/basic-testcases/test8.in
+  testcases/basic-testcases/test12.in
+  testcases/basic-testcases/test5.in
+  testcases/basic-testcases/test0.in
+  testcases/basic-testcases/test14.in
+  testcases/basic-testcases/test3.in
+  testcases/basic-testcases/test1.in
+  testcases/basic-testcases/test4.in
+  testcases/basic-testcases/test9.in
+  testcases/basic-testcases/test2.in
+  testcases/basic-testcases/test6.in
+  testcases/basic-testcases/test13.in
+  testcases/basic-testcases/test10.in
+  testcases/basic-testcases/test15.in
+  testcases/basic-testcases/test7.in
+  testcases/basic-testcases/test11.in
+  docs/workflow_details.md
+  docs/antlr_guide.md
+  docs/grammar.md
+  generated/Python3Parser.h
+  generated/Python3Lexer.tokens
+  generated/Python3ParserVisitor.cpp
+  generated/Python3Lexer.interp
+  generated/CMakeLists.txt
+  generated/libPyAntlr.a
+  generated/Python3Parser.interp
+  generated/Python3ParserBaseVisitor.h
+  generated/Python3Parser.cpp
+  generated/Python3ParserVisitor.h
+  generated/Python3Lexer.h
+  generated/Python3Parser.tokens
+  generated/Python3Lexer.cpp
+  generated/Python3ParserBaseVisitor.cpp
+  src/main.cpp
+  src/Evalvisitor.h [agent]  (496 satir)
+  src/Evalvisitor.cpp [agent]  (1 satir)
+  src/BigInt.h
+  src/PyValue.h
 
-Git: 4 commit, +655/-158 (churn)
-  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1.32x
-  Commit mesajlari:
-- Optimize interpreter hot path (~10x on tight loops)
-  - Implement Python interpreter (values, semantics, tree-walking visitor)
-  - Add arbitrary-precision BigInt class
-  - Initial project skeleton with ANTLR-generated parser
+Git: repo yok
 
 ================================================================
 ARAC: codex
@@ -247,6 +242,7 @@ ARAC: codex
 Derleme: DERLEME HATASI (tam: derleme_hata.log): 
 
 Dogruluk: 0/34 (derlenemedi)
+Resmi limitlerle (TL 16000 ms CPU, ML 512 MiB): exec_lim=0.0 · TLE=0 MLE=0 · max CPU 0 ms · max RSS 0 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: - KB · Complexity avg/max: 3.1/27 · Yorum: %0.0
@@ -255,77 +251,73 @@ Bellek sizintisi (valgrind): - byte · Kendi testi: var
 Code Review (proxy): 0/100 (derlenemedi) · BIRLESIK: 0.0/100
 
 Kod: 1169 satir, 60 dosya
-  .gitignore
-  CMakeLists.txt
   README.md
-  docs/antlr_guide.md
-  docs/grammar.md
-  docs/workflow_details.md
-  generated/CMakeLists.txt
-  generated/libPyAntlr.a
-  generated/Python3Lexer.cpp
-  generated/Python3Lexer.h
-  generated/Python3Lexer.interp
-  generated/Python3Lexer.tokens
-  generated/Python3Parser.cpp
-  generated/Python3Parser.h
-  generated/Python3Parser.interp
-  generated/Python3Parser.tokens
-  generated/Python3ParserBaseVisitor.cpp
-  generated/Python3ParserBaseVisitor.h
-  generated/Python3ParserVisitor.cpp
-  generated/Python3ParserVisitor.h
-  src/Evalvisitor.cpp [agent]  (1109 satir)
-  src/Evalvisitor.h [agent]  (60 satir)
-  src/main.cpp
+  CMakeLists.txt
+  .gitignore
   testcases/test.py
-  testcases/basic-testcases/test0.in
-  testcases/basic-testcases/test1.in
-  testcases/basic-testcases/test10.in
-  testcases/basic-testcases/test11.in
-  testcases/basic-testcases/test12.in
-  testcases/basic-testcases/test13.in
-  testcases/basic-testcases/test14.in
-  testcases/basic-testcases/test15.in
-  testcases/basic-testcases/test2.in
-  testcases/basic-testcases/test3.in
-  testcases/basic-testcases/test4.in
-  testcases/basic-testcases/test5.in
-  testcases/basic-testcases/test6.in
-  testcases/basic-testcases/test7.in
-  testcases/basic-testcases/test8.in
-  testcases/basic-testcases/test9.in
-  testcases/bigint-testcases/BigIntegerTest0.in
-  testcases/bigint-testcases/BigIntegerTest1.in
-  testcases/bigint-testcases/BigIntegerTest10.in
-  testcases/bigint-testcases/BigIntegerTest11.in
-  testcases/bigint-testcases/BigIntegerTest12.in
+  testcases/bigint-testcases/BigIntegerTest5.in
+  testcases/bigint-testcases/BigIntegerTest18.in
+  testcases/bigint-testcases/BigIntegerTest17.in
   testcases/bigint-testcases/BigIntegerTest13.in
-  testcases/bigint-testcases/BigIntegerTest14.in
   testcases/bigint-testcases/BigIntegerTest15.in
   testcases/bigint-testcases/BigIntegerTest16.in
-  testcases/bigint-testcases/BigIntegerTest17.in
-  testcases/bigint-testcases/BigIntegerTest18.in
   testcases/bigint-testcases/BigIntegerTest19.in
-  testcases/bigint-testcases/BigIntegerTest2.in
+  testcases/bigint-testcases/BigIntegerTest14.in
   testcases/bigint-testcases/BigIntegerTest3.in
-  testcases/bigint-testcases/BigIntegerTest4.in
-  testcases/bigint-testcases/BigIntegerTest5.in
   testcases/bigint-testcases/BigIntegerTest6.in
+  testcases/bigint-testcases/BigIntegerTest2.in
+  testcases/bigint-testcases/BigIntegerTest0.in
   testcases/bigint-testcases/BigIntegerTest7.in
+  testcases/bigint-testcases/BigIntegerTest12.in
   testcases/bigint-testcases/BigIntegerTest8.in
+  testcases/bigint-testcases/BigIntegerTest1.in
   testcases/bigint-testcases/BigIntegerTest9.in
+  testcases/bigint-testcases/BigIntegerTest10.in
+  testcases/bigint-testcases/BigIntegerTest11.in
+  testcases/bigint-testcases/BigIntegerTest4.in
+  testcases/basic-testcases/test8.in
+  testcases/basic-testcases/test12.in
+  testcases/basic-testcases/test5.in
+  testcases/basic-testcases/test0.in
+  testcases/basic-testcases/test14.in
+  testcases/basic-testcases/test3.in
+  testcases/basic-testcases/test1.in
+  testcases/basic-testcases/test4.in
+  testcases/basic-testcases/test9.in
+  testcases/basic-testcases/test2.in
+  testcases/basic-testcases/test6.in
+  testcases/basic-testcases/test13.in
+  testcases/basic-testcases/test10.in
+  testcases/basic-testcases/test15.in
+  testcases/basic-testcases/test7.in
+  testcases/basic-testcases/test11.in
+  docs/workflow_details.md
+  docs/antlr_guide.md
+  docs/grammar.md
+  generated/Python3Parser.h
+  generated/Python3Lexer.tokens
+  generated/Python3ParserVisitor.cpp
+  generated/Python3Lexer.interp
+  generated/CMakeLists.txt
+  generated/libPyAntlr.a
+  generated/Python3Parser.interp
+  generated/Python3ParserBaseVisitor.h
+  generated/Python3Parser.cpp
+  generated/Python3ParserVisitor.h
+  generated/Python3Lexer.h
+  generated/Python3Parser.tokens
+  generated/Python3Lexer.cpp
+  generated/Python3ParserBaseVisitor.cpp
+  src/main.cpp
+  src/Evalvisitor.h [agent]  (60 satir)
+  src/Evalvisitor.cpp [agent]  (1109 satir)
 
-Git: 2 commit, +1173/-4 (churn)
-  Satir survival: 0.1% (ilk commit'ten kalan) · Rewrite orani: 1.0x
-  Commit mesajlari:
-- Implement interpreter visitor runtime
-  - Initialize repository and add ignore rules
+Git: repo yok
 
 ================================================================
 ARAC: cursor
 ================================================================
-Derleme: cfg build_cmd
+Derleme: temiz derleme: cfg build_cmd
 
 Dogruluk: 34/34  (exec=100/100)
   BigIntegerTest0: PASS
@@ -362,7 +354,9 @@ Dogruluk: 34/34  (exec=100/100)
   test7: PASS
   test8: PASS
   test9: PASS
-Max bellek: 6 MB · Max hiz: 81 ms
+  LIMIT gecen=34 toplam=34 tl_ms=16000 ml_mb=512 tle=0 mle=0 cpu_ms=310 rss_kb=6376
+Max bellek: 6 MB · Max hiz: 321 ms
+Resmi limitlerle (TL 16000 ms CPU, ML 512 MiB): exec_lim=100.0 · TLE=0 MLE=0 · max CPU 310 ms · max RSS 6 MB
 
 Derleyici uyari (-Wall -Wextra): 0
 Binary: 594 KB · Complexity avg/max: 5.1/33 · Yorum: %6.1
@@ -370,97 +364,82 @@ Guvenlik (cppcheck): 0 · clang-tidy: -
 Bellek sizintisi (valgrind): - byte · Kendi testi: var
 Code Review (proxy): 100/100 (CCN=5.1) · BIRLESIK: 100.0/100
 
-Kod: 684 satir, 72 dosya
-  .gitignore
-  CMakeLists.txt
+Kod: 684 satir, 62 dosya
   README.md
-  docs/antlr_guide.md
-  docs/grammar.md
-  docs/workflow_details.md
-  generated/CMakeLists.txt
-  generated/libPyAntlr.a
-  generated/Python3Lexer.cpp
-  generated/Python3Lexer.h
-  generated/Python3Lexer.interp
-  generated/Python3Lexer.tokens
-  generated/Python3Parser.cpp
-  generated/Python3Parser.h
-  generated/Python3Parser.interp
-  generated/Python3Parser.tokens
-  generated/Python3ParserBaseVisitor.cpp
-  generated/Python3ParserBaseVisitor.h
-  generated/Python3ParserVisitor.cpp
-  generated/Python3ParserVisitor.h
-  scratch/corner.in
-  scratch/edge_cases.in
-  scratch/pyrun.py
-  scratch/recursion_shortcircuit.in
-  scratch/run_tests.sh
-  scratch/spec_specific.in
-  scratch/test_bigint.cpp
-  scratch/test_bigint.exe
-  scratch/test_value.cpp
-  scratch/test_value.exe
-  src/BigInt.h
-  src/Evalvisitor.cpp [agent]  (1 satir)
-  src/Evalvisitor.h [agent]  (683 satir)
-  src/main.cpp
-  src/Value.h
+  CMakeLists.txt
+  .gitignore
   testcases/test.py
-  testcases/basic-testcases/test0.in
-  testcases/basic-testcases/test1.in
-  testcases/basic-testcases/test10.in
-  testcases/basic-testcases/test11.in
-  testcases/basic-testcases/test12.in
-  testcases/basic-testcases/test13.in
-  testcases/basic-testcases/test14.in
-  testcases/basic-testcases/test15.in
-  testcases/basic-testcases/test2.in
-  testcases/basic-testcases/test3.in
-  testcases/basic-testcases/test4.in
-  testcases/basic-testcases/test5.in
-  testcases/basic-testcases/test6.in
-  testcases/basic-testcases/test7.in
-  testcases/basic-testcases/test8.in
-  testcases/basic-testcases/test9.in
-  testcases/bigint-testcases/BigIntegerTest0.in
-  testcases/bigint-testcases/BigIntegerTest1.in
-  testcases/bigint-testcases/BigIntegerTest10.in
-  testcases/bigint-testcases/BigIntegerTest11.in
-  testcases/bigint-testcases/BigIntegerTest12.in
+  testcases/bigint-testcases/BigIntegerTest5.in
+  testcases/bigint-testcases/BigIntegerTest18.in
+  testcases/bigint-testcases/BigIntegerTest17.in
   testcases/bigint-testcases/BigIntegerTest13.in
-  testcases/bigint-testcases/BigIntegerTest14.in
   testcases/bigint-testcases/BigIntegerTest15.in
   testcases/bigint-testcases/BigIntegerTest16.in
-  testcases/bigint-testcases/BigIntegerTest17.in
-  testcases/bigint-testcases/BigIntegerTest18.in
   testcases/bigint-testcases/BigIntegerTest19.in
-  testcases/bigint-testcases/BigIntegerTest2.in
+  testcases/bigint-testcases/BigIntegerTest14.in
   testcases/bigint-testcases/BigIntegerTest3.in
-  testcases/bigint-testcases/BigIntegerTest4.in
-  testcases/bigint-testcases/BigIntegerTest5.in
   testcases/bigint-testcases/BigIntegerTest6.in
+  testcases/bigint-testcases/BigIntegerTest2.in
+  testcases/bigint-testcases/BigIntegerTest0.in
   testcases/bigint-testcases/BigIntegerTest7.in
+  testcases/bigint-testcases/BigIntegerTest12.in
   testcases/bigint-testcases/BigIntegerTest8.in
+  testcases/bigint-testcases/BigIntegerTest1.in
   testcases/bigint-testcases/BigIntegerTest9.in
+  testcases/bigint-testcases/BigIntegerTest10.in
+  testcases/bigint-testcases/BigIntegerTest11.in
+  testcases/bigint-testcases/BigIntegerTest4.in
+  testcases/basic-testcases/test8.in
+  testcases/basic-testcases/test12.in
+  testcases/basic-testcases/test5.in
+  testcases/basic-testcases/test0.in
+  testcases/basic-testcases/test14.in
+  testcases/basic-testcases/test3.in
+  testcases/basic-testcases/test1.in
+  testcases/basic-testcases/test4.in
+  testcases/basic-testcases/test9.in
+  testcases/basic-testcases/test2.in
+  testcases/basic-testcases/test6.in
+  testcases/basic-testcases/test13.in
+  testcases/basic-testcases/test10.in
+  testcases/basic-testcases/test15.in
+  testcases/basic-testcases/test7.in
+  testcases/basic-testcases/test11.in
+  docs/workflow_details.md
+  docs/antlr_guide.md
+  docs/grammar.md
+  generated/Python3Parser.h
+  generated/Python3Lexer.tokens
+  generated/Python3ParserVisitor.cpp
+  generated/Python3Lexer.interp
+  generated/CMakeLists.txt
+  generated/libPyAntlr.a
+  generated/Python3Parser.interp
+  generated/Python3ParserBaseVisitor.h
+  generated/Python3Parser.cpp
+  generated/Python3ParserVisitor.h
+  generated/Python3Lexer.h
+  generated/Python3Parser.tokens
+  generated/Python3Lexer.cpp
+  generated/Python3ParserBaseVisitor.cpp
+  src/main.cpp
+  src/Value.h
+  src/Evalvisitor.h [agent]  (683 satir)
+  src/Evalvisitor.cpp [agent]  (1 satir)
+  src/BigInt.h
 
-Git: 3 commit, +689/-5 (churn)
-  Satir survival: 100.0% (ilk commit'ten kalan) · Rewrite orani: 1.01x
-  Commit mesajlari:
-- perf: speed up interpreter hot paths
-  - feat: implement Python interpreter (BigInt, Value, EvalVisitor)
-  - chore: add .gitignore and baseline project skeleton
+Git: repo yok
 
 ================================================================
 OZET TABLO (kompakt · tam veri sonuclar.csv'de)
 ================================================================
-arac         model                dogruluk  birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn    
------------  -------------------  --------  --------  -----  ------  --------  ---------  ---------
-antigravity  gemini-3.1-pro-high  34/34     100.0     0      303     0         -          +474/-0  
-claude-code  opus-4.8-high        34/34     100.0     0      89      0         -          +655/-158
-codex        gpt-5.4-high         0/34      0.0       0      -       0         -          +1173/-4 
-cursor       opus-4.8-high        34/34     100.0     0      81      0         -          +689/-5  
+arac         model                dogruluk  birlesik  uyari  hiz_ms  guvenlik  leak_byte  churn
+-----------  -------------------  --------  --------  -----  ------  --------  ---------  -----
+antigravity  gemini-3.1-pro-high  34/34     100.0     0      163     0         -          -    
+claude-code  opus-4.8-high        34/34     100.0     0      63      0         -          -    
+codex        gpt-5.4-high         0/34      0.0       0      -       0         -          -    
+cursor       opus-4.8-high        34/34     100.0     0      321     0         -          -    
 
-TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-014/sonuclar.csv
+TAM veri -> calisma/problem-014/sonuclar.csv
 
-Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-014/rapor.txt
+Detayli rapor: calisma/problem-014/rapor.txt

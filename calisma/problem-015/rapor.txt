@@ -120,6 +120,6 @@ claude-code  -      3349/3349  98.0      0      53      1         -          -
 codex        -      0/3349     0.0       -      -       -         -          -             
 cursor       -      0/3349     0.0       -      -       -         -          +1002907/-2677
 
-TAM veri -> /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-015/sonuclar.csv
+TAM veri -> calisma/problem-015/sonuclar.csv
 
-Detayli rapor: /mnt/c/Users/RIDVAN/Desktop/staj1/calisma/problem-015/rapor.txt
+Detayli rapor: calisma/problem-015/rapor.txt

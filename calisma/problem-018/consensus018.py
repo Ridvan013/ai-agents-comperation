@@ -9,6 +9,8 @@ Calistir: python3 consensus018.py   (agentlar bittikten SONRA; her aracı derler
 Sonra: python3 analiz.py            (her araci consensus'a gore puanlar)
 """
 import os, subprocess, glob, collections, sys
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import olcum
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REF = os.path.join(HERE, "ref")
@@ -31,15 +33,16 @@ def run_scheme(exe, infile, timeout=5):
     return "\n".join(ln.replace("scm> ", "") for ln in lines).rstrip("\n")
 
 
-# 1) her araci derle
+# 1) her araci TEMIZ kopyada kaynaktan derle (eski build/ cache kullanilmaz)
 codes = {}
 for a in AGENTS:
     sol = os.path.join(SONUC, a)
     if not os.path.isfile(os.path.join(sol, "src", "evaluation.cpp")):
         codes[a] = None; print(f"{a}: kaynak yok"); continue
+    bdir = olcum.temiz_kopya(sol)
     subprocess.run("cmake -B build >/dev/null 2>&1 && cmake --build build -j4 >/dev/null 2>&1",
-                   shell=True, cwd=sol)
-    code = os.path.join(sol, "build", "code")
+                   shell=True, cwd=bdir)
+    code = os.path.join(bdir, "build", "code")
     codes[a] = code if os.path.isfile(code) else None
     print(f"{a}: {'build OK' if codes[a] else 'DERLENMEDI'}")
 
