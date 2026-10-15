@@ -368,6 +368,12 @@ def blame_survival(sol_dir, src):
 
 def git_metrikleri(sol_dir):
     if not os.path.isdir(os.path.join(sol_dir, ".git")): return None
+    # .git klasoru bozuk/bossa git UST dizindeki repoya (staj1) duser -> yanlis olcum.
+    # Sadece cozum klasorunun KENDI reposu varsa olc.
+    top = subprocess.run(["git", "-C", sol_dir, "rev-parse", "--show-toplevel"],
+                         capture_output=True, text=True).stdout.strip()
+    if not top or os.path.normcase(os.path.realpath(top)) != os.path.normcase(os.path.realpath(sol_dir)):
+        return None
     def g(a): return subprocess.run(["git", "-C", sol_dir] + a, capture_output=True, text=True).stdout.strip()
     commit = g(["rev-list", "--count", "HEAD"]) or "0"
     if not commit.isdigit() or int(commit) == 0:
