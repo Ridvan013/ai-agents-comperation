@@ -1,0 +1,13 @@
+problem,spec_words,interface_items,subtasks,from_scratch,removed_sections,rank_spec_words,rank_interface_items,rank_subtasks,rank_from_scratch,complexity_score
+018,5428,211,5,0,Table of Contents; Per-Testcase Resource Limits; Submission Requirements,12.0,12.0,12.0,5.5,10.38
+017,3049,137,1,1,Table of Contents; Grading Criteria; Per-Testcase Resource Limits; Submission Requirements,11.0,11.0,6.0,11.5,9.88
+004,2128,55,1,1,Table of Contents; Grade Composition; Per-Testcase Resource Limits; Submission Requirements,10.0,10.0,6.0,11.5,9.38
+006,1234,44,1,0,Table of Contents; Grade Composition; Per-Testcase Resource Limits; Submission Requirements,8.0,9.0,6.0,5.5,7.12
+019,1644,35,1,0,Table of Contents; Performance Scoring Formula; Grade Composition; Per-Testcase Resource Limits; Submission Requirements,9.0,7.5,6.0,5.5,7.0
+014,686,35,1,0,Table of Contents; Grade Composition; Submission Requirements,6.0,7.5,6.0,5.5,6.25
+005,343,21,1,0,Table of Contents; Grade Composition; Per-Testcase Resource Limits; Submission Requirements,4.0,6.0,6.0,5.5,5.38
+020,344,16,1,0,Table of Contents; Per-Testcase Resource Limits; Submission Requirements,5.0,5.0,6.0,5.5,5.38
+002,1033,7,1,0,Table of Contents; Grade Composition; Submission Requirements,7.0,2.5,6.0,5.5,5.25
+013,271,13,1,0,Table of Contents; Grade Composition; Per-Testcase Resource Limits; Submission Requirements,3.0,4.0,6.0,5.5,4.62
+009,193,7,1,0,Table of Contents; Grade Composition; Per-Testcase Resource Limits; Submission Requirements,2.0,2.5,6.0,5.5,4.0
+001,74,1,1,0,Table of Contents; Per-Testcase Resource Limits; Submission Requirements,1.0,1.0,6.0,5.5,3.38
